@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { createWhatsAppLink } from '@/lib/whatsapp';
 import { trackWhatsAppClick } from '@/lib/analytics';
+import { gsap } from '@/lib/gsap';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
-export type CategoryId = 'all' | 'lemonade' | 'mojito' | 'tea' | 'water';
+export type CategoryId = 'all' | 'lemonade' | 'mojito' | 'cola' | 'tea' | 'water';
 
 interface ProductSlide {
   id: string;
@@ -22,10 +23,10 @@ interface ProductSlide {
 }
 
 const allProducts: ProductSlide[] = [
-  // ЛИМОНАДЫ
+  // ZIGI COLA
   {
     id: 'cola',
-    categoryId: 'lemonade',
+    categoryId: 'cola',
     nameRu: 'ZIGI COLA',
     nameKz: 'ZIGI COLA',
     subtitleRu: 'Легендарный карамельно-пряный вкус',
@@ -34,6 +35,8 @@ const allProducts: ProductSlide[] = [
     buttonTextHex: '#B8223A',
     image: '/assets/products/assortment/item-01-cola.webp',
   },
+
+  // ЛИМОНАДЫ
   {
     id: 'pear',
     categoryId: 'lemonade',
@@ -190,7 +193,11 @@ export const Assortment: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryId>('all');
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Filter products by selected category
+  const canContainerRef = useRef<HTMLDivElement>(null);
+  const textInfoRef = useRef<HTMLDivElement>(null);
+  const mobileTextRef = useRef<HTMLDivElement>(null);
+
+  // Filter products strictly by selected category
   const filteredProducts =
     activeCategory === 'all'
       ? allProducts
@@ -199,6 +206,31 @@ export const Assortment: React.FC = () => {
   const activeSlide = filteredProducts[currentIndex] || filteredProducts[0];
   const prevIndex = (currentIndex - 1 + filteredProducts.length) % filteredProducts.length;
   const nextIndex = (currentIndex + 1) % filteredProducts.length;
+
+  // Smooth GSAP Pop-in animation whenever active product changes
+  useEffect(() => {
+    if (canContainerRef.current) {
+      gsap.fromTo(
+        canContainerRef.current,
+        { scale: 0.8, opacity: 0, y: 25, rotate: -4 },
+        { scale: 1, opacity: 1, y: 0, rotate: 0, duration: 0.5, ease: 'back.out(1.5)' }
+      );
+    }
+    if (textInfoRef.current) {
+      gsap.fromTo(
+        textInfoRef.current,
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.4, ease: 'power2.out' }
+      );
+    }
+    if (mobileTextRef.current) {
+      gsap.fromTo(
+        mobileTextRef.current,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
+      );
+    }
+  }, [activeSlide.id]);
 
   const handleCategoryChange = (catId: CategoryId) => {
     setActiveCategory(catId);
@@ -222,6 +254,7 @@ export const Assortment: React.FC = () => {
     { id: 'all', nameRu: 'Все напитки', nameKz: 'Барлық сусындар' },
     { id: 'lemonade', nameRu: 'Лимонады', nameKz: 'Лимонадтар' },
     { id: 'mojito', nameRu: 'Мохито', nameKz: 'Мохито' },
+    { id: 'cola', nameRu: 'Zigi Cola', nameKz: 'Zigi Cola' },
     { id: 'tea', nameRu: 'Zigi Чай', nameKz: 'Zigi Шай' },
     { id: 'water', nameRu: 'Zigi Су', nameKz: 'Zigi Су' },
   ];
@@ -267,7 +300,7 @@ export const Assortment: React.FC = () => {
             <button
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id as CategoryId)}
-              className={`px-5 py-2.5 rounded-full font-body font-extrabold text-xs uppercase tracking-wider transition-all duration-300 shadow-md ${
+              className={`px-5 py-2.5 rounded-full font-body font-extrabold text-xs uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer ${
                 activeCategory === cat.id
                   ? 'bg-[#E9E7DC] text-[#000000] scale-105 shadow-lg'
                   : 'bg-black/30 text-[#E9E7DC] border-2 border-[#E9E7DC]/60 hover:bg-[#E9E7DC] hover:text-[#000000]'
@@ -298,7 +331,7 @@ export const Assortment: React.FC = () => {
         )}
 
         {/* Left Information Block */}
-        <div className="hidden md:flex flex-col items-start absolute left-0 top-1/2 -translate-y-1/2 z-30 max-w-xs space-y-4">
+        <div ref={textInfoRef} className="hidden md:flex flex-col items-start absolute left-0 top-1/3 -translate-y-1/2 z-30 max-w-xs space-y-4">
           <div className="flex items-center gap-2">
             <span className="font-body font-bold text-xs uppercase tracking-[0.2em] text-[#E9E7DC]/90">
               {language === 'ru' ? 'Оригинальный вкус' : 'Оригиналдық дәм'}
@@ -331,8 +364,11 @@ export const Assortment: React.FC = () => {
             <div className="absolute inset-0 bg-grain opacity-20" />
           </div>
 
-          {/* Central Product Can */}
-          <div className="absolute w-64 sm:w-80 md:w-[420px] lg:w-[460px] h-[380px] sm:h-[480px] md:h-[580px] z-30 transition-transform duration-500 hover:scale-105 cursor-pointer filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]">
+          {/* Central Product Can with Smooth GSAP Transition */}
+          <div
+            ref={canContainerRef}
+            className="absolute w-64 sm:w-80 md:w-[420px] lg:w-[460px] h-[380px] sm:h-[480px] md:h-[580px] z-30 transition-transform duration-500 hover:scale-105 cursor-pointer filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]"
+          >
             <Image
               src={activeSlide.image}
               alt={activeSlide.nameRu}
@@ -362,7 +398,7 @@ export const Assortment: React.FC = () => {
       </div>
 
       {/* Mobile Title & Action Block */}
-      <div className="flex md:hidden flex-col items-center text-center space-y-3 z-30 mb-6">
+      <div ref={mobileTextRef} className="flex md:hidden flex-col items-center text-center space-y-3 z-30 mb-6">
         <h3 className="font-display text-3xl sm:text-4xl text-[#E9E7DC] tracking-wider uppercase font-bold">
           {language === 'ru' ? activeSlide.nameRu : activeSlide.nameKz}
         </h3>
