@@ -79,7 +79,9 @@ export const Partners: React.FC = () => {
           ref={titleRef}
           className="font-display text-[10vw] sm:text-[8vw] md:text-[6vw] lg:text-[7.5rem] leading-[0.85] font-bold tracking-wider text-[#E9E7DC] uppercase mb-12 sm:mb-16 select-none"
         >
-          {language === 'ru' ? 'НАМ ДОВЕРЯЮТ' : 'БІЗДІҢ СЕРІКТЕСТЕР'}
+          {language === 'ru' ? 'НАМ ДОВЕРЯЮТ' : (
+            <span className="text-[8vw] sm:text-[7vw] md:text-[5.5vw] lg:text-[6.5rem]">БІЗДІҢ СЕРІКТЕСТЕР</span>
+          )}
         </h2>
 
         {/* Infinite Rotating Marquee Ticker Carousel */}

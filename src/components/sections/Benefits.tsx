@@ -195,7 +195,7 @@ export const Benefits: React.FC = () => {
               </>
             ) : (
               <>
-                <span className="block mb-2">СУСЫНДАРДАН ДҮРКІН</span>
+                <span className="block mb-2">СУСЫНДАРДАН</span>
                 <span className="block">ПАЙДА АЛЫҢЫЗ</span>
               </>
             )}

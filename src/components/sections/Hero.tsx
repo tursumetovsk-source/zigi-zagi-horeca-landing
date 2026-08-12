@@ -185,12 +185,12 @@ export const Hero: React.FC = () => {
           {/* Desktop Right Text Block */}
           <div
             ref={sideTextRef}
-            className="hidden md:flex flex-col gap-2.5 absolute -right-2 lg:-right-4 xl:right-0 top-1/3 -translate-y-1/2 z-30 max-w-[220px] lg:max-w-[260px] text-left font-body bg-[#E9E7DC]/90 backdrop-blur-md p-4 rounded-2xl border border-black/10 shadow-sm"
+            className="hidden md:flex flex-col gap-3 absolute -right-2 lg:-right-4 xl:right-0 top-1/3 -translate-y-1/2 z-30 max-w-[260px] lg:max-w-[310px] text-left font-body bg-[#E9E7DC]/95 backdrop-blur-md p-5 rounded-2xl border-2 border-black/15 shadow-md"
           >
-            <h2 className="font-body text-sm lg:text-base font-bold text-[#000000] leading-snug tracking-tight">
+            <h2 className="font-body text-lg lg:text-xl font-black text-[#000000] leading-snug tracking-tight">
               {t.hero.title}
             </h2>
-            <p className="font-body text-xs lg:text-xs font-medium text-[#000000]/80 leading-relaxed">
+            <p className="font-body text-sm lg:text-base font-bold text-[#000000]/90 leading-relaxed">
               {t.hero.subtitle}
             </p>
           </div>
@@ -198,12 +198,12 @@ export const Hero: React.FC = () => {
 
         {/* Unified Prominent WhatsApp CTA Button & Mobile Text Container */}
         <div className="relative z-30 w-full max-w-sm sm:max-w-md mx-auto text-center flex flex-col items-center justify-center mt-2 sm:mt-4 pb-2">
-          {/* Mobile Description Text Block - Enlarged & Ultra-readable */}
-          <div className="md:hidden flex flex-col items-center mb-3 px-4 py-3 rounded-2xl bg-[#E9E7DC]/95 backdrop-blur-md border border-[#000000]/15 shadow-sm text-center w-full">
-            <h2 className="font-body text-sm sm:text-base font-extrabold text-[#000000] text-center leading-snug tracking-tight">
+          {/* Mobile Description Text Block - Extra Enlarged & Ultra-readable */}
+          <div className="md:hidden flex flex-col items-center mb-3.5 px-4 py-4 rounded-2xl bg-[#E9E7DC]/98 backdrop-blur-md border-2 border-[#000000]/20 shadow-md text-center w-full">
+            <h2 className="font-display text-xl sm:text-2xl font-black text-[#000000] text-center leading-snug tracking-wide uppercase">
               {t.hero.title}
             </h2>
-            <p className="font-body text-xs sm:text-xs text-center font-medium text-[#000000]/90 leading-relaxed mt-1">
+            <p className="font-body text-base sm:text-lg text-center font-bold text-[#000000]/95 leading-relaxed mt-2">
               {t.hero.subtitle}
             </p>
           </div>

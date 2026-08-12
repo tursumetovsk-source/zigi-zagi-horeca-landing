@@ -92,10 +92,12 @@ export const Cities: React.FC = () => {
         {/* Compact Responsive Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 sm:mb-12">
           <div>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#B8223A] uppercase leading-[0.95] max-w-2xl font-bold tracking-wider">
-              {language === 'ru'
-                ? 'Свяжитесь с представителем в вашем городе'
-                : 'Өз қалаңыздағы өкілмен хабарласыңыз'}
+            <h2 className="font-display text-[#B8223A] uppercase leading-[0.95] max-w-2xl font-bold tracking-wider">
+              {language === 'ru' ? (
+                <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">Свяжитесь с представителем в вашем городе</span>
+              ) : (
+                <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">Өз қалаңыздағы өкілмен хабарласыңыз</span>
+              )}
             </h2>
           </div>
           <div className="text-left md:text-right">

@@ -140,11 +140,11 @@ export const Cooperation: React.FC = () => {
                 СОТРУДНИЧЕСТВА
               </>
             ) : (
-              <>
-                ЫНТЫМАҚТАСТЫҚ
+              <span className="text-[7vw] sm:text-[5vw] lg:text-[3.2rem] xl:text-[3.8rem]">
+                СЕРІКТЕСТІК
                 <br />
                 ШАРТТАРЫ
-              </>
+              </span>
             )}
           </h2>
 

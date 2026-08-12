@@ -154,7 +154,9 @@ export const Influencers: React.FC = () => {
           ref={titleRef}
           className="font-display text-[10vw] sm:text-[8vw] md:text-[6vw] lg:text-[6.8rem] leading-[0.85] font-bold tracking-wider text-[#071952] uppercase mb-8 sm:mb-10 select-none"
         >
-          {language === 'ru' ? 'МЕДИА & ЗВЁЗДЫ' : 'МЕДИА ЖӘНЕ ЖҰЛДЫЗДАР'}
+          {language === 'ru' ? 'МЕДИА & ЗВЁЗДЫ' : (
+            <span className="text-[7.5vw] sm:text-[7vw] md:text-[5.5vw] lg:text-[5.8rem]">МЕДИА ЖӘНЕ ЖҰЛДЫЗДАР</span>
+          )}
         </h2>
 
         {/* Single Focused Card Showcase */}
