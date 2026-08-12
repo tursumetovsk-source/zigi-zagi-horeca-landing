@@ -86,27 +86,14 @@ export const Header: React.FC = () => {
             </span>
           </a>
 
-          {/* Right: Clear Segmented RU | KZ Language Switcher */}
-          <div className="flex items-center gap-1 bg-[#000000]/5 p-1 rounded-full border border-[#000000]/15 shadow-sm">
+          {/* Right: Circular RUS / KAZ Language Switcher Button (Exact User Screenshot Style) */}
+          <div className="flex items-center">
             <button
-              onClick={() => setLanguage('ru')}
-              className={`px-3 py-1 rounded-full text-xs font-extrabold transition-all duration-300 ${
-                language === 'ru'
-                  ? 'bg-[#B8223A] text-[#E9E7DC] shadow-sm'
-                  : 'text-[#000000]/70 hover:text-[#000000]'
-              }`}
+              onClick={() => setLanguage(language === 'ru' ? 'kz' : 'ru')}
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-[#000000] flex items-center justify-center font-display font-bold text-xs sm:text-sm text-[#000000] hover:bg-[#000000] hover:text-[#E9E7DC] transition-all duration-300 cursor-pointer shadow-sm active:scale-95 tracking-wider"
+              title="Switch language"
             >
-              RU
-            </button>
-            <button
-              onClick={() => setLanguage('kz')}
-              className={`px-3 py-1 rounded-full text-xs font-extrabold transition-all duration-300 ${
-                language === 'kz'
-                  ? 'bg-[#B8223A] text-[#E9E7DC] shadow-sm'
-                  : 'text-[#000000]/70 hover:text-[#000000]'
-              }`}
-            >
-              KZ
+              {language === 'ru' ? 'RUS' : 'KAZ'}
             </button>
           </div>
         </div>

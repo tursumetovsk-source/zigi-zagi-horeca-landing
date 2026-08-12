@@ -78,40 +78,21 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
 
       {/* Footer controls inside Mobile Menu */}
       <div className="relative z-10 flex flex-col gap-3 pt-2">
-        {/* Language Switcher Bar */}
-        <div className="flex items-center justify-between p-3 rounded-2xl bg-[#000000]/5 border border-[#000000]/10">
+        {/* Language Switcher Bar (Circular RUS / KAZ Button) */}
+        <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#000000]/5 border border-[#000000]/10">
           <div className="flex items-center gap-2 text-xs font-bold text-[#000000]/80">
             <Globe className="w-4 h-4 text-[#B8223A]" />
             <span>Язык / Тіл</span>
           </div>
-          <div className="flex gap-1.5">
-            <button
-              onClick={() => {
-                setLanguage('ru');
-                onClose();
-              }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
-                language === 'ru'
-                  ? 'bg-[#B8223A] text-[#E9E7DC] shadow'
-                  : 'text-[#000000]/70 hover:text-[#000000]'
-              }`}
-            >
-              RU
-            </button>
-            <button
-              onClick={() => {
-                setLanguage('kz');
-                onClose();
-              }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
-                language === 'kz'
-                  ? 'bg-[#B8223A] text-[#E9E7DC] shadow'
-                  : 'text-[#000000]/70 hover:text-[#000000]'
-              }`}
-            >
-              KZ
-            </button>
-          </div>
+          <button
+            onClick={() => {
+              setLanguage(language === 'ru' ? 'kz' : 'ru');
+              onClose();
+            }}
+            className="w-11 h-11 rounded-full border-2 border-[#000000] flex items-center justify-center font-display font-bold text-xs text-[#000000] hover:bg-[#000000] hover:text-[#E9E7DC] transition-all duration-300 cursor-pointer shadow-sm active:scale-95 tracking-wider"
+          >
+            {language === 'ru' ? 'RUS' : 'KAZ'}
+          </button>
         </div>
 
         {/* WhatsApp Button */}
