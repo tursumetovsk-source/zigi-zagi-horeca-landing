@@ -23,7 +23,9 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('zigi_lang', lang);
+    try {
+      localStorage.setItem('zigi_lang', lang);
+    } catch {}
   };
 
   const t = translations[language];

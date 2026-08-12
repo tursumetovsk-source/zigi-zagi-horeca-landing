@@ -86,19 +86,33 @@ export const Header: React.FC = () => {
             </span>
           </a>
 
-          {/* Right: Language Switcher */}
-          <div className="flex items-center gap-3">
+          {/* Right: Clear Segmented RU | KZ Language Switcher */}
+          <div className="flex items-center gap-1 bg-[#000000]/5 p-1 rounded-full border border-[#000000]/15 shadow-sm">
             <button
-              onClick={() => setLanguage(language === 'ru' ? 'kz' : 'ru')}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#000000] flex items-center justify-center font-bold text-xs text-[#000000] hover:bg-[#000000] hover:text-[#E9E7DC] transition-all duration-300 cursor-pointer shadow-sm"
-              title="Switch language"
+              onClick={() => setLanguage('ru')}
+              className={`px-3 py-1 rounded-full text-xs font-extrabold transition-all duration-300 ${
+                language === 'ru'
+                  ? 'bg-[#B8223A] text-[#E9E7DC] shadow-sm'
+                  : 'text-[#000000]/70 hover:text-[#000000]'
+              }`}
             >
-              {language.toUpperCase()}
+              RU
+            </button>
+            <button
+              onClick={() => setLanguage('kz')}
+              className={`px-3 py-1 rounded-full text-xs font-extrabold transition-all duration-300 ${
+                language === 'kz'
+                  ? 'bg-[#B8223A] text-[#E9E7DC] shadow-sm'
+                  : 'text-[#000000]/70 hover:text-[#000000]'
+              }`}
+            >
+              KZ
             </button>
           </div>
         </div>
       </header>
 
+      {/* Mobile Drawer Menu */}
       <MobileMenu isOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} />
     </>
   );

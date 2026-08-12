@@ -186,7 +186,7 @@ export const Benefits: React.FC = () => {
           </span>
           <h2
             ref={titleRef}
-            className="font-display text-[9.5vw] sm:text-[6.5vw] lg:text-[5.2rem] leading-[1.05] md:leading-[1.08] font-bold tracking-wider text-[#B8223A] uppercase select-none drop-shadow-[3px_3px_0px_#FFFFFF]"
+            className="font-display text-[9.5vw] sm:text-[6.5vw] lg:text-[5.2rem] leading-[1.05] md:leading-[1.08] font-bold tracking-wider text-[#B8223A] uppercase select-none"
           >
             <span className="block mb-2">{t.benefits.titleLine1}</span>
             <span className="block">{t.benefits.titleLine2}</span>
