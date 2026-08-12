@@ -25,6 +25,7 @@ export const Influencers: React.FC = () => {
   const { language } = useLanguage();
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const cardContainerRef = useRef<HTMLDivElement>(null);
 
   // All 5 cards (Stat Card + 4 Stars)
   const allCards: MediaCard[] = [
@@ -85,8 +86,8 @@ export const Influencers: React.FC = () => {
     },
   ];
 
-  // Active index for center card (Default: 1 -> 'СПРОС УЖЕ СОЗДАН' card in center)
-  const [centerIndex, setCenterIndex] = useState(1);
+  // Active index for single-card carousel (Default: 0 -> Toktar / Ambassador)
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -99,6 +100,17 @@ export const Influencers: React.FC = () => {
 
     return () => ctx.revert();
   }, []);
+
+  // Smooth entrance animation on card switch
+  useEffect(() => {
+    if (cardContainerRef.current) {
+      gsap.fromTo(
+        cardContainerRef.current,
+        { scale: 0.94, opacity: 0.7, y: 15 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }
+      );
+    }
+  }, [currentIndex]);
 
   const handleWhatsAppClick = () => {
     trackWhatsAppClick({ source: 'influencer_media', language });
@@ -114,28 +126,19 @@ export const Influencers: React.FC = () => {
   };
 
   const handlePrev = () => {
-    setCenterIndex((prev) => (prev - 1 + allCards.length) % allCards.length);
+    setCurrentIndex((prev) => (prev - 1 + allCards.length) % allCards.length);
   };
 
   const handleNext = () => {
-    setCenterIndex((prev) => (prev + 1) % allCards.length);
+    setCurrentIndex((prev) => (prev + 1) % allCards.length);
   };
 
-  // Get 3 visible cards (Left, Center, Right)
-  const leftCard = allCards[(centerIndex - 1 + allCards.length) % allCards.length];
-  const mainCenterCard = allCards[centerIndex];
-  const rightCard = allCards[(centerIndex + 1) % allCards.length];
-
-  const visibleCards = [
-    { card: leftCard, pos: 'left', tiltClass: 'lg:rotate-[-6deg] lg:translate-y-4 opacity-90 scale-95' },
-    { card: mainCenterCard, pos: 'center', tiltClass: 'lg:rotate-0 lg:-translate-y-2 lg:scale-105 z-20 shadow-2xl' },
-    { card: rightCard, pos: 'right', tiltClass: 'lg:rotate-[6deg] lg:translate-y-4 opacity-90 scale-95' },
-  ];
+  const currentCard = allCards[currentIndex];
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#E9E7DC] text-[#000000] py-20 px-4 md:px-8 overflow-hidden select-none border-t border-[#000000]/10"
+      className="relative w-full bg-[#E9E7DC] text-[#000000] py-16 sm:py-20 px-4 md:px-8 overflow-hidden select-none border-t border-[#000000]/10"
     >
       {/* Paper Grain Overlay */}
       <div className="absolute inset-0 bg-grain pointer-events-none opacity-40 z-0" />
@@ -149,142 +152,148 @@ export const Influencers: React.FC = () => {
         {/* Main Condensed Dark Headline */}
         <h2
           ref={titleRef}
-          className="font-display text-[13vw] sm:text-[10vw] lg:text-[7.5rem] leading-[0.82] font-bold tracking-wider text-[#071952] uppercase mb-16 select-none"
+          className="font-display text-[12vw] sm:text-[9vw] lg:text-[7rem] leading-[0.82] font-bold tracking-wider text-[#071952] uppercase mb-10 select-none"
         >
           {language === 'ru' ? 'МЕДИА & ЗВЁЗДЫ' : 'МЕДИА ЖӘНЕ ЖҰЛДЫЗДАР'}
         </h2>
 
-        {/* 3 Tilted Crimson Cards Showcase matching royalbev.com 2nd screenshot */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch justify-center max-w-6xl mx-auto pt-4 min-h-[580px]">
-          {visibleCards.map(({ card, pos, tiltClass }) => {
-            if (card.isStatCard) {
-              // Crimson Stat Card "СПРОС УЖЕ СОЗДАН!" matching screenshot 2 style
-              return (
-                <div
-                  key={card.id}
-                  className={`relative rounded-3xl p-6 md:p-8 flex flex-col justify-between transition-all duration-500 border-4 border-[#B8223A] bg-[#B8223A] text-[#E9E7DC] ${tiltClass} hover:scale-105 hover:rotate-0 hover:z-30 cursor-pointer shadow-xl`}
-                  onClick={handleCityScroll}
-                >
-                  {/* Top Date Badge */}
-                  <div className="flex justify-start mb-4">
-                    <div className="bg-[#E9E7DC]/90 backdrop-blur-md px-3 py-1 rounded-md text-[11px] font-black text-[#000000] tracking-wider uppercase shadow">
-                      <span className="block text-[9px] text-[#B8223A] font-bold">
-                        {language === 'ru' ? card.badgeRu : card.badgeKz}
-                      </span>
-                      <span>{card.date}</span>
-                    </div>
+        {/* Single Focused Card Showcase (Rotates 1-by-1 with Left/Right Arrows) */}
+        <div className="max-w-md sm:max-w-lg mx-auto relative min-h-[520px] flex items-center justify-center">
+          <div ref={cardContainerRef} className="w-full">
+            {currentCard.isStatCard ? (
+              // Crimson Stat Card "СПРОС УЖЕ СОЗДАН!"
+              <div
+                className="relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between border-4 border-[#B8223A] bg-[#B8223A] text-[#E9E7DC] shadow-2xl cursor-pointer min-h-[480px]"
+                onClick={handleCityScroll}
+              >
+                {/* Top Date Badge */}
+                <div className="flex justify-between items-center mb-4">
+                  <div className="bg-[#E9E7DC]/95 backdrop-blur-md px-3.5 py-1.5 rounded-xl text-[11px] font-black text-[#000000] tracking-wider uppercase shadow">
+                    <span className="block text-[9px] text-[#B8223A] font-bold">
+                      {language === 'ru' ? currentCard.badgeRu : currentCard.badgeKz}
+                    </span>
+                    <span>{currentCard.date}</span>
                   </div>
+                  <span className="text-xs font-bold bg-white/20 px-3 py-1 rounded-full text-[#E9E7DC]">
+                    {currentIndex + 1} / {allCards.length}
+                  </span>
+                </div>
 
-                  {/* Body Content with Giant 7,5 МЛН+ Stat */}
-                  <div className="flex-1 flex flex-col justify-center text-left my-auto space-y-4">
-                    <h3 className="font-display text-4xl lg:text-5xl uppercase leading-none tracking-wide text-[#E9E7DC] font-bold">
-                      {language === 'ru' ? card.titleRu : card.titleKz}
-                    </h3>
+                {/* Body Content with Giant 7,5 МЛН+ Stat */}
+                <div className="flex-1 flex flex-col justify-center text-left my-auto space-y-4 py-4">
+                  <h3 className="font-display text-4xl sm:text-5xl uppercase leading-tight tracking-wide text-[#E9E7DC] font-bold">
+                    {language === 'ru' ? currentCard.titleRu : currentCard.titleKz}
+                  </h3>
 
-                    <div className="py-2">
-                      <p className="font-body text-xs lg:text-sm font-semibold uppercase tracking-wider text-[#E9E7DC]/80 mb-1">
-                        {language === 'ru' ? 'Блогеры с общим охватом' : 'Жалпы қамтуы бар блогерлер'}
-                      </p>
-                      <div className="font-display text-6xl lg:text-7xl font-bold tracking-wider text-[#E9E7DC] leading-none my-1">
-                        7,5 МЛН+
-                      </div>
-                      <p className="font-body text-xs font-medium text-[#E9E7DC]/90">
-                        {language === 'ru'
-                          ? 'Охват аудитории в городах присутствия'
-                          : 'Қатысу қалаларындағы аудиторияны қамту'}
-                      </p>
+                  <div className="py-2">
+                    <p className="font-body text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#E9E7DC]/80 mb-1">
+                      {language === 'ru' ? 'Блогеры с общим охватом' : 'Жалпы қамтуы бар блогерлер'}
+                    </p>
+                    <div className="font-display text-6xl sm:text-7xl font-bold tracking-wider text-[#E9E7DC] leading-none my-2">
+                      7,5 МЛН+
                     </div>
-                  </div>
-
-                  {/* CTA Button */}
-                  <div className="pt-4">
-                    <button
-                      onClick={handleCityScroll}
-                      className="w-full py-3.5 px-6 font-display text-xl tracking-wider uppercase transition-all duration-300 shadow-md bg-[#E9E7DC] text-[#B8223A] hover:brightness-110 font-bold rounded-2xl"
-                    >
-                      {language === 'ru' ? 'ВЫБРАТЬ ВАШ ГОРОД' : 'ҚАЛАҢЫЗДЫ ТАҢДАУ'}
-                    </button>
+                    <p className="font-body text-xs font-medium text-[#E9E7DC]/90">
+                      {language === 'ru'
+                        ? 'Охват аудитории в городах присутствия'
+                        : 'Қатысу қалаларындағы аудиторияны қамту'}
+                    </p>
                   </div>
                 </div>
-              );
-            }
 
-            // Blogger Cards
-            return (
+                {/* CTA Button */}
+                <div className="pt-4">
+                  <button
+                    onClick={handleCityScroll}
+                    className="w-full py-4 px-6 font-display text-xl tracking-wider uppercase transition-all duration-300 shadow-md bg-[#E9E7DC] text-[#B8223A] hover:bg-white font-bold rounded-2xl"
+                  >
+                    {language === 'ru' ? 'ВЫБРАТЬ ВАШ ГОРОД' : 'ҚАЛАҢЫЗДЫ ТАҢДАУ'}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              // Individual Blogger Card
               <div
-                key={card.id}
-                className={`relative rounded-3xl p-5 md:p-6 flex flex-col justify-between transition-all duration-500 border-4 border-[#B8223A] bg-[#B8223A] text-[#E9E7DC] ${tiltClass} hover:scale-105 hover:rotate-0 hover:z-30 cursor-pointer shadow-xl`}
+                className="relative rounded-3xl p-5 sm:p-6 flex flex-col justify-between border-4 border-[#B8223A] bg-[#B8223A] text-[#E9E7DC] shadow-2xl cursor-pointer min-h-[500px]"
                 onClick={handleWhatsAppClick}
               >
                 {/* Top Image Container */}
-                <div className="relative w-full h-[260px] sm:h-[300px] rounded-2xl overflow-hidden mb-5 bg-[#000000]/20">
+                <div className="relative w-full h-[260px] sm:h-[300px] rounded-2xl overflow-hidden mb-4 bg-[#000000]/20">
                   <Image
-                    src={card.image!}
-                    alt={card.titleRu}
+                    src={currentCard.image!}
+                    alt={currentCard.titleRu}
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 640px) 100vw, 500px"
                     className="object-cover object-top hover:scale-105 transition-transform duration-500"
+                    priority
                   />
 
                   {/* Date Badge Overlay */}
-                  <div className="absolute top-3 left-3 bg-[#E9E7DC]/90 backdrop-blur-md px-3 py-1 rounded-md text-[11px] font-black text-[#000000] tracking-wider uppercase shadow">
+                  <div className="absolute top-3 left-3 bg-[#E9E7DC]/95 backdrop-blur-md px-3 py-1 rounded-xl text-[11px] font-black text-[#000000] tracking-wider uppercase shadow">
                     <span className="block text-[9px] text-[#B8223A] font-bold">
-                      {language === 'ru' ? card.badgeRu : card.badgeKz}
+                      {language === 'ru' ? currentCard.badgeRu : currentCard.badgeKz}
                     </span>
-                    <span>{card.date}</span>
+                    <span>{currentCard.date}</span>
+                  </div>
+
+                  {/* Step counter */}
+                  <div className="absolute top-3 right-3 bg-[#000000]/60 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white">
+                    {currentIndex + 1} / {allCards.length}
                   </div>
                 </div>
 
                 {/* Card Body Text */}
                 <div className="flex-1 flex flex-col justify-between text-left space-y-3">
                   <div>
-                    <h3 className="font-display text-2xl lg:text-3xl uppercase leading-tight tracking-wide mb-2 text-[#E9E7DC] font-bold">
-                      {language === 'ru' ? card.titleRu : card.titleKz}
+                    <h3 className="font-display text-2xl sm:text-3xl uppercase leading-tight tracking-wide mb-2 text-[#E9E7DC] font-bold">
+                      {language === 'ru' ? currentCard.titleRu : currentCard.titleKz}
                     </h3>
-                    <p className="font-body text-xs lg:text-sm font-normal leading-relaxed text-[#E9E7DC]/90">
-                      {language === 'ru' ? card.descRu : card.descKz}
+                    <p className="font-body text-xs sm:text-sm font-normal leading-relaxed text-[#E9E7DC]/90">
+                      {language === 'ru' ? currentCard.descRu : currentCard.descKz}
                     </p>
                   </div>
 
                   {/* Solid Cream CTA Button */}
-                  <div className="pt-4">
+                  <div className="pt-3">
                     <button
                       onClick={handleWhatsAppClick}
-                      className="w-full py-3.5 px-6 font-display text-xl tracking-wider uppercase transition-all duration-300 shadow-md bg-[#E9E7DC] text-[#B8223A] hover:brightness-110 font-bold rounded-2xl"
+                      className="w-full py-3.5 px-6 font-display text-xl tracking-wider uppercase transition-all duration-300 shadow-md bg-[#E9E7DC] text-[#B8223A] hover:bg-white font-bold rounded-2xl"
                     >
                       {language === 'ru' ? 'ПОДРОБНЕЕ' : 'ТОЛЫҒЫРАҚ'}
                     </button>
                   </div>
                 </div>
               </div>
-            );
-          })}
+            )}
+          </div>
         </div>
 
-        {/* Carousel Navigation Arrows matching royalbev.com 2nd screenshot (← →) */}
-        <div className="flex items-center justify-center gap-6 mt-12">
+        {/* Carousel Navigation Arrow Controls (Rotate 1-by-1) */}
+        <div className="flex items-center justify-center gap-6 mt-8">
           <button
             onClick={handlePrev}
-            className="p-3 rounded-full border-2 border-[#000000]/30 text-[#000000] hover:bg-[#B8223A] hover:border-[#B8223A] hover:text-[#E9E7DC] transition-all duration-300 shadow cursor-pointer group"
+            className="p-3.5 rounded-full bg-[#B8223A] text-[#E9E7DC] hover:bg-[#931B2E] transition-all duration-300 shadow-lg cursor-pointer group active:scale-95"
             aria-label="Previous card"
           >
             <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
           </button>
-          <div className="flex items-center gap-2">
+
+          {/* Dots Indicator */}
+          <div className="flex items-center gap-2.5">
             {allCards.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => setCenterIndex(idx)}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
-                  idx === centerIndex ? 'w-8 bg-[#B8223A]' : 'w-2.5 bg-[#000000]/20 hover:bg-[#B8223A]/50'
+                onClick={() => setCurrentIndex(idx)}
+                className={`h-3 rounded-full transition-all duration-300 ${
+                  idx === currentIndex ? 'w-8 bg-[#B8223A]' : 'w-3 bg-[#000000]/25 hover:bg-[#B8223A]/50'
                 }`}
                 aria-label={`Go to card ${idx + 1}`}
               />
             ))}
           </div>
+
           <button
             onClick={handleNext}
-            className="p-3 rounded-full border-2 border-[#000000]/30 text-[#000000] hover:bg-[#B8223A] hover:border-[#B8223A] hover:text-[#E9E7DC] transition-all duration-300 shadow cursor-pointer group"
+            className="p-3.5 rounded-full bg-[#B8223A] text-[#E9E7DC] hover:bg-[#931B2E] transition-all duration-300 shadow-lg cursor-pointer group active:scale-95"
             aria-label="Next card"
           >
             <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
