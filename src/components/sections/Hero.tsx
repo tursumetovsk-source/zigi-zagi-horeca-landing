@@ -25,14 +25,14 @@ export const Hero: React.FC = () => {
 
       tl.fromTo(
         [titleLine1Ref.current, titleLine2Ref.current],
-        { y: 100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.2, stagger: 0.15 }
+        { y: 80, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.1, stagger: 0.12 }
       )
         .fromTo(
           productRef.current,
-          { y: 120, scale: 0.8, rotate: -6 },
-          { y: 0, scale: 1, rotate: 0, duration: 1.3, ease: 'back.out(1.3)' },
-          '-=0.9'
+          { y: 100, scale: 0.8, rotate: -6 },
+          { y: 0, scale: 1, rotate: 0, duration: 1.2, ease: 'back.out(1.3)' },
+          '-=0.8'
         )
         .fromTo(
           badgeRef.current,
@@ -48,38 +48,41 @@ export const Hero: React.FC = () => {
         );
 
       // 2. ScrollTrigger Pinned Scene
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: 'top top',
-          end: '+=120%',
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-        },
-      });
+      const isMobile = window.innerWidth < 768;
+      if (!isMobile) {
+        const scrollTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: '+=110%',
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+          },
+        });
 
-      scrollTl
-        .to(
-          productRef.current,
-          { scale: 1.12, y: -30, rotate: 3, ease: 'none' },
-          0
-        )
-        .to(
-          titleLine1Ref.current,
-          { x: '-8vw', ease: 'none' },
-          0
-        )
-        .to(
-          titleLine2Ref.current,
-          { x: '8vw', ease: 'none' },
-          0
-        )
-        .to(
-          badgeRef.current,
-          { rotate: 180, ease: 'none' },
-          0
-        );
+        scrollTl
+          .to(
+            productRef.current,
+            { scale: 1.12, y: -30, rotate: 3, ease: 'none' },
+            0
+          )
+          .to(
+            titleLine1Ref.current,
+            { x: '-8vw', ease: 'none' },
+            0
+          )
+          .to(
+            titleLine2Ref.current,
+            { x: '8vw', ease: 'none' },
+            0
+          )
+          .to(
+            badgeRef.current,
+            { rotate: 180, ease: 'none' },
+            0
+          );
+      }
     }, heroRef);
 
     return () => ctx.revert();
@@ -93,7 +96,7 @@ export const Hero: React.FC = () => {
   return (
     <section
       ref={heroRef}
-      className="relative w-full min-h-[100svh] bg-[#E9E7DC] text-[#000000] flex flex-col justify-between pt-24 pb-8 px-4 md:px-8 overflow-hidden select-none"
+      className="relative w-full min-h-[100svh] bg-[#E9E7DC] text-[#000000] flex flex-col justify-between pt-20 sm:pt-24 pb-6 px-4 md:px-8 overflow-hidden select-none"
     >
       {/* Paper Grain Overlay */}
       <div className="absolute inset-0 bg-grain pointer-events-none opacity-60 z-0" />
@@ -104,21 +107,21 @@ export const Hero: React.FC = () => {
         <div className="w-full flex flex-col items-center justify-center my-auto relative text-center">
           <div
             ref={titleLine1Ref}
-            className="font-display text-[21vw] md:text-[19vw] leading-[0.82] font-medium tracking-tight text-[#B8223A] uppercase select-none drop-shadow-sm"
+            className="font-display text-[18vw] sm:text-[20vw] md:text-[19vw] leading-[0.82] font-medium tracking-tight text-[#B8223A] uppercase select-none drop-shadow-sm"
           >
             ZIGI ZAGI
           </div>
           <div
             ref={titleLine2Ref}
-            className="font-display text-[21vw] md:text-[19vw] leading-[0.82] font-medium tracking-tight text-[#B8223A] uppercase select-none drop-shadow-sm"
+            className="font-display text-[18vw] sm:text-[20vw] md:text-[19vw] leading-[0.82] font-medium tracking-tight text-[#B8223A] uppercase select-none drop-shadow-sm"
           >
             HORECA
           </div>
 
-          {/* Central Hero Product Cans */}
+          {/* Central Hero Product Cans (Scaled for Mobile Viewports) */}
           <div
             ref={productRef}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 md:w-[480px] h-[360px] md:h-[560px] z-20 cursor-pointer pointer-events-auto filter drop-shadow-[0_30px_60px_rgba(184,34,58,0.25)]"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 sm:w-72 md:w-[480px] h-[280px] sm:h-[360px] md:h-[560px] z-20 cursor-pointer pointer-events-auto filter drop-shadow-[0_30px_60px_rgba(184,34,58,0.25)]"
             onClick={handleWhatsAppClick}
           >
             <ProductImage
@@ -147,7 +150,7 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Text block positioned neatly to right without overlap */}
+          {/* Desktop Right Text Block */}
           <div
             ref={sideTextRef}
             className="hidden md:flex flex-col gap-2.5 absolute -right-2 lg:-right-4 xl:right-0 top-1/3 -translate-y-1/2 z-30 max-w-[220px] lg:max-w-[260px] text-left font-body bg-[#E9E7DC]/90 backdrop-blur-md p-4 rounded-2xl border border-black/10 shadow-sm"
@@ -161,31 +164,25 @@ export const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Center: ONLY WhatsApp CTA Button */}
-        <div className="relative z-30 max-w-xl mx-auto text-center flex flex-col items-center justify-center mt-2 md:mt-6 pb-2">
-          <button
-            onClick={handleWhatsAppClick}
-            className="px-8 py-4 rounded-full font-extrabold text-xs uppercase tracking-wider text-[#E9E7DC] bg-[#B8223A] hover:bg-[#931B2E] transition-all flex items-center justify-center gap-3 shadow-lg hover:scale-105 active:scale-95 font-body"
-          >
-            <span>{t.hero.whatsappBtn}</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
+        {/* Unified Prominent WhatsApp CTA Button (Desktop & Mobile) */}
+        <div className="relative z-30 w-full max-w-sm sm:max-w-md mx-auto text-center flex flex-col items-center justify-center mt-2 sm:mt-4 pb-2">
+          {/* Mobile Description Text directly above button */}
+          <div className="md:hidden flex flex-col items-center mb-2.5 px-2">
+            <h2 className="font-body text-xs sm:text-sm font-bold text-[#000000] text-center">
+              {t.hero.title}
+            </h2>
+            <p className="font-body text-[11px] text-center font-medium text-[#000000]/80 mt-0.5">
+              {t.hero.subtitle}
+            </p>
+          </div>
 
-        {/* Mobile Action Controls */}
-        <div className="flex md:hidden flex-col gap-3 w-full max-w-sm mt-4 z-30 font-body">
-          <h2 className="font-body text-sm font-semibold text-center text-[#000000]">
-            {t.hero.title}
-          </h2>
-          <p className="font-body text-xs text-center font-normal text-[#000000]/80 px-2">
-            {t.hero.subtitle}
-          </p>
           <button
             onClick={handleWhatsAppClick}
-            className="w-full py-4 rounded-full font-extrabold text-xs uppercase tracking-wider text-[#E9E7DC] bg-[#B8223A] flex items-center justify-center gap-2 shadow-md font-body"
+            className="w-full sm:w-auto px-7 py-3.5 sm:py-4 rounded-full font-extrabold text-xs sm:text-xs uppercase tracking-wider text-[#E9E7DC] bg-[#B8223A] hover:bg-[#931B2E] transition-all flex items-center justify-center gap-3 shadow-lg hover:scale-105 active:scale-95 font-body"
           >
             <MessageCircle className="w-4 h-4 fill-[#E9E7DC]" />
             <span>{t.hero.whatsappBtn}</span>
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </div>
