@@ -21,7 +21,9 @@ export const Hero: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Entrance Animation
+      const isMobile = window.innerWidth < 768;
+
+      // 1. Initial Entrance Animation
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.fromTo(
@@ -31,8 +33,8 @@ export const Hero: React.FC = () => {
       )
         .fromTo(
           productScrollRef.current,
-          { scale: 0.85, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 1, ease: 'back.out(1.4)' },
+          { scale: 0.85, opacity: 0, y: 80 },
+          { scale: 1, opacity: 1, y: 40, duration: 1, ease: 'back.out(1.4)' },
           '-=0.6'
         )
         .fromTo(
@@ -60,16 +62,17 @@ export const Hero: React.FC = () => {
         });
       }
 
-      // 3. Smooth Non-Pinning Scroll Parallax on Outer Container (Zero Collision)
+      // 3. Scroll Effect: Cans rise UPWARDS & ZOOM IN CLOSE to the screen!
+      // Background text ZIGI ZAGI HORECA remains completely static (no sideways splitting).
       if (productScrollRef.current) {
         gsap.to(productScrollRef.current, {
-          y: -60,
-          scale: 1.04,
+          y: isMobile ? -140 : -220,
+          scale: isMobile ? 1.25 : 1.36,
           scrollTrigger: {
             trigger: heroRef.current,
             start: 'top top',
             end: 'bottom top',
-            scrub: 0.5,
+            scrub: 0.6,
           },
         });
       }
@@ -96,7 +99,7 @@ export const Hero: React.FC = () => {
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 md:px-8 w-full flex-1 flex flex-col justify-between">
         {/* Center Stage: Huge Brand Typography & Levitating Products */}
         <div className="relative flex-1 flex items-center justify-center min-h-[460px] sm:min-h-[520px] md:min-h-[640px] my-auto">
-          {/* Background Display Headline: ZIGI ZAGI HORECA */}
+          {/* Background Display Headline: ZIGI ZAGI HORECA (Static, no sideways animation) */}
           <div className="flex flex-col items-center justify-center text-center pointer-events-none z-10">
             <div
               ref={titleLine1Ref}
@@ -112,10 +115,10 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Central Hero Product Cans: Outer Scroll Wrapper + Inner Levitating Container */}
+          {/* Central Hero Product Cans: Positioned Lower Initially + Rises Upward & Zooms In Close on Scroll */}
           <div
             ref={productScrollRef}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 sm:w-80 md:w-[480px] h-[350px] sm:h-[400px] md:h-[560px] z-20 cursor-pointer pointer-events-auto filter drop-shadow-[0_30px_60px_rgba(184,34,58,0.25)]"
+            className="absolute top-[54%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 sm:w-80 md:w-[480px] h-[350px] sm:h-[400px] md:h-[560px] z-20 cursor-pointer pointer-events-auto filter drop-shadow-[0_30px_60px_rgba(184,34,58,0.28)]"
             onClick={handleWhatsAppClick}
           >
             <div ref={productFloatRef} className="w-full h-full">
