@@ -86,7 +86,10 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
           </div>
           <div className="flex gap-1.5">
             <button
-              onClick={() => setLanguage('ru')}
+              onClick={() => {
+                setLanguage('ru');
+                onClose();
+              }}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
                 language === 'ru'
                   ? 'bg-[#B8223A] text-[#E9E7DC] shadow'
@@ -96,7 +99,10 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               RU
             </button>
             <button
-              onClick={() => setLanguage('kz')}
+              onClick={() => {
+                setLanguage('kz');
+                onClose();
+              }}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
                 language === 'kz'
                   ? 'bg-[#B8223A] text-[#E9E7DC] shadow'
