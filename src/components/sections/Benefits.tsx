@@ -182,23 +182,14 @@ export const Benefits: React.FC = () => {
         {/* Main Section Header with Crimson #B8223A Headline & Clean Uppercase Subtitle */}
         <div className="text-center max-w-4xl mx-auto mb-10">
           <span className="font-body font-extrabold text-xs md:text-sm text-[#B8223A] uppercase tracking-[0.25em] mb-3 block">
-            {language === 'ru' ? 'Выгода для заведений и HoReCa' : 'Мекемелер мен HoReCa үшін пайдасы'}
+            {t.benefits.topLabel}
           </span>
           <h2
             ref={titleRef}
             className="font-display text-[9.5vw] sm:text-[6.5vw] lg:text-[5.2rem] leading-[1.05] md:leading-[1.08] font-bold tracking-wider text-[#B8223A] uppercase select-none drop-shadow-[3px_3px_0px_#FFFFFF]"
           >
-            {language === 'ru' ? (
-              <>
-                <span className="block mb-2">УВЕЛИЧЬТЕ ДОХОД</span>
-                <span className="block">С НАПИТКОВ</span>
-              </>
-            ) : (
-              <>
-                <span className="block mb-2">СУСЫНДАРДАН</span>
-                <span className="block">ПАЙДА АЛЫҢЫЗ</span>
-              </>
-            )}
+            <span className="block mb-2">{t.benefits.titleLine1}</span>
+            <span className="block">{t.benefits.titleLine2}</span>
           </h2>
           <p className="mt-3 text-[#000000]/85 text-sm md:text-lg max-w-2xl mx-auto font-semibold">
             {t.benefits.subtitle}

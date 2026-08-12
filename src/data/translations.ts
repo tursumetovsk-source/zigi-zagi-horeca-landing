@@ -46,7 +46,9 @@ export interface TranslationSchema {
     minOrderLabel: string;
   };
   benefits: {
-    title: string;
+    topLabel: string;
+    titleLine1: string;
+    titleLine2: string;
     subtitle: string;
     hugeBadge: string;
     items: Array<{
@@ -163,8 +165,10 @@ export const translations: Record<Language, TranslationSchema> = {
       minOrderLabel: 'Минимальная сумма первого заказа',
     },
     benefits: {
-      title: 'Увеличьте доход с напитков',
-      subtitle: 'Клиенттер бұл брендті жақсы біледі, қонақтар өздері сұрайды — Көлемге байланысты жеңілдіктер',
+      topLabel: 'Выгода для заведений и HoReCa',
+      titleLine1: 'УВЕЛИЧЬТЕ ДОХОД',
+      titleLine2: 'С НАПИТКОВ',
+      subtitle: 'Почему заведения выбирают ZIGI-ZAGI для пополнения барной карты и витрин',
       hugeBadge: 'БОЛЬШЕ ДОХОДА',
       items: [
         {
@@ -187,12 +191,12 @@ export const translations: Record<Language, TranslationSchema> = {
       ctaBtn: 'Узнать цену в вашем городе',
     },
     trust: {
-      influencerTitle: 'БІЗДІ ТАҢДАЙДЫ',
+      influencerTitle: 'МЕДИА & ЗВЁЗДЫ',
       reachStat: '7,5 МЛН+',
-      reachLabel: 'аудитория көлемі бар блогерлер',
+      reachLabel: 'суммарный охват медиа-кампаний',
       bloggersLabel: 'Лица бренда ZIGI-ZAGI:',
-      partnersTitle: 'Нам доверяют заведения и сети',
-      partnersSubtitle: 'Бізге мекемелер мен желілер сенім артады: Rixos Water World, Magnum, FlyArystan, Galmart, Small т.б.',
+      partnersTitle: 'НАМ ДОВЕРЯЮТ',
+      partnersSubtitle: 'Поставляем напитки в ведущие отели, супермаркеты, авиакомпании и ресторанные сети.',
     },
     cities: {
       title: 'Свяжитесь с представителем в вашем городе',
@@ -222,7 +226,7 @@ export const translations: Record<Language, TranslationSchema> = {
       rights: '© 2026 ZIGI-ZAGI. Все права защищены.',
     },
     floatingWhatsapp: {
-      label: 'Прайсты алу',
+      label: 'Прайстi алу',
     },
   },
   kz: {
@@ -282,7 +286,7 @@ export const translations: Record<Language, TranslationSchema> = {
       items: [
         { title: 'Тегін жеткізу [Алматы]', desc: 'Алматы және Қазақстанның негізгі аймақтары бойынша жедел жеткізу' },
         { title: 'Ең төменгі тапсырыс 30 000 ₸', desc: 'Кез келген мекеме үшін жеткізілімді небәрі 30 000 ₸ бастау мүмкіндігі' },
-        { title: 'Көлемге байланысты жеңілдіктер', desc: 'Икемді жеңілдік шкаласы — топтама неғұрлым үлкен болса, соғұрлым маржаңыз жоғары' },
+        { title: 'Тапсырыс көлеміне қарай жеңілдіктер', desc: 'Икемді жеңілдік шкаласы — топтама неғұрлым үлкен болса, соғұрлым маржаңыз жоғары' },
         { title: 'Қоймада ассортимент көп', desc: 'Аймақтық қоймаларда дәмдер мен форматтардың толық ассортименті әрқашан бар' },
         { title: 'Тапсырыс берген күні жеткізу', desc: 'Тапсырыс берілген күні кідіріссіз тікелей жеткізу мүмкіндігі' },
         { title: 'Демалыссыз', desc: 'Тапсырыстарды демалыссыз және мерекесіз қабылдаймыз әрі тиейміз' },
@@ -292,7 +296,9 @@ export const translations: Record<Language, TranslationSchema> = {
       minOrderLabel: 'Бірінші тапсырыстың минималды сомасы',
     },
     benefits: {
-      title: 'Сусындардан түсетін табысты арттырыңыз',
+      topLabel: 'Мекемелер мен HoReCa үшін пайдасы',
+      titleLine1: 'СУСЫНДАРДАН',
+      titleLine2: 'ПАЙДА АЛЫҢЫЗ',
       subtitle: 'Клиенттер бұл брендті жақсы біледі, қонақтар өздері сұрайды — Көлемге байланысты жеңілдіктер',
       hugeBadge: 'СІЗДІҢ ПАЙДАНЫЗ',
       items: [
@@ -316,11 +322,11 @@ export const translations: Record<Language, TranslationSchema> = {
       ctaBtn: 'Қалаңыздағы бағаны білу',
     },
     trust: {
-      influencerTitle: 'БІЗДІ ТАҢДАЙДЫ',
+      influencerTitle: 'МЕДИА ЖӘНЕ ЖҰЛДЫЗДАР',
       reachStat: '7,5 МЛН+',
       reachLabel: 'аудитория көлемі бар блогерлер',
-      bloggersLabel: 'Қонақтарыңыз білетін бренд: 7,5 млн+ аудитория көлемі бар блогерлер (Еркебулан Токтар, ByDastan, Oljaskhan, Bota Mia)',
-      partnersTitle: 'Бізге мекемелер мен желілер сенім артады',
+      bloggersLabel: 'ZIGI-ZAGI брендінің жүздері:',
+      partnersTitle: 'БІЗДІҢ СЕРІКТЕСТЕР',
       partnersSubtitle: 'Rixos Water World, Magnum, FlyArystan, Galmart, Small т.б.',
     },
     cities: {
