@@ -27,7 +27,7 @@ export const Influencers: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const cardContainerRef = useRef<HTMLDivElement>(null);
 
-  // All 5 cards (Stat Card + 4 Stars)
+  // All 5 cards (Stat Card + 4 Stars) with lightweight optimized WebP images
   const allCards: MediaCard[] = [
     {
       id: 'toktar',
@@ -38,7 +38,7 @@ export const Influencers: React.FC = () => {
       titleKz: 'Еркебұлан Тоқтар & ZIGI',
       descRu: 'Популярный актер, боец и медиа-амбассадор ZIGI-ZAGI в Казахстане.',
       descKz: 'Қазақстандағы ZIGI-ZAGI танымал актері, спортшысы әрі медиа-амбассадоры.',
-      image: '/assets/trust/bloggers/erkebulan-toktar.png',
+      image: '/assets/trust/bloggers/erkebulan-toktar.webp',
     },
     {
       id: 'stat-demand',
@@ -60,7 +60,7 @@ export const Influencers: React.FC = () => {
       titleKz: 'ByDastan & ZIGI',
       descRu: 'Яркие интеграции и развлекательный контент с напитками ZIGI-ZAGI.',
       descKz: 'ZIGI-ZAGI сусындары бар жарқын интеграциялар мен контент.',
-      image: '/assets/trust/bloggers/bydastan.png',
+      image: '/assets/trust/bloggers/bydastan.webp',
     },
     {
       id: 'oljaskhan',
@@ -71,7 +71,7 @@ export const Influencers: React.FC = () => {
       titleKz: 'Oljaskhan & ZIGI',
       descRu: 'Обзоры заведений и трендовый медиа-контент с освежающими вкусами.',
       descKz: 'Сергітетін дәмдері бар трендтегі медиа-контент және мекемелерге шолу.',
-      image: '/assets/trust/bloggers/oljaskhan.png',
+      image: '/assets/trust/bloggers/oljaskhan.webp',
     },
     {
       id: 'botamia',
@@ -82,7 +82,7 @@ export const Influencers: React.FC = () => {
       titleKz: 'Bota Mia & ZIGI',
       descRu: 'Стильная блогерша выбирает премиальные лимонады для лучших заведений.',
       descKz: 'Сәнді блогер ең үздік мекемелер үшін премиум лимонадтарды таңдайды.',
-      image: '/assets/trust/bloggers/bota-mia.png',
+      image: '/assets/trust/bloggers/bota-mia.webp',
     },
   ];
 
@@ -140,6 +140,22 @@ export const Influencers: React.FC = () => {
       ref={sectionRef}
       className="relative w-full bg-[#E9E7DC] text-[#000000] py-16 sm:py-20 px-4 md:px-8 overflow-hidden select-none border-t border-[#000000]/10"
     >
+      {/* Hidden Image Preloader for instant slide switching without delay */}
+      <div className="hidden" aria-hidden="true">
+        {allCards.map((card) =>
+          card.image ? (
+            <Image
+              key={card.id}
+              src={card.image}
+              alt="Preload"
+              width={500}
+              height={300}
+              priority
+            />
+          ) : null
+        )}
+      </div>
+
       {/* Paper Grain Overlay */}
       <div className="absolute inset-0 bg-grain pointer-events-none opacity-40 z-0" />
 
