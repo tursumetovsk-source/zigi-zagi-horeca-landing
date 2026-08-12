@@ -196,14 +196,14 @@ export const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* Unified Prominent WhatsApp CTA Button (Desktop & Mobile) */}
+        {/* Unified Prominent WhatsApp CTA Button & Mobile Text Container */}
         <div className="relative z-30 w-full max-w-sm sm:max-w-md mx-auto text-center flex flex-col items-center justify-center mt-2 sm:mt-4 pb-2">
-          {/* Mobile Description Text directly above button */}
-          <div className="md:hidden flex flex-col items-center mb-2.5 px-2">
-            <h2 className="font-body text-xs sm:text-sm font-bold text-[#000000] text-center">
+          {/* Mobile Description Text Block - Enlarged & Ultra-readable */}
+          <div className="md:hidden flex flex-col items-center mb-3 px-4 py-3 rounded-2xl bg-[#E9E7DC]/95 backdrop-blur-md border border-[#000000]/15 shadow-sm text-center w-full">
+            <h2 className="font-body text-sm sm:text-base font-extrabold text-[#000000] text-center leading-snug tracking-tight">
               {t.hero.title}
             </h2>
-            <p className="font-body text-[11px] text-center font-medium text-[#000000]/80 mt-0.5">
+            <p className="font-body text-xs sm:text-xs text-center font-medium text-[#000000]/90 leading-relaxed mt-1">
               {t.hero.subtitle}
             </p>
           </div>
