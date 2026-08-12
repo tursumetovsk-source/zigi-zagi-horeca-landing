@@ -141,15 +141,15 @@ export const Influencers: React.FC = () => {
       <div className="absolute inset-0 bg-grain pointer-events-none opacity-40 z-0" />
 
       <div className="max-w-[1294px] mx-auto text-center relative z-10">
-        {/* Top Cursive Script Label */}
-        <span className="font-serif italic text-2xl md:text-3xl text-[#000000]/80 mb-2 block font-normal tracking-wide">
+        {/* Top Subtitle Label */}
+        <span className="font-body font-extrabold text-xs md:text-sm text-[#000000]/70 uppercase tracking-[0.25em] mb-2 block">
           {language === 'ru' ? 'Медиа и Блогеры' : 'Медиа және Блогерлер'}
         </span>
 
         {/* Main Condensed Dark Headline */}
         <h2
           ref={titleRef}
-          className="font-display text-[13vw] sm:text-[10vw] lg:text-[7.5rem] leading-[0.82] font-medium tracking-tight text-[#071952] uppercase mb-16 select-none"
+          className="font-display text-[13vw] sm:text-[10vw] lg:text-[7.5rem] leading-[0.82] font-bold tracking-wider text-[#071952] uppercase mb-16 select-none"
         >
           {language === 'ru' ? 'МЕДИА & ЗВЁЗДЫ' : 'МЕДИА ЖӘНЕ ЖҰЛДЫЗДАР'}
         </h2>
@@ -177,7 +177,7 @@ export const Influencers: React.FC = () => {
 
                   {/* Body Content with Giant 7,5 МЛН+ Stat */}
                   <div className="flex-1 flex flex-col justify-center text-left my-auto space-y-4">
-                    <h3 className="font-display text-4xl lg:text-5xl uppercase leading-none tracking-wide text-[#E9E7DC]">
+                    <h3 className="font-display text-4xl lg:text-5xl uppercase leading-none tracking-wide text-[#E9E7DC] font-bold">
                       {language === 'ru' ? card.titleRu : card.titleKz}
                     </h3>
 
@@ -185,7 +185,7 @@ export const Influencers: React.FC = () => {
                       <p className="font-body text-xs lg:text-sm font-semibold uppercase tracking-wider text-[#E9E7DC]/80 mb-1">
                         {language === 'ru' ? 'Блогеры с общим охватом' : 'Жалпы қамтуы бар блогерлер'}
                       </p>
-                      <div className="font-display text-6xl lg:text-7xl font-bold tracking-tight text-[#E9E7DC] leading-none my-1">
+                      <div className="font-display text-6xl lg:text-7xl font-bold tracking-wider text-[#E9E7DC] leading-none my-1">
                         7,5 МЛН+
                       </div>
                       <p className="font-body text-xs font-medium text-[#E9E7DC]/90">
@@ -200,7 +200,7 @@ export const Influencers: React.FC = () => {
                   <div className="pt-4">
                     <button
                       onClick={handleCityScroll}
-                      className="w-full py-3.5 px-6 font-display text-xl tracking-wider uppercase transition-all duration-300 shadow-md bg-[#E9E7DC] text-[#B8223A] hover:brightness-110"
+                      className="w-full py-3.5 px-6 font-display text-xl tracking-wider uppercase transition-all duration-300 shadow-md bg-[#E9E7DC] text-[#B8223A] hover:brightness-110 font-bold rounded-2xl"
                     >
                       {language === 'ru' ? 'ВЫБРАТЬ ВАШ ГОРОД' : 'ҚАЛАҢЫЗДЫ ТАҢДАУ'}
                     </button>
@@ -238,7 +238,7 @@ export const Influencers: React.FC = () => {
                 {/* Card Body Text */}
                 <div className="flex-1 flex flex-col justify-between text-left space-y-3">
                   <div>
-                    <h3 className="font-display text-2xl lg:text-3xl uppercase leading-tight tracking-wide mb-2 text-[#E9E7DC]">
+                    <h3 className="font-display text-2xl lg:text-3xl uppercase leading-tight tracking-wide mb-2 text-[#E9E7DC] font-bold">
                       {language === 'ru' ? card.titleRu : card.titleKz}
                     </h3>
                     <p className="font-body text-xs lg:text-sm font-normal leading-relaxed text-[#E9E7DC]/90">
@@ -250,7 +250,7 @@ export const Influencers: React.FC = () => {
                   <div className="pt-4">
                     <button
                       onClick={handleWhatsAppClick}
-                      className="w-full py-3.5 px-6 font-display text-xl tracking-wider uppercase transition-all duration-300 shadow-md bg-[#E9E7DC] text-[#B8223A] hover:brightness-110"
+                      className="w-full py-3.5 px-6 font-display text-xl tracking-wider uppercase transition-all duration-300 shadow-md bg-[#E9E7DC] text-[#B8223A] hover:brightness-110 font-bold rounded-2xl"
                     >
                       {language === 'ru' ? 'ПОДРОБНЕЕ' : 'ТОЛЫҒЫРАҚ'}
                     </button>

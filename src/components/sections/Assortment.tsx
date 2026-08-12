@@ -256,21 +256,21 @@ export const Assortment: React.FC = () => {
 
       {/* Top Header Container */}
       <div className="relative z-10 max-w-[1294px] mx-auto w-full flex flex-col items-start pt-16 md:pt-24 pb-4">
-        {/* Title */}
-        <h2 className="font-display text-[14vw] md:text-[9.5rem] leading-[0.82] text-[#E9E7DC] uppercase tracking-tight font-medium select-none drop-shadow-md mb-6">
+        {/* Title in Ultra-Readable Oswald font */}
+        <h2 className="font-display text-[14vw] md:text-[8.5rem] leading-[0.82] text-[#E9E7DC] uppercase tracking-wider font-bold select-none drop-shadow-md mb-6">
           {language === 'ru' ? 'АССОРТИМЕНТ' : 'АССОРТИМЕНТ'}
         </h2>
 
-        {/* Category Tabs Filter Bar with Crisp 100% Solid Styling */}
+        {/* Category Tabs Filter Bar with Crisp Solid Styling */}
         <div className="flex flex-wrap items-center gap-2.5 md:gap-4">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id as CategoryId)}
-              className={`px-5 py-2.5 rounded-full font-extrabold text-xs uppercase tracking-wider transition-all duration-300 shadow-md ${
+              className={`px-5 py-2.5 rounded-full font-body font-extrabold text-xs uppercase tracking-wider transition-all duration-300 shadow-md ${
                 activeCategory === cat.id
                   ? 'bg-[#E9E7DC] text-[#000000] scale-105 shadow-lg'
-                  : 'bg-black/25 text-[#E9E7DC] border-2 border-[#E9E7DC]/60 hover:bg-[#E9E7DC] hover:text-[#000000]'
+                  : 'bg-black/30 text-[#E9E7DC] border-2 border-[#E9E7DC]/60 hover:bg-[#E9E7DC] hover:text-[#000000]'
               }`}
             >
               {language === 'ru' ? cat.nameRu : cat.nameKz}
@@ -300,18 +300,12 @@ export const Assortment: React.FC = () => {
         {/* Left Information Block */}
         <div className="hidden md:flex flex-col items-start absolute left-0 top-1/2 -translate-y-1/2 z-30 max-w-xs space-y-4">
           <div className="flex items-center gap-2">
-            <span className="font-serif italic text-xl md:text-2xl text-[#E9E7DC]">
-              {language === 'ru' ? 'Оригинальный' : 'Оригиналдық'}
+            <span className="font-body font-bold text-xs uppercase tracking-[0.2em] text-[#E9E7DC]/90">
+              {language === 'ru' ? 'Оригинальный вкус' : 'Оригиналдық дәм'}
             </span>
-            <svg
-              className="w-16 h-8 text-[#E9E7DC] fill-none stroke-current stroke-2"
-              viewBox="0 0 100 40"
-            >
-              <path d="M10 20 Q 50 5, 85 20 M 75 10 L 88 20 L 75 30" />
-            </svg>
           </div>
 
-          <h3 className="font-display text-4xl lg:text-5xl text-[#E9E7DC] tracking-wide uppercase leading-none drop-shadow-sm">
+          <h3 className="font-display text-4xl lg:text-5xl text-[#E9E7DC] tracking-wider uppercase leading-tight drop-shadow-sm font-bold">
             {language === 'ru' ? activeSlide.nameRu : activeSlide.nameKz}
           </h3>
 
@@ -322,7 +316,7 @@ export const Assortment: React.FC = () => {
           <div className="pt-2">
             <button
               onClick={handleWhatsAppClick}
-              className="px-8 py-4 bg-[#E9E7DC] hover:bg-white font-display text-xl tracking-wider uppercase shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer font-bold"
+              className="px-8 py-4 bg-[#E9E7DC] hover:bg-white font-display text-xl tracking-wider uppercase shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer font-bold rounded-2xl"
               style={{ color: activeSlide.buttonTextHex }}
             >
               {language === 'ru' ? 'ПОЛУЧИТЬ ПРАЙС' : 'ПРАЙСТЫ АЛУ'}
@@ -369,7 +363,7 @@ export const Assortment: React.FC = () => {
 
       {/* Mobile Title & Action Block */}
       <div className="flex md:hidden flex-col items-center text-center space-y-3 z-30 mb-6">
-        <h3 className="font-display text-4xl text-[#E9E7DC] tracking-wide uppercase">
+        <h3 className="font-display text-3xl sm:text-4xl text-[#E9E7DC] tracking-wider uppercase font-bold">
           {language === 'ru' ? activeSlide.nameRu : activeSlide.nameKz}
         </h3>
         <p className="font-body text-xs font-semibold text-[#E9E7DC] max-w-xs">
@@ -377,7 +371,7 @@ export const Assortment: React.FC = () => {
         </p>
         <button
           onClick={handleWhatsAppClick}
-          className="px-8 py-3.5 bg-[#E9E7DC] font-display text-lg tracking-wider uppercase shadow-md font-bold"
+          className="px-8 py-3.5 bg-[#E9E7DC] font-display text-lg tracking-wider uppercase shadow-md font-bold rounded-2xl"
           style={{ color: activeSlide.buttonTextHex }}
         >
           {language === 'ru' ? 'ПОЛУЧИТЬ ПРАЙС' : 'ПРАЙСТЫ АЛУ'}

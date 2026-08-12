@@ -21,7 +21,8 @@
 }
 
 .font-display {
-  font-family: 'Bebas Neue', cursive, sans-serif !important;
+  font-family: 'Oswald', 'Outfit', sans-serif !important;
+  font-weight: 700;
 }
 
 .font-body {

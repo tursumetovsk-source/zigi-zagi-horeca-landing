@@ -179,14 +179,14 @@ export const Benefits: React.FC = () => {
 
       {/* CONTENT LAYER: Section Header, 4 Benefit Cards, and WhatsApp CTA (z-index: 20) */}
       <div className="max-w-[1340px] mx-auto w-full relative z-20 pt-6 pb-10">
-        {/* Main Section Header with Crimson #B8223A Headline & Generous Inter-Line Spacing */}
+        {/* Main Section Header with Crimson #B8223A Headline & Clean Uppercase Subtitle */}
         <div className="text-center max-w-4xl mx-auto mb-10">
-          <span className="font-serif italic text-2xl md:text-3xl text-[#B8223A] mb-3 block font-normal tracking-wide drop-shadow-sm">
+          <span className="font-body font-extrabold text-xs md:text-sm text-[#B8223A] uppercase tracking-[0.25em] mb-3 block">
             {language === 'ru' ? 'Выгода для заведений и HoReCa' : 'Мекемелер мен HoReCa үшін пайдасы'}
           </span>
           <h2
             ref={titleRef}
-            className="font-display text-[9.5vw] sm:text-[6.5vw] lg:text-[5.2rem] leading-[1.05] md:leading-[1.08] font-medium tracking-tight text-[#B8223A] uppercase select-none drop-shadow-[3px_3px_0px_#FFFFFF]"
+            className="font-display text-[9.5vw] sm:text-[6.5vw] lg:text-[5.2rem] leading-[1.05] md:leading-[1.08] font-bold tracking-wider text-[#B8223A] uppercase select-none drop-shadow-[3px_3px_0px_#FFFFFF]"
           >
             {language === 'ru' ? (
               <>
@@ -223,7 +223,7 @@ export const Benefits: React.FC = () => {
                     <div className="p-2.5 rounded-xl bg-[#E9E7DC] border-2 border-[#B8223A] group-hover:scale-110 transition-transform shrink-0">
                       {icons[idx % icons.length]}
                     </div>
-                    <h3 className="font-display text-lg sm:text-xl text-[#B8223A] uppercase leading-tight tracking-wide">
+                    <h3 className="font-display text-lg sm:text-xl text-[#B8223A] uppercase leading-tight tracking-wide font-bold">
                       {item.title}
                     </h3>
                   </div>
@@ -238,7 +238,7 @@ export const Benefits: React.FC = () => {
             <div className="pt-2">
               <button
                 onClick={handleWhatsAppClick}
-                className="w-full py-4 px-8 bg-[#B8223A] hover:bg-[#931B2E] text-[#E9E7DC] font-display text-2xl tracking-wider uppercase border-3 border-[#000000] shadow-[5px_5px_0px_#000000] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer"
+                className="w-full py-4 px-8 bg-[#B8223A] hover:bg-[#931B2E] text-[#E9E7DC] font-display text-2xl tracking-wider uppercase border-3 border-[#000000] shadow-[5px_5px_0px_#000000] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer rounded-2xl font-bold"
               >
                 <MessageCircle className="w-6 h-6 fill-[#E9E7DC]" />
                 <span>{t.benefits.ctaBtn}</span>

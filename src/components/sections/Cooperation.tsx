@@ -124,15 +124,15 @@ export const Cooperation: React.FC = () => {
       <div className="max-w-[1340px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-8 items-center relative z-10">
         {/* Left Content Column */}
         <div className="lg:col-span-6 flex flex-col items-start justify-center pr-0 lg:pr-2">
-          {/* Cursive Subtitle */}
-          <span className="font-serif italic text-2xl md:text-3xl text-[#000000]/80 mb-2 font-normal tracking-wide">
+          {/* Subtitle */}
+          <span className="font-body font-extrabold text-xs md:text-sm text-[#000000]/70 uppercase tracking-[0.25em] mb-2 block">
             {t.cooperation.subtitle}
           </span>
 
           {/* Headline */}
           <h2
             ref={titleRef}
-            className="font-display text-[9vw] sm:text-[6vw] lg:text-[3.6rem] xl:text-[4.4rem] leading-[0.88] font-medium tracking-tight text-[#071952] uppercase mb-6 select-none whitespace-nowrap"
+            className="font-display text-[9vw] sm:text-[6vw] lg:text-[3.6rem] xl:text-[4.4rem] leading-[0.88] font-bold tracking-wider text-[#071952] uppercase mb-6 select-none whitespace-nowrap"
           >
             {language === 'ru' ? (
               <>
@@ -167,7 +167,7 @@ export const Cooperation: React.FC = () => {
             <div className="pt-4">
               <button
                 onClick={handleWhatsAppClick}
-                className="w-full sm:w-auto px-9 py-4 bg-[#B8223A] hover:bg-[#931B2E] text-[#E9E7DC] font-display text-2xl tracking-wider uppercase transition-all duration-300 shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+                className="w-full sm:w-auto px-9 py-4 bg-[#B8223A] hover:bg-[#931B2E] text-[#E9E7DC] font-display text-2xl tracking-wider uppercase transition-all duration-300 shadow-md hover:scale-105 active:scale-95 cursor-pointer rounded-2xl font-bold"
               >
                 {t.cooperation.btn}
               </button>

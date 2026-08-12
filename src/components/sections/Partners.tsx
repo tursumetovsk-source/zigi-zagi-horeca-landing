@@ -69,15 +69,15 @@ export const Partners: React.FC = () => {
       </div>
 
       <div className="max-w-[1400px] mx-auto text-center relative z-10 pt-6">
-        {/* Top Cursive Script in Pure Cream */}
-        <span className="font-serif italic text-2xl md:text-3xl text-[#E9E7DC] mb-2 block font-normal tracking-wide">
+        {/* Top Subtitle Label */}
+        <span className="font-body font-extrabold text-xs md:text-sm text-[#E9E7DC]/90 uppercase tracking-[0.25em] mb-2 block">
           {language === 'ru' ? 'Нам доверяют заведения и сети' : 'Бізге мекемелер мен желілер сенеді'}
         </span>
 
         {/* Pure Cream Condensed Display Headline "НАМ ДОВЕРЯЮТ" */}
         <h2
           ref={titleRef}
-          className="font-display text-[13vw] sm:text-[10vw] lg:text-[7.8rem] leading-[0.82] font-medium tracking-tight text-[#E9E7DC] uppercase mb-16 select-none"
+          className="font-display text-[13vw] sm:text-[10vw] lg:text-[7.8rem] leading-[0.82] font-bold tracking-wider text-[#E9E7DC] uppercase mb-16 select-none"
         >
           {language === 'ru' ? 'НАМ ДОВЕРЯЮТ' : 'БІЗДІҢ СЕРІКТЕСТЕР'}
         </h2>
