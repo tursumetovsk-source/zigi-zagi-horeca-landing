@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    background-color: #E9E7DC;
+    color: #000000;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  body {
+    overflow-x: hidden;
+    position: relative;
+    background-color: #E9E7DC;
+    color: #000000;
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+.font-display {
+  font-family: 'Bebas Neue', cursive, sans-serif !important;
+}
+
+.font-body {
+  font-family: 'Outfit', sans-serif !important;
+}
+
+/* Paper Grain Texture Layer */
+.bg-grain {
+  background-color: #E9E7DC;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Custom Vintage Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E9E7DC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B8223A;
+  border-radius: 9999px;
+  border: 2px solid #E9E7DC;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #931B2E;
+}
+
+/* Lenis CSS integration */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}

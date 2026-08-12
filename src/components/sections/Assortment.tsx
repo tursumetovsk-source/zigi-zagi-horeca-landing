@@ -1,0 +1,432 @@
+'use client';
+
+import React, { useState } from 'react';
+import Image from 'next/image';
+import { useLanguage } from '@/context/LanguageContext';
+import { createWhatsAppLink } from '@/lib/whatsapp';
+import { trackWhatsAppClick } from '@/lib/analytics';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+
+export type CategoryId = 'all' | 'lemonade' | 'mojito' | 'tea' | 'water';
+
+interface ProductSlide {
+  id: string;
+  categoryId: CategoryId;
+  nameRu: string;
+  nameKz: string;
+  subtitleRu: string;
+  subtitleKz: string;
+  bgHex: string;
+  buttonTextHex: string;
+  image: string;
+}
+
+const allProducts: ProductSlide[] = [
+  // ЛИМОНАДЫ
+  {
+    id: 'cola',
+    categoryId: 'lemonade',
+    nameRu: 'ZIGI COLA',
+    nameKz: 'ZIGI COLA',
+    subtitleRu: 'Легендарный карамельно-пряный вкус',
+    subtitleKz: 'Аңызға айналған карамель-дәмдеуіш дәмі',
+    bgHex: '#B8223A',
+    buttonTextHex: '#B8223A',
+    image: '/assets/products/assortment/item-01-cola.webp',
+  },
+  {
+    id: 'pear',
+    categoryId: 'lemonade',
+    nameRu: 'ZIGI ДЮШЕС',
+    nameKz: 'ZIGI ДЮШЕС',
+    subtitleRu: 'Ароматная сочная десертная груша',
+    subtitleKz: 'Хош иісті шырынды десерт алмұрты',
+    bgHex: '#876d0e',
+    buttonTextHex: '#876d0e',
+    image: '/assets/products/assortment/item-03-pear.webp',
+  },
+  {
+    id: 'tarkhun',
+    categoryId: 'lemonade',
+    nameRu: 'ZIGI ТАРХУН',
+    nameKz: 'ZIGI ТАРХУН',
+    subtitleRu: 'Пряная свежесть эстрагона',
+    subtitleKz: 'Эстрагонның дәмдеуіш сергектігі',
+    bgHex: '#0d4e27',
+    buttonTextHex: '#0d4e27',
+    image: '/assets/products/assortment/item-05-tarkhun.webp',
+  },
+  {
+    id: 'apple',
+    categoryId: 'lemonade',
+    nameRu: 'ZIGI ЗЕЛЁНОЕ ЯБЛОКО',
+    nameKz: 'ZIGI ЖАСЫЛ АЛМА',
+    subtitleRu: 'Яркая кислинка спелого садового яблока',
+    subtitleKz: 'Піскен бақша алмасының жарқын қышқылдығы',
+    bgHex: '#254b0b',
+    buttonTextHex: '#254b0b',
+    image: '/assets/products/assortment/item-11-apple.webp',
+  },
+  {
+    id: 'pomegranate',
+    categoryId: 'lemonade',
+    nameRu: 'ZIGI ГРАНАТ',
+    nameKz: 'ZIGI АНАР',
+    subtitleRu: 'Благородный сок с изысканной кислинкой',
+    subtitleKz: 'Нәзік қышқылдығы бар гранат шырыны',
+    bgHex: '#520726',
+    buttonTextHex: '#520726',
+    image: '/assets/products/assortment/item-09-pomegranate.webp',
+  },
+  {
+    id: 'cherry',
+    categoryId: 'lemonade',
+    nameRu: 'ZIGI БАРБАРИС & ВИШНЯ',
+    nameKz: 'ZIGI БАРБАРИС & ШИЕ',
+    subtitleRu: 'Насыщенный спелый вишневый дуэт',
+    subtitleKz: 'Қанық піскен шие дуэті',
+    bgHex: '#7d0713',
+    buttonTextHex: '#7d0713',
+    image: '/assets/products/assortment/item-08-cherry.webp',
+  },
+  {
+    id: 'strawberry-lemonade',
+    categoryId: 'lemonade',
+    nameRu: 'ZIGI КЛУБНИЧНЫЙ ЛИМОНАД',
+    nameKz: 'ZIGI ҚҰЛПЫНАЙ ЛИМОНАДЫ',
+    subtitleRu: 'Сладкая садовая клубника в пузырьках',
+    subtitleKz: 'Көпіршіктегі тәтті бақша құлпынайы',
+    bgHex: '#8d092e',
+    buttonTextHex: '#8d092e',
+    image: '/assets/products/assortment/item-12-strawberry-lemonade.webp',
+  },
+  {
+    id: 'tarkhun-special',
+    categoryId: 'lemonade',
+    nameRu: 'ZIGI ТАРХУН PREMIUM',
+    nameKz: 'ZIGI ТАРХУН PREMIUM',
+    subtitleRu: 'Экстракт высокогорного эстрагона',
+    subtitleKz: 'Биік таулы эстрагон сығындысы',
+    bgHex: '#08381b',
+    buttonTextHex: '#08381b',
+    image: '/assets/products/assortment/item-14-tarkhun-special.webp',
+  },
+
+  // МОХИТО
+  {
+    id: 'mojito-kiwi',
+    categoryId: 'mojito',
+    nameRu: 'ZIGI МОХИТО КИВИ',
+    nameKz: 'ZIGI МОХИТО КИВИ',
+    subtitleRu: 'Ледяной лайм и спелый кубинский киви',
+    subtitleKz: 'Мұзды лайм мен піскен кубалық киви',
+    bgHex: '#2d6a4f',
+    buttonTextHex: '#2d6a4f',
+    image: '/assets/products/assortment/item-13-mojito-kiwi.webp',
+  },
+  {
+    id: 'mojito-lime',
+    categoryId: 'mojito',
+    nameRu: 'ZIGI МОХИТО ЛАЙМ',
+    nameKz: 'ZIGI МОХИТО ЛАЙМ',
+    subtitleRu: 'Ледяной лайм и свежая перечная мята',
+    subtitleKz: 'Мұзды лайм мен жаңа бұрышты жалбыз',
+    bgHex: '#053e37',
+    buttonTextHex: '#053e37',
+    image: '/assets/products/assortment/item-07-mojito-lime.webp',
+  },
+  {
+    id: 'mojito-strawberry',
+    categoryId: 'mojito',
+    nameRu: 'ZIGI МОХИТО КЛУБНИКА',
+    nameKz: 'ZIGI МОХИТО ҚҰЛПЫНАЙ',
+    subtitleRu: 'Клубника с прохладой мяты и лайма',
+    subtitleKz: 'Жалбыз бен лайм салқындығы бар құлпынай',
+    bgHex: '#6e0932',
+    buttonTextHex: '#6e0932',
+    image: '/assets/products/assortment/item-06-mojito-strawberry.webp',
+  },
+
+  // ЧАЙ
+  {
+    id: 'tea-mango',
+    categoryId: 'tea',
+    nameRu: 'ZIGI ЧАЙ МАНГО',
+    nameKz: 'ZIGI ШАЙ МАНГО',
+    subtitleRu: 'Холодный чай со спелым тропическим манго',
+    subtitleKz: 'Піскен тропиктік манго бар салқын шай',
+    bgHex: '#b05f15',
+    buttonTextHex: '#b05f15',
+    image: '/assets/products/assortment/item-02-tea-mango.webp',
+  },
+  {
+    id: 'tea-peach',
+    categoryId: 'tea',
+    nameRu: 'ZIGI ЧАЙ ПЕРСИК',
+    nameKz: 'ZIGI ШАЙ ШАБДАЛЫ',
+    subtitleRu: 'Бархатистый чай с ароматом южного персика',
+    subtitleKz: 'Оңтүстік шабдалы хош иісті барқыт шай',
+    bgHex: '#522404',
+    buttonTextHex: '#522404',
+    image: '/assets/products/assortment/item-10-tea-peach.webp',
+  },
+
+  // ВОДА
+  {
+    id: 'water',
+    categoryId: 'water',
+    nameRu: 'ZIGI СУ',
+    nameKz: 'ZIGI СУ',
+    subtitleRu: 'Природная горная питьевая артезианская вода',
+    subtitleKz: 'Табиғи таулық артезиандық ауыз суы',
+    bgHex: '#0a547a',
+    buttonTextHex: '#0a547a',
+    image: '/assets/products/assortment/item-04-water.webp',
+  },
+];
+
+export const Assortment: React.FC = () => {
+  const { language } = useLanguage();
+  const [activeCategory, setActiveCategory] = useState<CategoryId>('all');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Filter products by selected category
+  const filteredProducts =
+    activeCategory === 'all'
+      ? allProducts
+      : allProducts.filter((p) => p.categoryId === activeCategory);
+
+  const activeSlide = filteredProducts[currentIndex] || filteredProducts[0];
+  const prevIndex = (currentIndex - 1 + filteredProducts.length) % filteredProducts.length;
+  const nextIndex = (currentIndex + 1) % filteredProducts.length;
+
+  const handleCategoryChange = (catId: CategoryId) => {
+    setActiveCategory(catId);
+    setCurrentIndex(0);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex(prevIndex);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex(nextIndex);
+  };
+
+  const handleWhatsAppClick = () => {
+    trackWhatsAppClick({ source: 'assortment_view', language });
+    window.open(createWhatsAppLink({ language, source: 'assortment_view' }), '_blank');
+  };
+
+  const categories = [
+    { id: 'all', nameRu: 'Все напитки', nameKz: 'Барлық сусындар' },
+    { id: 'lemonade', nameRu: 'Лимонады', nameKz: 'Лимонадтар' },
+    { id: 'mojito', nameRu: 'Мохито', nameKz: 'Мохито' },
+    { id: 'tea', nameRu: 'Zigi Чай', nameKz: 'Zigi Шай' },
+    { id: 'water', nameRu: 'Zigi Су', nameKz: 'Zigi Су' },
+  ];
+
+  return (
+    <section
+      id="assortment"
+      className="relative w-full min-h-[100svh] transition-colors duration-700 ease-in-out text-[#E9E7DC] flex flex-col justify-between py-12 px-4 md:px-8 overflow-hidden select-none"
+      style={{ backgroundColor: activeSlide.bgHex }}
+    >
+      {/* Top Wave Transition from Cooperation (#E9E7DC cream) */}
+      <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-none z-10 pointer-events-none text-[#E9E7DC]">
+        <svg
+          className="relative block w-full h-[50px] sm:h-[80px] md:h-[110px]"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+          fill="currentColor"
+        >
+          <path d="M0,0 L1440,0 L1440,30 C1200,105 900,10 600,85 C300,140 120,20 0,65 Z" />
+        </svg>
+      </div>
+
+      {/* Paper Grain Overlay */}
+      <div className="absolute inset-0 bg-grain pointer-events-none opacity-20 z-0" />
+
+      {/* Concentric Circle Ripple Rings */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
+        <div className="w-[450px] h-[450px] md:w-[650px] md:h-[650px] lg:w-[850px] lg:h-[850px] rounded-full border border-white/20 animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] md:w-[950px] md:h-[950px] lg:w-[1250px] lg:h-[1250px] rounded-full border border-white/15" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] md:w-[1250px] md:h-[1250px] lg:w-[1650px] lg:h-[1650px] rounded-full border border-white/10" />
+      </div>
+
+      {/* Top Header Container */}
+      <div className="relative z-10 max-w-[1294px] mx-auto w-full flex flex-col items-start pt-16 md:pt-24 pb-4">
+        {/* Title */}
+        <h2 className="font-display text-[14vw] md:text-[9.5rem] leading-[0.82] text-[#E9E7DC] uppercase tracking-tight font-medium select-none drop-shadow-md mb-6">
+          {language === 'ru' ? 'АССОРТИМЕНТ' : 'АССОРТИМЕНТ'}
+        </h2>
+
+        {/* Category Tabs Filter Bar with Crisp 100% Solid Styling */}
+        <div className="flex flex-wrap items-center gap-2.5 md:gap-4">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => handleCategoryChange(cat.id as CategoryId)}
+              className={`px-5 py-2.5 rounded-full font-extrabold text-xs uppercase tracking-wider transition-all duration-300 shadow-md ${
+                activeCategory === cat.id
+                  ? 'bg-[#E9E7DC] text-[#000000] scale-105 shadow-lg'
+                  : 'bg-black/25 text-[#E9E7DC] border-2 border-[#E9E7DC]/60 hover:bg-[#E9E7DC] hover:text-[#000000]'
+              }`}
+            >
+              {language === 'ru' ? cat.nameRu : cat.nameKz}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="relative z-10 max-w-[1294px] mx-auto w-full flex-1 flex items-center justify-center my-auto py-6">
+        {/* Left Edge Can Peek */}
+        {filteredProducts.length > 1 && (
+          <div
+            onClick={handlePrev}
+            className="hidden lg:block absolute -left-20 xl:-left-28 top-1/2 -translate-y-1/2 w-48 h-80 opacity-70 hover:opacity-100 transition-all cursor-pointer z-10 filter drop-shadow-lg"
+          >
+            <Image
+              src={filteredProducts[prevIndex].image}
+              alt="Previous flavor"
+              fill
+              sizes="192px"
+              className="object-contain"
+            />
+          </div>
+        )}
+
+        {/* Left Information Block */}
+        <div className="hidden md:flex flex-col items-start absolute left-0 top-1/2 -translate-y-1/2 z-30 max-w-xs space-y-4">
+          <div className="flex items-center gap-2">
+            <span className="font-serif italic text-xl md:text-2xl text-[#E9E7DC]">
+              {language === 'ru' ? 'Оригинальный' : 'Оригиналдық'}
+            </span>
+            <svg
+              className="w-16 h-8 text-[#E9E7DC] fill-none stroke-current stroke-2"
+              viewBox="0 0 100 40"
+            >
+              <path d="M10 20 Q 50 5, 85 20 M 75 10 L 88 20 L 75 30" />
+            </svg>
+          </div>
+
+          <h3 className="font-display text-4xl lg:text-5xl text-[#E9E7DC] tracking-wide uppercase leading-none drop-shadow-sm">
+            {language === 'ru' ? activeSlide.nameRu : activeSlide.nameKz}
+          </h3>
+
+          <p className="font-body text-xs lg:text-sm font-semibold text-[#E9E7DC] leading-relaxed">
+            {language === 'ru' ? activeSlide.subtitleRu : activeSlide.subtitleKz}
+          </p>
+
+          <div className="pt-2">
+            <button
+              onClick={handleWhatsAppClick}
+              className="px-8 py-4 bg-[#E9E7DC] hover:bg-white font-display text-xl tracking-wider uppercase shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer font-bold"
+              style={{ color: activeSlide.buttonTextHex }}
+            >
+              {language === 'ru' ? 'ПОЛУЧИТЬ ПРАЙС' : 'ПРАЙСТЫ АЛУ'}
+            </button>
+          </div>
+        </div>
+
+        {/* Center Spotlight & Featured 3D Can */}
+        <div className="relative flex items-center justify-center z-20 my-4">
+          {/* Cream Spotlight Cutout Circle */}
+          <div className="w-72 h-72 sm:w-96 sm:h-96 md:w-[460px] md:h-[460px] lg:w-[520px] lg:h-[520px] rounded-full bg-[#E9E7DC] shadow-2xl flex items-center justify-center transition-all duration-700 overflow-hidden relative">
+            <div className="absolute inset-0 bg-grain opacity-20" />
+          </div>
+
+          {/* Central Product Can */}
+          <div className="absolute w-64 sm:w-80 md:w-[420px] lg:w-[460px] h-[380px] sm:h-[480px] md:h-[580px] z-30 transition-transform duration-500 hover:scale-105 cursor-pointer filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]">
+            <Image
+              src={activeSlide.image}
+              alt={activeSlide.nameRu}
+              fill
+              sizes="(max-width: 768px) 100vw, 460px"
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* Right Edge Can Peek */}
+        {filteredProducts.length > 1 && (
+          <div
+            onClick={handleNext}
+            className="hidden lg:block absolute -right-20 xl:-right-28 top-1/2 -translate-y-1/2 w-48 h-80 opacity-70 hover:opacity-100 transition-all cursor-pointer z-10 filter drop-shadow-lg"
+          >
+            <Image
+              src={filteredProducts[nextIndex].image}
+              alt="Next flavor"
+              fill
+              sizes="192px"
+              className="object-contain"
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Mobile Title & Action Block */}
+      <div className="flex md:hidden flex-col items-center text-center space-y-3 z-30 mb-6">
+        <h3 className="font-display text-4xl text-[#E9E7DC] tracking-wide uppercase">
+          {language === 'ru' ? activeSlide.nameRu : activeSlide.nameKz}
+        </h3>
+        <p className="font-body text-xs font-semibold text-[#E9E7DC] max-w-xs">
+          {language === 'ru' ? activeSlide.subtitleRu : activeSlide.subtitleKz}
+        </p>
+        <button
+          onClick={handleWhatsAppClick}
+          className="px-8 py-3.5 bg-[#E9E7DC] font-display text-lg tracking-wider uppercase shadow-md font-bold"
+          style={{ color: activeSlide.buttonTextHex }}
+        >
+          {language === 'ru' ? 'ПОЛУЧИТЬ ПРАЙС' : 'ПРАЙСТЫ АЛУ'}
+        </button>
+      </div>
+
+      {/* Bottom Slider Arrow Controls */}
+      {filteredProducts.length > 1 && (
+        <div className="relative z-30 max-w-[1294px] mx-auto w-full flex items-center justify-center gap-8 pb-4">
+          <button
+            onClick={handlePrev}
+            className="p-3 rounded-full border-2 border-[#E9E7DC] text-[#E9E7DC] hover:bg-[#E9E7DC] hover:text-[#000000] transition-all duration-300 shadow-md cursor-pointer group"
+            aria-label="Previous product"
+          >
+            <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
+          </button>
+          <div className="flex items-center gap-2">
+            {filteredProducts.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  idx === currentIndex ? 'w-8 bg-[#E9E7DC]' : 'w-2.5 bg-[#E9E7DC]/40 hover:bg-[#E9E7DC]'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+          <button
+            onClick={handleNext}
+            className="p-3 rounded-full border-2 border-[#E9E7DC] text-[#E9E7DC] hover:bg-[#E9E7DC] hover:text-[#000000] transition-all duration-300 shadow-md cursor-pointer group"
+            aria-label="Next product"
+          >
+            <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+      )}
+
+      {/* Bottom Wave Transition to Media Stars (#E9E7DC cream) */}
+      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-10 pointer-events-none text-[#E9E7DC]">
+        <svg
+          className="relative block w-full h-[50px] sm:h-[80px] md:h-[110px]"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+          fill="currentColor"
+        >
+          <path d="M0,60 C320,130 640,10 960,90 C1280,160 1400,40 1440,65 L1440,120 L0,120 Z" />
+        </svg>
+      </div>
+    </section>
+  );
+};
