@@ -4,7 +4,7 @@ import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { createWhatsAppLink } from '@/lib/whatsapp';
 import { trackWhatsAppClick } from '@/lib/analytics';
-import { X, MessageCircle, Globe } from 'lucide-react';
+import { X, MessageCircle, Globe, ChevronRight } from 'lucide-react';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -38,51 +38,56 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] bg-[#E9E7DC]/98 backdrop-blur-2xl flex flex-col justify-between p-6 transition-all duration-300 text-[#000000]">
-      {/* Header Bar inside Mobile Menu */}
-      <div className="flex items-center justify-between">
+    <div className="fixed inset-0 z-[100] bg-[#E9E7DC] flex flex-col justify-between pt-3.5 pb-6 px-5 sm:px-6 transition-all duration-300 text-[#000000] overflow-y-auto">
+      {/* Paper Grain Overlay */}
+      <div className="absolute inset-0 bg-grain pointer-events-none opacity-40 z-0" />
+
+      {/* Header Bar inside Mobile Menu - Aligned tightly to top */}
+      <div className="relative z-10 flex items-center justify-between border-b border-[#000000]/10 pb-3.5">
         <div className="flex flex-col">
-          <span className="font-display text-2xl text-[#000000] tracking-tight leading-none">
+          <span className="font-display text-2xl text-[#000000] tracking-wider leading-none font-bold">
             ZIGI ZAGI
           </span>
-          <span className="text-[8px] uppercase tracking-[0.3em] font-black text-[#B8223A] leading-none">
+          <span className="text-[8px] uppercase tracking-[0.3em] font-black text-[#B8223A] leading-none mt-0.5">
             HORECA
           </span>
         </div>
+
         <button
           onClick={onClose}
-          className="p-2.5 text-[#000000] hover:text-[#B8223A] transition-colors rounded-full bg-[#000000]/5 border border-[#000000]/10"
+          className="p-2 text-[#000000] hover:text-[#B8223A] transition-colors rounded-full bg-[#000000]/5 border border-[#000000]/15"
           aria-label="Close menu"
         >
-          <X className="w-6 h-6" />
+          <X className="w-5 h-5" />
         </button>
       </div>
 
-      {/* Navigation Links */}
-      <nav className="flex flex-col gap-5 my-auto">
+      {/* Navigation Links List */}
+      <nav className="relative z-10 flex flex-col gap-3 my-auto py-6">
         {navLinks.map((link) => (
           <button
             key={link.href}
             onClick={() => handleNavClick(link.href)}
-            className="text-left font-display text-3xl sm:text-4xl text-[#000000] hover:text-[#B8223A] transition-colors tracking-wide uppercase"
+            className="flex items-center justify-between w-full text-left font-display text-3xl sm:text-4xl text-[#000000] hover:text-[#B8223A] transition-colors tracking-wider uppercase font-bold py-2 border-b border-[#000000]/5 group"
           >
-            {link.label}
+            <span>{link.label}</span>
+            <ChevronRight className="w-5 h-5 text-[#B8223A] opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
           </button>
         ))}
       </nav>
 
       {/* Footer controls inside Mobile Menu */}
-      <div className="flex flex-col gap-4">
-        {/* Language Switcher */}
-        <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#000000]/5 border border-[#000000]/10">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#000000]/80">
+      <div className="relative z-10 flex flex-col gap-3 pt-2">
+        {/* Language Switcher Bar */}
+        <div className="flex items-center justify-between p-3 rounded-2xl bg-[#000000]/5 border border-[#000000]/10">
+          <div className="flex items-center gap-2 text-xs font-bold text-[#000000]/80">
             <Globe className="w-4 h-4 text-[#B8223A]" />
             <span>Язык / Тіл</span>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-1.5">
             <button
               onClick={() => setLanguage('ru')}
-              className={`px-4 py-1.5 rounded-xl text-xs font-black transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
                 language === 'ru'
                   ? 'bg-[#B8223A] text-[#E9E7DC] shadow'
                   : 'text-[#000000]/70 hover:text-[#000000]'
@@ -92,7 +97,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
             </button>
             <button
               onClick={() => setLanguage('kz')}
-              className={`px-4 py-1.5 rounded-xl text-xs font-black transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
                 language === 'kz'
                   ? 'bg-[#B8223A] text-[#E9E7DC] shadow'
                   : 'text-[#000000]/70 hover:text-[#000000]'
@@ -106,7 +111,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         {/* WhatsApp Button */}
         <button
           onClick={handleWhatsAppClick}
-          className="w-full py-4 rounded-full font-display text-xl uppercase tracking-wider text-[#E9E7DC] bg-[#B8223A] hover:bg-[#931B2E] transition-all flex items-center justify-center gap-3 shadow-md active:scale-95"
+          className="w-full py-4 rounded-full font-display text-xl uppercase tracking-wider text-[#E9E7DC] bg-[#B8223A] hover:bg-[#931B2E] transition-all flex items-center justify-center gap-2.5 shadow-md active:scale-95 font-bold"
         >
           <MessageCircle className="w-5 h-5 fill-[#E9E7DC]" />
           <span>{t.nav.whatsappBtn}</span>

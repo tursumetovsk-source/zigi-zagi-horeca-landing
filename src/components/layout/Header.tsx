@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -40,8 +40,8 @@ export const Header: React.FC = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#E9E7DC]/90 backdrop-blur-md border-b border-[#000000]/10 py-3 shadow-md'
-            : 'bg-transparent py-5 md:py-7'
+            ? 'bg-[#E9E7DC]/95 backdrop-blur-md border-b border-[#000000]/10 py-2.5 md:py-3.5 shadow-sm'
+            : 'bg-[#E9E7DC]/80 backdrop-blur-sm py-2.5 md:py-5 border-b border-[#000000]/5'
         }`}
       >
         <div className="max-w-[1294px] mx-auto px-4 md:px-8 flex items-center justify-between relative">
@@ -61,10 +61,10 @@ export const Header: React.FC = () => {
               ))}
             </nav>
 
-            {/* Mobile menu trigger */}
+            {/* Mobile menu trigger button */}
             <button
               onClick={() => setIsMobileOpen(true)}
-              className="md:hidden p-2 rounded-full border border-[#000000] text-[#000000]"
+              className="md:hidden p-2 rounded-full border border-[#000000] text-[#000000] hover:bg-[#000000] hover:text-[#E9E7DC] transition-colors"
               aria-label="Open menu"
             >
               <Menu className="w-5 h-5" />
@@ -77,20 +77,20 @@ export const Header: React.FC = () => {
             className="md:absolute md:left-1/2 md:-translate-x-1/2 flex flex-col items-center group"
           >
             <div className="flex items-baseline gap-1">
-              <span className="font-display text-3xl md:text-4xl text-[#000000] tracking-tight leading-none group-hover:text-[#B8223A] transition-colors">
+              <span className="font-display text-2xl sm:text-3xl md:text-4xl text-[#000000] tracking-wider leading-none group-hover:text-[#B8223A] transition-colors font-bold">
                 ZIGI ZAGI
               </span>
             </div>
-            <span className="text-[9px] uppercase tracking-[0.3em] font-black text-[#B8223A] leading-none">
+            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.3em] font-black text-[#B8223A] leading-none">
               HORECA
             </span>
           </a>
 
-          {/* Right: Language Switcher placed where WhatsApp button was */}
+          {/* Right: Language Switcher */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => setLanguage(language === 'ru' ? 'kz' : 'ru')}
-              className="w-10 h-10 rounded-full border border-[#000000] flex items-center justify-center font-bold text-xs text-[#000000] hover:bg-[#000000] hover:text-[#E9E7DC] transition-all duration-300 cursor-pointer shadow-sm"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#000000] flex items-center justify-center font-bold text-xs text-[#000000] hover:bg-[#000000] hover:text-[#E9E7DC] transition-all duration-300 cursor-pointer shadow-sm"
               title="Switch language"
             >
               {language.toUpperCase()}
