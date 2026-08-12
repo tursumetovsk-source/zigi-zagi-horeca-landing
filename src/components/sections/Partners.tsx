@@ -54,7 +54,7 @@ export const Partners: React.FC = () => {
     <section
       id="partners"
       ref={sectionRef}
-      className="relative w-full bg-[#B8233A] text-[#E9E7DC] py-24 px-4 md:px-8 overflow-hidden select-none"
+      className="relative w-full bg-[#B8233A] text-[#E9E7DC] py-20 sm:py-24 px-4 md:px-8 overflow-hidden select-none"
     >
       {/* Top Cream Organic SVG Wave transitioning seamlessly from Influencers section */}
       <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-none z-10 pointer-events-none text-[#E9E7DC]">
@@ -74,10 +74,10 @@ export const Partners: React.FC = () => {
           {language === 'ru' ? 'Нам доверяют заведения и сети' : 'Бізге мекемелер мен желілер сенеді'}
         </span>
 
-        {/* Pure Cream Condensed Display Headline "НАМ ДОВЕРЯЮТ" */}
+        {/* Pure Cream Responsive Display Headline "НАМ ДОВЕРЯЮТ" */}
         <h2
           ref={titleRef}
-          className="font-display text-[13vw] sm:text-[10vw] lg:text-[7.8rem] leading-[0.82] font-bold tracking-wider text-[#E9E7DC] uppercase mb-16 select-none"
+          className="font-display text-[10vw] sm:text-[8vw] md:text-[6vw] lg:text-[7.5rem] leading-[0.85] font-bold tracking-wider text-[#E9E7DC] uppercase mb-12 sm:mb-16 select-none"
         >
           {language === 'ru' ? 'НАМ ДОВЕРЯЮТ' : 'БІЗДІҢ СЕРІКТЕСТЕР'}
         </h2>

@@ -149,15 +149,15 @@ export const Influencers: React.FC = () => {
           {language === 'ru' ? 'Медиа и Блогеры' : 'Медиа және Блогерлер'}
         </span>
 
-        {/* Main Condensed Dark Headline */}
+        {/* Main Condensed Dark Headline (Responsive Adapted) */}
         <h2
           ref={titleRef}
-          className="font-display text-[12vw] sm:text-[9vw] lg:text-[7rem] leading-[0.82] font-bold tracking-wider text-[#071952] uppercase mb-10 select-none"
+          className="font-display text-[10vw] sm:text-[8vw] md:text-[6vw] lg:text-[6.8rem] leading-[0.85] font-bold tracking-wider text-[#071952] uppercase mb-8 sm:mb-10 select-none"
         >
           {language === 'ru' ? 'МЕДИА & ЗВЁЗДЫ' : 'МЕДИА ЖӘНЕ ЖҰЛДЫЗДАР'}
         </h2>
 
-        {/* Single Focused Card Showcase (Rotates 1-by-1 with Left/Right Arrows) */}
+        {/* Single Focused Card Showcase */}
         <div className="max-w-md sm:max-w-lg mx-auto relative min-h-[520px] flex items-center justify-center">
           <div ref={cardContainerRef} className="w-full">
             {currentCard.isStatCard ? (
@@ -267,7 +267,7 @@ export const Influencers: React.FC = () => {
           </div>
         </div>
 
-        {/* Carousel Navigation Arrow Controls (Rotate 1-by-1) */}
+        {/* Carousel Navigation Arrow Controls */}
         <div className="flex items-center justify-center gap-6 mt-8">
           <button
             onClick={handlePrev}

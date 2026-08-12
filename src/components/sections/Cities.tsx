@@ -83,23 +83,23 @@ export const Cities: React.FC = () => {
   return (
     <section
       id="cities"
-      className="relative w-full bg-[#E9E7DC] text-[#000000] py-20 px-4 md:px-8 overflow-hidden select-none border-t border-[#000000]/10"
+      className="relative w-full bg-[#E9E7DC] text-[#000000] py-16 sm:py-20 px-4 md:px-8 overflow-hidden select-none border-t border-[#000000]/10"
     >
       {/* Paper Grain Overlay */}
       <div className="absolute inset-0 bg-grain pointer-events-none opacity-40 z-0" />
 
       <div className="max-w-[1294px] mx-auto relative z-10">
-        {/* Compact Header matching site typography */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        {/* Compact Responsive Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 sm:mb-12">
           <div>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#B8223A] uppercase leading-[0.9] max-w-2xl font-medium tracking-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#B8223A] uppercase leading-[0.95] max-w-2xl font-bold tracking-wider">
               {language === 'ru'
                 ? 'Свяжитесь с представителем в вашем городе'
                 : 'Өз қалаңыздағы өкілмен байланысыңыз'}
             </h2>
           </div>
-          <div className="text-right">
-            <span className="font-body text-sm sm:text-base font-semibold text-[#000000]/70">
+          <div className="text-left md:text-right">
+            <span className="font-body text-xs sm:text-sm md:text-base font-semibold text-[#000000]/70">
               {language === 'ru' ? '20 городов по регионам' : 'Аймақтар бойынша 20 қала'}
             </span>
           </div>
@@ -111,7 +111,7 @@ export const Cities: React.FC = () => {
             <div
               key={card.id}
               onClick={() => handleRegionClick(card)}
-              className="group p-7 sm:p-8 rounded-[2.5rem] bg-[#B8223A] border-3 border-[#000000] shadow-[5px_5px_0px_#000000] hover:scale-103 hover:bg-[#931B2E] transition-all duration-300 flex flex-col justify-between min-h-[210px] cursor-pointer"
+              className="group p-6 sm:p-8 rounded-[2.5rem] bg-[#B8223A] border-3 border-[#000000] shadow-[5px_5px_0px_#000000] hover:scale-103 hover:bg-[#931B2E] transition-all duration-300 flex flex-col justify-between min-h-[200px] cursor-pointer"
             >
               {/* Top Row: Milky White Icon Container */}
               <div className="flex items-center justify-between mb-4">
@@ -122,7 +122,7 @@ export const Cities: React.FC = () => {
 
               {/* Middle Row: Milky White Title & Subtitle Cities */}
               <div>
-                <h3 className="font-display text-2xl sm:text-3xl text-[#E9E7DC] uppercase tracking-wide mb-1.5 drop-shadow-sm">
+                <h3 className="font-display text-2xl sm:text-3xl text-[#E9E7DC] uppercase tracking-wide mb-1.5 drop-shadow-sm font-bold">
                   {language === 'ru' ? card.titleRu : card.titleKz}
                 </h3>
                 <p className="font-body text-xs sm:text-sm font-semibold text-[#E9E7DC]/90 leading-relaxed">

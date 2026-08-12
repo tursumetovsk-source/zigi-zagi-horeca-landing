@@ -44,7 +44,6 @@ export const Cooperation: React.FC = () => {
         );
 
       // 2. Can Emergence Animation:
-      // First center can pops up, then left & right cans emerge from behind center!
       const canTl = gsap.timeline({
         scrollTrigger: {
           trigger: cansContainerRef.current,
@@ -129,10 +128,10 @@ export const Cooperation: React.FC = () => {
             {t.cooperation.subtitle}
           </span>
 
-          {/* Headline */}
+          {/* Responsive Headline */}
           <h2
             ref={titleRef}
-            className="font-display text-[9vw] sm:text-[6vw] lg:text-[3.6rem] xl:text-[4.4rem] leading-[0.88] font-bold tracking-wider text-[#071952] uppercase mb-6 select-none whitespace-nowrap"
+            className="font-display text-[8.5vw] sm:text-[6vw] lg:text-[3.6rem] xl:text-[4.2rem] leading-[0.88] font-bold tracking-wider text-[#071952] uppercase mb-6 select-none"
           >
             {language === 'ru' ? (
               <>
@@ -175,13 +174,13 @@ export const Cooperation: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Cans Emergence Showcase (Responsive WebP format) */}
+        {/* Right Cans Emergence Showcase */}
         <div
           ref={cansContainerRef}
           className="lg:col-span-6 relative w-full h-[360px] sm:h-[500px] lg:h-[680px] flex items-center justify-center lg:justify-end my-4 lg:my-0"
         >
           <div className="relative w-full h-full max-w-[560px] flex items-center justify-center">
-            {/* Left Emerging Can (Zigi Дюшес) */}
+            {/* Left Emerging Can */}
             <div
               ref={leftCanRef}
               className="absolute w-36 sm:w-72 md:w-80 lg:w-[340px] h-[260px] sm:h-[480px] lg:h-[580px] z-10 pointer-events-none filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.25)]"
@@ -195,7 +194,7 @@ export const Cooperation: React.FC = () => {
               />
             </div>
 
-            {/* Right Emerging Can (Zigi Чай) */}
+            {/* Right Emerging Can */}
             <div
               ref={rightCanRef}
               className="absolute w-36 sm:w-72 md:w-80 lg:w-[340px] h-[260px] sm:h-[480px] lg:h-[580px] z-10 pointer-events-none filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.25)]"
@@ -209,7 +208,7 @@ export const Cooperation: React.FC = () => {
               />
             </div>
 
-            {/* Center Front Main Can (Zigi Cola) */}
+            {/* Center Front Main Can */}
             <div
               ref={centerCanRef}
               className="absolute w-44 sm:w-80 md:w-[360px] lg:w-[420px] h-[320px] sm:h-[540px] lg:h-[660px] z-20 cursor-pointer filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.32)]"
