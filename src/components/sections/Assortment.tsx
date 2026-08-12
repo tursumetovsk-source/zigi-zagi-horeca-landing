@@ -279,8 +279,9 @@ export const Assortment: React.FC = () => {
           {language === 'ru' ? 'АССОРТИМЕНТ' : 'АССОРТИМЕНТ'}
         </h2>
 
-        {/* Category Tabs Filter Bar with Crisp Solid Styling */}
-        <div className="flex flex-wrap items-center gap-2.5 md:gap-4">
+        {/* Category Tabs & Packaging Formats Bar */}
+        <div className="flex flex-wrap items-center gap-2.5 md:gap-3.5">
+          {/* Category Filter Buttons */}
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -294,16 +295,25 @@ export const Assortment: React.FC = () => {
               {language === 'ru' ? cat.nameRu : cat.nameKz}
             </button>
           ))}
-        </div>
 
-        {/* Formats Info Badge */}
-        <div className="mt-5 inline-flex items-center gap-2 px-4.5 py-2.5 rounded-2xl bg-black/30 border border-[#E9E7DC]/40 text-[#E9E7DC] font-body text-xs sm:text-sm font-extrabold shadow-md backdrop-blur-sm">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#E9E7DC] flex-shrink-0 animate-pulse" />
-          <span>
-            {language === 'ru'
-              ? 'Форматы: банка, ПЭТ 0,5 / 1 / 1,5 л, бутылка 475 мл'
-              : 'Пішімдері: құты, ПЭТ 0,5 / 1 / 1,5 л, бөтелке 475 мл'}
-          </span>
+          {/* Visual Separator Divider */}
+          <div className="hidden sm:block w-px h-6 bg-[#E9E7DC]/40 mx-1" />
+
+          {/* Individual Packaging Format Pills */}
+          {[
+            { nameRu: 'Банка', nameKz: 'Құты' },
+            { nameRu: 'ПЭТ 0,5 л', nameKz: 'ПЭТ 0,5 л' },
+            { nameRu: 'ПЭТ 1 л', nameKz: 'ПЭТ 1 л' },
+            { nameRu: 'ПЭТ 1,5 л', nameKz: 'ПЭТ 1,5 л' },
+            { nameRu: 'Бутылка 475 мл', nameKz: 'Бөтелке 475 мл' },
+          ].map((fmt, idx) => (
+            <div
+              key={idx}
+              className="px-4 py-2 rounded-full bg-[#E9E7DC]/15 border border-[#E9E7DC]/50 text-[#E9E7DC] font-body text-xs font-extrabold shadow-sm whitespace-nowrap backdrop-blur-sm"
+            >
+              {language === 'ru' ? fmt.nameRu : fmt.nameKz}
+            </div>
+          ))}
         </div>
       </div>
 
