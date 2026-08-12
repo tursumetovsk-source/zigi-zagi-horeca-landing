@@ -295,6 +295,16 @@ export const Assortment: React.FC = () => {
             </button>
           ))}
         </div>
+
+        {/* Formats Info Badge */}
+        <div className="mt-5 inline-flex items-center gap-2 px-4.5 py-2.5 rounded-2xl bg-black/30 border border-[#E9E7DC]/40 text-[#E9E7DC] font-body text-xs sm:text-sm font-extrabold shadow-md backdrop-blur-sm">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#E9E7DC] flex-shrink-0 animate-pulse" />
+          <span>
+            {language === 'ru'
+              ? 'Форматы: банка, ПЭТ 0,5 / 1 / 1,5 л, бутылка 475 мл'
+              : 'Пішімдері: құты, ПЭТ 0,5 / 1 / 1,5 л, бөтелке 475 мл'}
+          </span>
+        </div>
       </div>
 
       {/* Main Content Area */}

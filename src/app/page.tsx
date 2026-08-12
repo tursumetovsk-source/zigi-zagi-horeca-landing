@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import { Preloader } from '@/components/animations/Preloader';
 import { Header } from '@/components/layout/Header';
 import { Hero } from '@/components/sections/Hero';
 import { Assortment } from '@/components/sections/Assortment';
@@ -19,9 +18,6 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen bg-[#050508] text-white selection:bg-emerald-500 selection:text-black">
-      {/* Brand Preloader */}
-      <Preloader />
-
       {/* Sticky Navigation Header */}
       <Header />
 
