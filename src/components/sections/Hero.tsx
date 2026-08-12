@@ -17,7 +17,7 @@ export const Hero: React.FC = () => {
   const productScrollRef = useRef<HTMLDivElement>(null);
   const productFloatRef = useRef<HTMLDivElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
-  const sideTextRef = useRef<HTMLDivElement>(null);
+  const topTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -27,10 +27,16 @@ export const Hero: React.FC = () => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.fromTo(
-        [titleLine1Ref.current, titleLine2Ref.current],
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.9, stagger: 0.1 }
+        topTextRef.current,
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 }
       )
+        .fromTo(
+          [titleLine1Ref.current, titleLine2Ref.current],
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, stagger: 0.1 },
+          '-=0.5'
+        )
         .fromTo(
           productScrollRef.current,
           { scale: 0.85, opacity: 0, y: 80 },
@@ -42,12 +48,6 @@ export const Hero: React.FC = () => {
           { scale: 0, rotate: -90 },
           { scale: 1, rotate: 0, duration: 0.7, ease: 'back.out(1.4)' },
           '-=0.6'
-        )
-        .fromTo(
-          sideTextRef.current,
-          { x: 30, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.7 },
-          '-=0.5'
         );
 
       // 2. Independent 60fps Continuous Levitating Floating Loop on Inner Container
@@ -63,7 +63,6 @@ export const Hero: React.FC = () => {
       }
 
       // 3. Scroll Effect: Cans rise UPWARDS & ZOOM IN CLOSE to the screen!
-      // Background text ZIGI ZAGI HORECA remains completely static (no sideways splitting).
       if (productScrollRef.current) {
         gsap.to(productScrollRef.current, {
           y: isMobile ? -140 : -220,
@@ -97,8 +96,15 @@ export const Hero: React.FC = () => {
 
       {/* Main Content Area */}
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 md:px-8 w-full flex-1 flex flex-col justify-between">
+        {/* Top Text Line: Above Cans (Pure Clean Typography, No Box) */}
+        <div ref={topTextRef} className="relative z-30 w-full max-w-3xl mx-auto text-center pt-2 sm:pt-4 pb-2">
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#000000] uppercase tracking-wider leading-tight select-none">
+            {t.hero.title}
+          </h1>
+        </div>
+
         {/* Center Stage: Huge Brand Typography & Levitating Products */}
-        <div className="relative flex-1 flex items-center justify-center min-h-[460px] sm:min-h-[520px] md:min-h-[640px] my-auto">
+        <div className="relative flex-1 flex items-center justify-center min-h-[420px] sm:min-h-[480px] md:min-h-[600px] my-auto">
           {/* Background Display Headline: ZIGI ZAGI HORECA (Static, no sideways animation) */}
           <div className="flex flex-col items-center justify-center text-center pointer-events-none z-10">
             <div
@@ -148,100 +154,21 @@ export const Hero: React.FC = () => {
               />
             </div>
           </div>
-
-          {/* Redesigned Desktop Right Text Block (Ultra-Premium Glass Card) */}
-          <div
-            ref={sideTextRef}
-            className="hidden md:flex flex-col gap-3.5 absolute -right-2 lg:-right-4 xl:right-0 top-1/3 -translate-y-1/2 z-30 max-w-[280px] lg:max-w-[330px] text-left font-body bg-[#E9E7DC]/92 backdrop-blur-xl p-5 sm:p-6 rounded-[2rem] border-l-4 border-l-[#B8223A] border border-[#000000]/10 shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:shadow-[0_25px_50px_rgba(184,34,58,0.18)] transition-all duration-300 group"
-          >
-            {/* Top Crimson Micro-Badge */}
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#B8223A] animate-pulse" />
-              <span className="font-body text-[10px] lg:text-xs font-black uppercase tracking-[0.2em] text-[#B8223A]">
-                {language === 'ru' ? 'Для ресторанов & кафе' : 'Ресторандар & кафелерге'}
-              </span>
-            </div>
-
-            {/* Main Title */}
-            <h2 className="font-display text-xl lg:text-2xl font-bold text-[#000000] leading-tight tracking-wide uppercase">
-              {t.hero.title}
-            </h2>
-
-            {/* Structured Drink Feature Bullet Pills */}
-            <div className="flex flex-wrap gap-1.5 py-0.5">
-              {[
-                { ru: '🥤 Лимонады', kz: '🥤 Лимонадтар' },
-                { ru: '🍵 Чай', kz: '🍵 Шай' },
-                { ru: '🍹 Мохито', kz: '🍹 Мохито' },
-                { ru: '💧 Вода', kz: '💧 Су' },
-              ].map((tag, idx) => (
-                <span
-                  key={idx}
-                  className="px-2.5 py-1 rounded-full bg-[#B8223A]/10 text-[#B8223A] font-body text-[11px] font-black tracking-wide"
-                >
-                  {language === 'ru' ? tag.ru : tag.kz}
-                </span>
-              ))}
-            </div>
-
-            {/* Subtitle Line */}
-            <p className="font-body text-xs lg:text-sm font-bold text-[#000000]/80 leading-relaxed border-t border-[#000000]/10 pt-2.5">
-              {language === 'ru'
-                ? 'Напитки, которые гости заказывают снова и снова ✨'
-                : 'Қонақтар қайта-қайта тапсырыс беретін сусындар ✨'}
-            </p>
-          </div>
         </div>
 
-        {/* Unified Prominent WhatsApp CTA Button & Mobile Text Container */}
-        <div className="relative z-30 w-full max-w-sm sm:max-w-md mx-auto text-center flex flex-col items-center justify-center mt-2 sm:mt-4 pb-2">
-          {/* Redesigned Mobile Description Text Card */}
-          <div className="md:hidden flex flex-col items-center mb-4 px-5 py-5 rounded-[2rem] bg-[#E9E7DC]/95 backdrop-blur-xl border-t-4 border-t-[#B8223A] border border-[#000000]/15 shadow-[0_15px_35px_rgba(0,0,0,0.15)] text-center w-full">
-            {/* Top Crimson Micro Badge */}
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#B8223A] animate-pulse" />
-              <span className="font-body text-xs font-black uppercase tracking-[0.2em] text-[#B8223A]">
-                {language === 'ru' ? 'Для ресторанов & кафе' : 'Ресторандар & кафелерге'}
-              </span>
-            </div>
-
-            {/* Title */}
-            <h2 className="font-display text-xl sm:text-2xl font-bold text-[#000000] text-center leading-snug tracking-wide uppercase">
-              {t.hero.title}
-            </h2>
-
-            {/* Structured Drink Feature Bullet Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-2 my-3">
-              {[
-                { ru: '🥤 Лимонады', kz: '🥤 Лимонадтар' },
-                { ru: '🍵 Чай', kz: '🍵 Шай' },
-                { ru: '🍹 Мохито', kz: '🍹 Мохито' },
-                { ru: '💧 Вода', kz: '💧 Су' },
-              ].map((tag, idx) => (
-                <span
-                  key={idx}
-                  className="px-3 py-1 rounded-full bg-[#B8223A]/10 text-[#B8223A] font-body text-xs font-black tracking-wide shadow-xs"
-                >
-                  {language === 'ru' ? tag.ru : tag.kz}
-                </span>
-              ))}
-            </div>
-
-            {/* Subtitle */}
-            <p className="font-body text-sm text-center font-bold text-[#000000]/80 leading-relaxed border-t border-[#000000]/10 pt-2.5 w-full">
-              {language === 'ru'
-                ? 'Напитки, которые гости заказывают снова и снова ✨'
-                : 'Қонақтар қайта-қайта тапсырыс беретін сусындар ✨'}
-            </p>
-          </div>
+        {/* Bottom Half of Text: Placed Right Above WhatsApp Button (Pure Clean Typography, No Box) */}
+        <div className="relative z-30 w-full max-w-xl mx-auto text-center flex flex-col items-center justify-center mt-2 sm:mt-4 pb-2">
+          <p className="font-body text-base sm:text-lg md:text-xl font-bold text-[#000000]/90 text-center leading-relaxed mb-4 max-w-lg">
+            {t.hero.subtitle}
+          </p>
 
           <button
             onClick={handleWhatsAppClick}
-            className="w-full sm:w-auto px-7 py-3.5 sm:py-4 rounded-full font-extrabold text-xs sm:text-xs uppercase tracking-wider text-[#E9E7DC] bg-[#B8223A] hover:bg-[#931B2E] transition-all flex items-center justify-center gap-3 shadow-lg hover:scale-105 active:scale-95 font-body"
+            className="w-full sm:w-auto px-8 py-4 rounded-full font-extrabold text-xs sm:text-xs uppercase tracking-wider text-[#E9E7DC] bg-[#B8223A] hover:bg-[#931B2E] transition-all flex items-center justify-center gap-3 shadow-lg hover:scale-105 active:scale-95 font-body cursor-pointer"
           >
-            <MessageCircle className="w-4 h-4 fill-[#E9E7DC]" />
+            <MessageCircle className="w-4.5 h-4.5 fill-[#E9E7DC]" />
             <span>{t.hero.whatsappBtn}</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4.5 h-4.5" />
           </button>
         </div>
       </div>
