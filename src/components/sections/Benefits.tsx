@@ -219,14 +219,9 @@ export const Benefits: React.FC = () => {
                   className="p-5 rounded-2xl bg-[#E9E7DC]/95 backdrop-blur-md border-3 border-[#B8223A] shadow-[5px_5px_0px_#B8223A] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
                   onClick={handleWhatsAppClick}
                 >
-                  <div className="flex items-center gap-3 mb-2.5">
-                    <div className="p-2.5 rounded-xl bg-[#E9E7DC] border-2 border-[#B8223A] group-hover:scale-110 transition-transform shrink-0">
-                      {icons[idx % icons.length]}
-                    </div>
-                    <h3 className="font-display text-lg sm:text-xl text-[#B8223A] uppercase leading-tight tracking-wide font-bold">
-                      {item.title}
-                    </h3>
-                  </div>
+                  <h3 className="font-display text-lg sm:text-xl text-[#B8223A] uppercase leading-tight tracking-wide font-bold mb-2">
+                    {item.title}
+                  </h3>
                   <p className="font-body text-xs sm:text-sm font-medium text-[#000000]/85 leading-relaxed">
                     {item.desc}
                   </p>
