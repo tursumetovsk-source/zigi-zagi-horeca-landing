@@ -62,11 +62,9 @@ export const Hero: React.FC = () => {
         });
       }
 
-      // 3. Scroll Effect: Cans rise UPWARDS & ZOOM IN CLOSE to the screen!
+      // 3. Scroll Effect: Cans rise UPWARDS & ZOOM IN, while ZIGI ZAGI and HORECA split apart left and right!
       if (productScrollRef.current) {
-        gsap.to(productScrollRef.current, {
-          y: isMobile ? -140 : -220,
-          scale: isMobile ? 1.25 : 1.36,
+        const scrollTl = gsap.timeline({
           scrollTrigger: {
             trigger: heroRef.current,
             start: 'top top',
@@ -74,6 +72,33 @@ export const Hero: React.FC = () => {
             scrub: 0.6,
           },
         });
+
+        scrollTl
+          .to(
+            productScrollRef.current,
+            {
+              y: isMobile ? -140 : -220,
+              scale: isMobile ? 1.25 : 1.36,
+              ease: 'none',
+            },
+            0
+          )
+          .to(
+            titleLine1Ref.current,
+            {
+              x: isMobile ? '-14vw' : '-10vw',
+              ease: 'none',
+            },
+            0
+          )
+          .to(
+            titleLine2Ref.current,
+            {
+              x: isMobile ? '14vw' : '10vw',
+              ease: 'none',
+            },
+            0
+          );
       }
     }, heroRef);
 
