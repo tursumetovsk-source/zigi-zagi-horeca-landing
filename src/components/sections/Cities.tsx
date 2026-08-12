@@ -16,13 +16,13 @@ interface RegionalCard {
 }
 
 export const Cities: React.FC = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
 
   const regionalCards: RegionalCard[] = [
     {
       id: 'almaty',
       titleRu: 'Алматы',
-      titleKz: 'Алматы',
+      titleKz: 'Алматы және облыс',
       citiesRu: 'Алматы · Конаев · Талдыкорган',
       citiesKz: 'Алматы · Қонаев · Талдықорған',
       regionKey: 'almaty',
@@ -95,7 +95,7 @@ export const Cities: React.FC = () => {
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#B8223A] uppercase leading-[0.95] max-w-2xl font-bold tracking-wider">
               {language === 'ru'
                 ? 'Свяжитесь с представителем в вашем городе'
-                : 'Өз қалаңыздағы өкілмен байланысыңыз'}
+                : 'Өз қалаңыздағы өкілмен хабарласыңыз'}
             </h2>
           </div>
           <div className="text-left md:text-right">
@@ -136,6 +136,22 @@ export const Cities: React.FC = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom Callout: "Қалаңыз жоқ па? Бізге жазыңыз" */}
+        <div className="mt-12 text-center flex flex-col items-center justify-center">
+          <p className="font-body text-sm sm:text-base font-bold text-[#000000]/85 mb-3">
+            {language === 'ru' ? 'Вашего города нет в списке? Напишите нам!' : 'Қалаңыз жоқ па? Бізге жазыңыз!'}
+          </p>
+          <button
+            onClick={() => {
+              trackWhatsAppClick({ source: 'cities_no_city', language });
+              window.open(createWhatsAppLink({ language, source: 'cities_no_city' }), '_blank');
+            }}
+            className="px-8 py-3.5 rounded-full bg-[#B8223A] text-[#E9E7DC] hover:bg-[#931B2E] font-display text-lg uppercase tracking-wider font-bold transition-all shadow-md active:scale-95 cursor-pointer"
+          >
+            {language === 'ru' ? 'Связаться с менеджером' : 'Бізге жазыңыз'}
+          </button>
         </div>
       </div>
     </section>
