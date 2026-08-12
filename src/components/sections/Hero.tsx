@@ -14,104 +14,62 @@ export const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const titleLine1Ref = useRef<HTMLDivElement>(null);
   const titleLine2Ref = useRef<HTMLDivElement>(null);
-  const productRef = useRef<HTMLDivElement>(null);
+  const productScrollRef = useRef<HTMLDivElement>(null);
+  const productFloatRef = useRef<HTMLDivElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
   const sideTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth < 768;
-
-      // 1. Entrance Animation (Desktop & Mobile)
+      // 1. Entrance Animation
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.fromTo(
         [titleLine1Ref.current, titleLine2Ref.current],
-        { y: 60, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, stagger: 0.12 }
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, stagger: 0.1 }
       )
         .fromTo(
-          productRef.current,
-          { y: 120, scale: 0.82, rotate: -6, opacity: 0 },
-          {
-            y: isMobile ? 30 : 0,
-            scale: 1,
-            rotate: 0,
-            opacity: 1,
-            duration: 1.2,
-            ease: 'back.out(1.4)',
-            onComplete: () => {
-              // Continuous sine levitating loop
-              gsap.to(productRef.current, {
-                y: isMobile ? 18 : -12,
-                rotate: 1.5,
-                duration: 3.5,
-                repeat: -1,
-                yoyo: true,
-                ease: 'sine.inOut',
-              });
-            },
-          },
-          '-=0.8'
+          productScrollRef.current,
+          { scale: 0.85, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 1, ease: 'back.out(1.4)' },
+          '-=0.6'
         )
         .fromTo(
           badgeRef.current,
           { scale: 0, rotate: -90 },
-          { scale: 1, rotate: 0, duration: 0.8, ease: 'back.out(1.5)' },
-          '-=0.8'
+          { scale: 1, rotate: 0, duration: 0.7, ease: 'back.out(1.4)' },
+          '-=0.6'
         )
         .fromTo(
           sideTextRef.current,
-          { x: 40, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.8 },
-          '-=0.6'
+          { x: 30, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.7 },
+          '-=0.5'
         );
 
-      // 2. Scroll Animations
-      if (!isMobile) {
-        // Desktop Pinned Scene
-        const scrollTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: '+=110%',
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1,
-          },
+      // 2. Independent 60fps Continuous Levitating Floating Loop on Inner Container
+      if (productFloatRef.current) {
+        gsap.to(productFloatRef.current, {
+          y: 12,
+          rotate: 1.5,
+          duration: 3.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
         });
+      }
 
-        scrollTl
-          .to(
-            productRef.current,
-            { scale: 1.12, y: -40, rotate: 3, ease: 'none' },
-            0
-          )
-          .to(
-            titleLine1Ref.current,
-            { x: '-8vw', ease: 'none' },
-            0
-          )
-          .to(
-            titleLine2Ref.current,
-            { x: '8vw', ease: 'none' },
-            0
-          )
-          .to(
-            badgeRef.current,
-            { rotate: 180, ease: 'none' },
-            0
-          );
-      } else {
-        // Mobile: Cans start lower and rise UPWARDS gracefully as user scrolls down!
-        gsap.to(productRef.current, {
-          y: -120,
-          scale: 1.08,
+      // 3. Smooth Non-Pinning Scroll Parallax on Outer Container (Zero Collision)
+      if (productScrollRef.current) {
+        gsap.to(productScrollRef.current, {
+          y: -60,
+          scale: 1.04,
           scrollTrigger: {
             trigger: heroRef.current,
             start: 'top top',
             end: 'bottom top',
-            scrub: 0.8,
+            scrub: 0.5,
           },
         });
       }
@@ -154,19 +112,21 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Central Hero Product Cans (Enlarged + Rises Upward on Scroll) */}
+          {/* Central Hero Product Cans: Outer Scroll Wrapper + Inner Levitating Container */}
           <div
-            ref={productRef}
+            ref={productScrollRef}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 sm:w-80 md:w-[480px] h-[350px] sm:h-[400px] md:h-[560px] z-20 cursor-pointer pointer-events-auto filter drop-shadow-[0_30px_60px_rgba(184,34,58,0.25)]"
             onClick={handleWhatsAppClick}
           >
-            <ProductImage
-              src="/assets/products/zigi-hero-custom.webp"
-              alt="Zigi Zagi Custom Product"
-              fallbackSvgType="pear"
-              accentColor="#B8223A"
-              priority
-            />
+            <div ref={productFloatRef} className="w-full h-full">
+              <ProductImage
+                src="/assets/products/zigi-hero-custom.webp"
+                alt="Zigi Zagi Custom Product"
+                fallbackSvgType="pear"
+                accentColor="#B8223A"
+                priority
+              />
+            </div>
           </div>
 
           {/* Left Floating Quality Badge */}
