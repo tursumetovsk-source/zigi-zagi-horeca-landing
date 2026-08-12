@@ -33,20 +33,20 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Аңызға айналған карамель-дәмдеуіш дәмі',
     bgHex: '#B8223A',
     buttonTextHex: '#B8223A',
-    image: '/assets/products/assortment/item-01-cola.webp',
+    image: '/assets/products/assortment/item-cola.webp',
   },
 
-  // ЛИМОНАДЫ
+  // ЛИМОНАДЫ (LEMONADE)
   {
     id: 'pear',
     categoryId: 'lemonade',
     nameRu: 'ZIGI ДЮШЕС',
-    nameKz: 'ZIGI ДЮШЕС',
+    nameKz: 'ZIGI ДЮШЕС (АЛМҰРТ)',
     subtitleRu: 'Ароматная сочная десертная груша',
     subtitleKz: 'Хош иісті шырынды десерт алмұрты',
     bgHex: '#876d0e',
     buttonTextHex: '#876d0e',
-    image: '/assets/products/assortment/item-03-pear.webp',
+    image: '/assets/products/assortment/item-pear.webp',
   },
   {
     id: 'tarkhun',
@@ -57,7 +57,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Эстрагонның дәмдеуіш сергектігі',
     bgHex: '#0d4e27',
     buttonTextHex: '#0d4e27',
-    image: '/assets/products/assortment/item-05-tarkhun.webp',
+    image: '/assets/products/assortment/item-tarkhun.webp',
   },
   {
     id: 'apple',
@@ -68,7 +68,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Піскен бақша алмасының жарқын қышқылдығы',
     bgHex: '#254b0b',
     buttonTextHex: '#254b0b',
-    image: '/assets/products/assortment/item-11-apple.webp',
+    image: '/assets/products/assortment/item-apple.webp',
   },
   {
     id: 'pomegranate',
@@ -76,46 +76,13 @@ const allProducts: ProductSlide[] = [
     nameRu: 'ZIGI ГРАНАТ',
     nameKz: 'ZIGI АНАР',
     subtitleRu: 'Благородный сок с изысканной кислинкой',
-    subtitleKz: 'Нәзік қышқылдығы бар гранат шырыны',
+    subtitleKz: 'Нәзік қышқылдығы бар анар шырыны',
     bgHex: '#520726',
     buttonTextHex: '#520726',
-    image: '/assets/products/assortment/item-09-pomegranate.webp',
-  },
-  {
-    id: 'cherry',
-    categoryId: 'lemonade',
-    nameRu: 'ZIGI БАРБАРИС & ВИШНЯ',
-    nameKz: 'ZIGI БАРБАРИС & ШИЕ',
-    subtitleRu: 'Насыщенный спелый вишневый дуэт',
-    subtitleKz: 'Қанық піскен шие дуэті',
-    bgHex: '#7d0713',
-    buttonTextHex: '#7d0713',
-    image: '/assets/products/assortment/item-08-cherry.webp',
-  },
-  {
-    id: 'strawberry-lemonade',
-    categoryId: 'lemonade',
-    nameRu: 'ZIGI КЛУБНИЧНЫЙ ЛИМОНАД',
-    nameKz: 'ZIGI ҚҰЛПЫНАЙ ЛИМОНАДЫ',
-    subtitleRu: 'Сладкая садовая клубника в пузырьках',
-    subtitleKz: 'Көпіршіктегі тәтті бақша құлпынайы',
-    bgHex: '#8d092e',
-    buttonTextHex: '#8d092e',
-    image: '/assets/products/assortment/item-12-strawberry-lemonade.webp',
-  },
-  {
-    id: 'tarkhun-special',
-    categoryId: 'lemonade',
-    nameRu: 'ZIGI ТАРХУН PREMIUM',
-    nameKz: 'ZIGI ТАРХУН PREMIUM',
-    subtitleRu: 'Экстракт высокогорного эстрагона',
-    subtitleKz: 'Биік таулы эстрагон сығындысы',
-    bgHex: '#08381b',
-    buttonTextHex: '#08381b',
-    image: '/assets/products/assortment/item-14-tarkhun-special.webp',
+    image: '/assets/products/assortment/item-pomegranate.webp',
   },
 
-  // МОХИТО
+  // МОХИТО (MOJITO)
   {
     id: 'mojito-kiwi',
     categoryId: 'mojito',
@@ -125,18 +92,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Мұзды лайм мен піскен кубалық киви',
     bgHex: '#2d6a4f',
     buttonTextHex: '#2d6a4f',
-    image: '/assets/products/assortment/item-13-mojito-kiwi.webp',
-  },
-  {
-    id: 'mojito-lime',
-    categoryId: 'mojito',
-    nameRu: 'ZIGI МОХИТО ЛАЙМ',
-    nameKz: 'ZIGI МОХИТО ЛАЙМ',
-    subtitleRu: 'Ледяной лайм и свежая перечная мята',
-    subtitleKz: 'Мұзды лайм мен жаңа бұрышты жалбыз',
-    bgHex: '#053e37',
-    buttonTextHex: '#053e37',
-    image: '/assets/products/assortment/item-07-mojito-lime.webp',
+    image: '/assets/products/assortment/item-mojito-kiwi.webp',
   },
   {
     id: 'mojito-strawberry',
@@ -147,20 +103,31 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Жалбыз бен лайм салқындығы бар құлпынай',
     bgHex: '#6e0932',
     buttonTextHex: '#6e0932',
-    image: '/assets/products/assortment/item-06-mojito-strawberry.webp',
+    image: '/assets/products/assortment/item-mojito-strawberry.webp',
   },
 
-  // ЧАЙ
+  // ЧАЙ (TEA)
   {
-    id: 'tea-mango',
+    id: 'tea-mango-chamomile',
     categoryId: 'tea',
-    nameRu: 'ZIGI ЧАЙ МАНГО',
-    nameKz: 'ZIGI ШАЙ МАНГО',
-    subtitleRu: 'Холодный чай со спелым тропическим манго',
-    subtitleKz: 'Піскен тропиктік манго бар салқын шай',
+    nameRu: 'ZIGI ЧАЙ МАНГО-РОМАШКА',
+    nameKz: 'ZIGI ШАЙ МАНГО-ТҮЙМЕДАҚ',
+    subtitleRu: 'Тропическое манго с нежной аптечной ромашкой',
+    subtitleKz: 'Нәзік түймедақ пен тропиктік манго бар шай',
     bgHex: '#b05f15',
     buttonTextHex: '#b05f15',
-    image: '/assets/products/assortment/item-02-tea-mango.webp',
+    image: '/assets/products/assortment/item-tea-mango-chamomile.webp',
+  },
+  {
+    id: 'tea-mango-pineapple',
+    categoryId: 'tea',
+    nameRu: 'ZIGI ЧАЙ МАНГО-АНАНАС',
+    nameKz: 'ZIGI ШАЙ МАНГО-АНАНАС',
+    subtitleRu: 'Сочный экзотический дуэт манго и ананаса',
+    subtitleKz: 'Манго мен ананастың шырынды экзотикалық дуэті',
+    bgHex: '#d47a19',
+    buttonTextHex: '#d47a19',
+    image: '/assets/products/assortment/item-tea-mango-pineapple.webp',
   },
   {
     id: 'tea-peach',
@@ -171,10 +138,21 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Оңтүстік шабдалы хош иісті барқыт шай',
     bgHex: '#522404',
     buttonTextHex: '#522404',
-    image: '/assets/products/assortment/item-10-tea-peach.webp',
+    image: '/assets/products/assortment/item-tea-peach.webp',
+  },
+  {
+    id: 'tea-strawberry',
+    categoryId: 'tea',
+    nameRu: 'ZIGI ЧАЙ КЛУБНИКА',
+    nameKz: 'ZIGI ШАЙ ҚҰЛПЫНАЙ',
+    subtitleRu: 'Ароматный холодный чай с спелой клубникой',
+    subtitleKz: 'Піскен құлпынай хош иісті салқын шай',
+    bgHex: '#8d092e',
+    buttonTextHex: '#8d092e',
+    image: '/assets/products/assortment/item-tea-strawberry.webp',
   },
 
-  // ВОДА
+  // ВОДА (WATER)
   {
     id: 'water',
     categoryId: 'water',
@@ -184,7 +162,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Табиғи таулық артезиандық ауыз суы',
     bgHex: '#0a547a',
     buttonTextHex: '#0a547a',
-    image: '/assets/products/assortment/item-04-water.webp',
+    image: '/assets/products/assortment/item-water.webp',
   },
 ];
 
@@ -275,6 +253,13 @@ export const Assortment: React.FC = () => {
         >
           <path d="M0,0 L1440,0 L1440,30 C1200,105 900,10 600,85 C300,140 120,20 0,65 Z" />
         </svg>
+      </div>
+
+      {/* Hidden Preloader for all 12 WebP product bottles */}
+      <div className="hidden" aria-hidden="true">
+        {allProducts.map((p) => (
+          <Image key={p.id} src={p.image} alt="Preload" width={460} height={580} priority />
+        ))}
       </div>
 
       {/* Paper Grain Overlay */}

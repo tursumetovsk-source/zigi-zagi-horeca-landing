@@ -186,7 +186,7 @@ export const Cooperation: React.FC = () => {
               className="absolute w-36 sm:w-72 md:w-80 lg:w-[340px] h-[260px] sm:h-[480px] lg:h-[580px] z-10 pointer-events-none filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.25)]"
             >
               <Image
-                src="/assets/products/assortment/item-03-pear.webp"
+                src="/assets/products/assortment/item-pear.webp"
                 alt="Zigi Pear Can"
                 fill
                 sizes="(max-width: 640px) 150px, 340px"
@@ -200,7 +200,7 @@ export const Cooperation: React.FC = () => {
               className="absolute w-36 sm:w-72 md:w-80 lg:w-[340px] h-[260px] sm:h-[480px] lg:h-[580px] z-10 pointer-events-none filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.25)]"
             >
               <Image
-                src="/assets/products/assortment/item-02-tea-mango.webp"
+                src="/assets/products/assortment/item-tea-mango-pineapple.webp"
                 alt="Zigi Tea Can"
                 fill
                 sizes="(max-width: 640px) 150px, 340px"
@@ -215,7 +215,7 @@ export const Cooperation: React.FC = () => {
               onClick={handleWhatsAppClick}
             >
               <Image
-                src="/assets/products/assortment/item-01-cola.webp"
+                src="/assets/products/assortment/item-cola.webp"
                 alt="Zigi Cola Main Can"
                 fill
                 sizes="(max-width: 640px) 180px, 420px"

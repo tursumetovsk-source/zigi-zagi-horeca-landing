@@ -151,7 +151,7 @@ export const Benefits: React.FC = () => {
         >
           <div ref={canFloatRef} className="can-float w-full h-full relative will-change-transform">
             <Image
-              src="/assets/products/assortment/item-03-pear.webp"
+              src="/assets/products/assortment/item-pear.webp"
               alt="Zigi Pear Can Floating in Clouds"
               fill
               sizes="(max-width: 768px) 350px, 420px"

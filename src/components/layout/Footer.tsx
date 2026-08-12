@@ -64,7 +64,7 @@ export const Footer: React.FC = () => {
         className="absolute top-0 right-12 md:right-32 w-48 md:w-64 h-[300px] pointer-events-none z-0 filter blur-xs"
       >
         <Image
-          src="/assets/products/assortment/item-01-cola.webp"
+          src="/assets/products/assortment/item-cola.webp"
           alt="Zigi Can Dissolving"
           fill
           sizes="256px"
