@@ -111,7 +111,7 @@ export const Hero: React.FC = () => {
             trigger: heroRef.current,
             start: 'top top',
             end: 'bottom top',
-            scrub: 0.6,
+            scrub: 0.8,
           },
         });
       }
@@ -121,33 +121,37 @@ export const Hero: React.FC = () => {
   }, []);
 
   const handleWhatsAppClick = () => {
-    trackWhatsAppClick({ source: 'hero_whatsapp', language });
-    window.open(createWhatsAppLink({ language, source: 'hero_whatsapp' }), '_blank');
+    trackWhatsAppClick({ source: 'hero_cta', language });
+    window.open(createWhatsAppLink({ language, source: 'hero_cta' }), '_blank');
   };
 
   return (
     <section
       ref={heroRef}
-      className="relative w-full min-h-[100svh] bg-[#E9E7DC] text-[#000000] flex flex-col justify-between pt-20 sm:pt-24 pb-6 px-4 md:px-8 overflow-hidden select-none"
+      id="hero"
+      className="relative min-h-[100svh] w-full bg-[#E9E7DC] text-[#000000] overflow-hidden flex flex-col justify-between pt-20 md:pt-24 pb-8 select-none"
     >
-      {/* Paper Grain Overlay */}
-      <div className="absolute inset-0 bg-grain pointer-events-none opacity-60 z-0" />
+      {/* Paper Grain Texture Overlay */}
+      <div className="absolute inset-0 bg-grain pointer-events-none opacity-40 z-0" />
 
-      {/* Main Container */}
-      <div className="relative z-10 max-w-[1340px] mx-auto w-full flex-1 flex flex-col justify-between items-center">
-        {/* Giant 2-Line Condensed Title (Enlarged for Mobile) */}
-        <div className="w-full flex flex-col items-center justify-center my-auto relative text-center">
-          <div
-            ref={titleLine1Ref}
-            className="font-display text-[22vw] sm:text-[20vw] md:text-[19vw] leading-[0.82] font-bold tracking-wider text-[#B8223A] uppercase select-none drop-shadow-sm"
-          >
-            ZIGI ZAGI
-          </div>
-          <div
-            ref={titleLine2Ref}
-            className="font-display text-[22vw] sm:text-[20vw] md:text-[19vw] leading-[0.82] font-bold tracking-wider text-[#B8223A] uppercase select-none drop-shadow-sm"
-          >
-            HORECA
+      {/* Main Content Area */}
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 md:px-8 w-full flex-1 flex flex-col justify-between">
+        {/* Center Stage: Huge Brand Typography & Levitating Products */}
+        <div className="relative flex-1 flex items-center justify-center min-h-[460px] sm:min-h-[520px] md:min-h-[640px] my-auto">
+          {/* Background Display Headline: ZIGI ZAGI HORECA */}
+          <div className="flex flex-col items-center justify-center text-center pointer-events-none z-10">
+            <div
+              ref={titleLine1Ref}
+              className="font-display text-[22vw] sm:text-[20vw] md:text-[19vw] leading-[0.82] font-bold tracking-wider text-[#B8223A] uppercase select-none drop-shadow-sm"
+            >
+              ZIGI ZAGI
+            </div>
+            <div
+              ref={titleLine2Ref}
+              className="font-display text-[22vw] sm:text-[20vw] md:text-[19vw] leading-[0.82] font-bold tracking-wider text-[#B8223A] uppercase select-none drop-shadow-sm"
+            >
+              HORECA
+            </div>
           </div>
 
           {/* Central Hero Product Cans (Enlarged + Rises Upward on Scroll) */}
@@ -165,7 +169,7 @@ export const Hero: React.FC = () => {
             />
           </div>
 
-          {/* Left Floating Badge */}
+          {/* Left Floating Quality Badge */}
           <div
             ref={badgeRef}
             className="hidden lg:flex absolute left-0 xl:left-2 top-1/3 -translate-y-1/2 z-30 w-44 h-44 xl:w-52 xl:h-52 items-center justify-center group cursor-pointer"
@@ -182,29 +186,89 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Desktop Right Text Block */}
+          {/* Redesigned Desktop Right Text Block (Ultra-Premium Glass Card) */}
           <div
             ref={sideTextRef}
-            className="hidden md:flex flex-col gap-3 absolute -right-2 lg:-right-4 xl:right-0 top-1/3 -translate-y-1/2 z-30 max-w-[260px] lg:max-w-[310px] text-left font-body bg-[#E9E7DC]/95 backdrop-blur-md p-5 rounded-2xl border-2 border-black/15 shadow-md"
+            className="hidden md:flex flex-col gap-3.5 absolute -right-2 lg:-right-4 xl:right-0 top-1/3 -translate-y-1/2 z-30 max-w-[280px] lg:max-w-[330px] text-left font-body bg-[#E9E7DC]/92 backdrop-blur-xl p-5 sm:p-6 rounded-[2rem] border-l-4 border-l-[#B8223A] border border-[#000000]/10 shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:shadow-[0_25px_50px_rgba(184,34,58,0.18)] transition-all duration-300 group"
           >
-            <h2 className="font-body text-lg lg:text-xl font-black text-[#000000] leading-snug tracking-tight">
+            {/* Top Crimson Micro-Badge */}
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#B8223A] animate-pulse" />
+              <span className="font-body text-[10px] lg:text-xs font-black uppercase tracking-[0.2em] text-[#B8223A]">
+                {language === 'ru' ? 'Для ресторанов & кафе' : 'Ресторандар & кафелерге'}
+              </span>
+            </div>
+
+            {/* Main Title */}
+            <h2 className="font-display text-xl lg:text-2xl font-bold text-[#000000] leading-tight tracking-wide uppercase">
               {t.hero.title}
             </h2>
-            <p className="font-body text-sm lg:text-base font-bold text-[#000000]/90 leading-relaxed">
-              {t.hero.subtitle}
+
+            {/* Structured Drink Feature Bullet Pills */}
+            <div className="flex flex-wrap gap-1.5 py-0.5">
+              {[
+                { ru: '🥤 Лимонады', kz: '🥤 Лимонадтар' },
+                { ru: '🍵 Чай', kz: '🍵 Шай' },
+                { ru: '🍹 Мохито', kz: '🍹 Мохито' },
+                { ru: '💧 Вода', kz: '💧 Су' },
+              ].map((tag, idx) => (
+                <span
+                  key={idx}
+                  className="px-2.5 py-1 rounded-full bg-[#B8223A]/10 text-[#B8223A] font-body text-[11px] font-black tracking-wide"
+                >
+                  {language === 'ru' ? tag.ru : tag.kz}
+                </span>
+              ))}
+            </div>
+
+            {/* Subtitle Line */}
+            <p className="font-body text-xs lg:text-sm font-bold text-[#000000]/80 leading-relaxed border-t border-[#000000]/10 pt-2.5">
+              {language === 'ru'
+                ? 'Напитки, которые гости заказывают снова и снова ✨'
+                : 'Қонақтар қайта-қайта тапсырыс беретін сусындар ✨'}
             </p>
           </div>
         </div>
 
         {/* Unified Prominent WhatsApp CTA Button & Mobile Text Container */}
         <div className="relative z-30 w-full max-w-sm sm:max-w-md mx-auto text-center flex flex-col items-center justify-center mt-2 sm:mt-4 pb-2">
-          {/* Mobile Description Text Block - Extra Enlarged & Ultra-readable */}
-          <div className="md:hidden flex flex-col items-center mb-3.5 px-4 py-4 rounded-2xl bg-[#E9E7DC]/98 backdrop-blur-md border-2 border-[#000000]/20 shadow-md text-center w-full">
-            <h2 className="font-display text-xl sm:text-2xl font-black text-[#000000] text-center leading-snug tracking-wide uppercase">
+          {/* Redesigned Mobile Description Text Card */}
+          <div className="md:hidden flex flex-col items-center mb-4 px-5 py-5 rounded-[2rem] bg-[#E9E7DC]/95 backdrop-blur-xl border-t-4 border-t-[#B8223A] border border-[#000000]/15 shadow-[0_15px_35px_rgba(0,0,0,0.15)] text-center w-full">
+            {/* Top Crimson Micro Badge */}
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full bg-[#B8223A] animate-pulse" />
+              <span className="font-body text-xs font-black uppercase tracking-[0.2em] text-[#B8223A]">
+                {language === 'ru' ? 'Для ресторанов & кафе' : 'Ресторандар & кафелерге'}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h2 className="font-display text-xl sm:text-2xl font-bold text-[#000000] text-center leading-snug tracking-wide uppercase">
               {t.hero.title}
             </h2>
-            <p className="font-body text-base sm:text-lg text-center font-bold text-[#000000]/95 leading-relaxed mt-2">
-              {t.hero.subtitle}
+
+            {/* Structured Drink Feature Bullet Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-2 my-3">
+              {[
+                { ru: '🥤 Лимонады', kz: '🥤 Лимонадтар' },
+                { ru: '🍵 Чай', kz: '🍵 Шай' },
+                { ru: '🍹 Мохито', kz: '🍹 Мохито' },
+                { ru: '💧 Вода', kz: '💧 Су' },
+              ].map((tag, idx) => (
+                <span
+                  key={idx}
+                  className="px-3 py-1 rounded-full bg-[#B8223A]/10 text-[#B8223A] font-body text-xs font-black tracking-wide shadow-xs"
+                >
+                  {language === 'ru' ? tag.ru : tag.kz}
+                </span>
+              ))}
+            </div>
+
+            {/* Subtitle */}
+            <p className="font-body text-sm text-center font-bold text-[#000000]/80 leading-relaxed border-t border-[#000000]/10 pt-2.5 w-full">
+              {language === 'ru'
+                ? 'Напитки, которые гости заказывают снова и снова ✨'
+                : 'Қонақтар қайта-қайта тапсырыс беретін сусындар ✨'}
             </p>
           </div>
 
