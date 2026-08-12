@@ -127,6 +127,23 @@ export const Hero: React.FC = () => {
       {/* Paper Grain Texture Overlay */}
       <div className="absolute inset-0 bg-grain pointer-events-none opacity-40 z-0" />
 
+      {/* Top Right Floating Quality Badge (High up in open top-right cream space, rotates 360deg on Scroll) */}
+      <div
+        ref={badgeRef}
+        className="hidden lg:flex absolute right-6 lg:right-12 xl:right-16 top-24 lg:top-28 z-30 w-36 h-36 xl:w-44 xl:h-44 items-center justify-center group cursor-pointer"
+        onClick={handleWhatsAppClick}
+      >
+        <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-500">
+          <Image
+            src="/assets/trust/badge-custom.png"
+            alt="Zigi Quality Badge"
+            fill
+            sizes="176px"
+            className="object-contain"
+          />
+        </div>
+      </div>
+
       {/* Main Content Area */}
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 md:px-8 w-full flex-1 flex flex-col justify-between">
         {/* Top Text Line: Above Cans (Pure Clean Typography, No Box) */}
@@ -171,22 +188,6 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Top Right Floating Quality Badge (Higher up in clear space, rotates 360deg on Scroll) */}
-          <div
-            ref={badgeRef}
-            className="hidden lg:flex absolute right-4 xl:right-10 top-4 xl:top-6 z-30 w-40 h-40 xl:w-48 xl:h-48 items-center justify-center group cursor-pointer"
-            onClick={handleWhatsAppClick}
-          >
-            <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-500">
-              <Image
-                src="/assets/trust/badge-custom.png"
-                alt="Zigi Quality Badge"
-                fill
-                sizes="208px"
-                className="object-contain"
-              />
-            </div>
-          </div>
         </div>
 
         {/* Bottom Half of Text: Placed Right Above WhatsApp Button (Pure Clean Typography, No Box) */}
