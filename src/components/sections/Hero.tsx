@@ -20,18 +20,38 @@ export const Hero: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Entrance Animation
+      const isMobile = window.innerWidth < 768;
+
+      // 1. Entrance Animation (Desktop & Mobile)
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.fromTo(
         [titleLine1Ref.current, titleLine2Ref.current],
-        { y: 80, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.1, stagger: 0.12 }
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: 0.12 }
       )
         .fromTo(
           productRef.current,
-          { y: 100, scale: 0.8, rotate: -6 },
-          { y: 0, scale: 1, rotate: 0, duration: 1.2, ease: 'back.out(1.3)' },
+          { y: 80, scale: 0.8, rotate: -6, opacity: 0 },
+          {
+            y: 0,
+            scale: 1,
+            rotate: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: 'back.out(1.4)',
+            onComplete: () => {
+              // Continuous sine floating levitation loop on mobile & desktop!
+              gsap.to(productRef.current, {
+                y: 12,
+                rotate: 1.5,
+                duration: 3.5,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+              });
+            },
+          },
           '-=0.8'
         )
         .fromTo(
@@ -47,9 +67,9 @@ export const Hero: React.FC = () => {
           '-=0.6'
         );
 
-      // 2. ScrollTrigger Pinned Scene
-      const isMobile = window.innerWidth < 768;
+      // 2. Scroll Animations
       if (!isMobile) {
+        // Desktop Pinned Scene
         const scrollTl = gsap.timeline({
           scrollTrigger: {
             trigger: heroRef.current,
@@ -82,6 +102,18 @@ export const Hero: React.FC = () => {
             { rotate: 180, ease: 'none' },
             0
           );
+      } else {
+        // Mobile Parallax on Scroll (without locking screen scroll)
+        gsap.to(productRef.current, {
+          y: -25,
+          scale: 1.05,
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.8,
+          },
+        });
       }
     }, heroRef);
 
@@ -107,18 +139,18 @@ export const Hero: React.FC = () => {
         <div className="w-full flex flex-col items-center justify-center my-auto relative text-center">
           <div
             ref={titleLine1Ref}
-            className="font-display text-[18vw] sm:text-[20vw] md:text-[19vw] leading-[0.82] font-medium tracking-tight text-[#B8223A] uppercase select-none drop-shadow-sm"
+            className="font-display text-[18vw] sm:text-[20vw] md:text-[19vw] leading-[0.82] font-bold tracking-wider text-[#B8223A] uppercase select-none drop-shadow-sm"
           >
             ZIGI ZAGI
           </div>
           <div
             ref={titleLine2Ref}
-            className="font-display text-[18vw] sm:text-[20vw] md:text-[19vw] leading-[0.82] font-medium tracking-tight text-[#B8223A] uppercase select-none drop-shadow-sm"
+            className="font-display text-[18vw] sm:text-[20vw] md:text-[19vw] leading-[0.82] font-bold tracking-wider text-[#B8223A] uppercase select-none drop-shadow-sm"
           >
             HORECA
           </div>
 
-          {/* Central Hero Product Cans (Scaled for Mobile Viewports) */}
+          {/* Central Hero Product Cans (Levitating animation on mobile & desktop) */}
           <div
             ref={productRef}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 sm:w-72 md:w-[480px] h-[280px] sm:h-[360px] md:h-[560px] z-20 cursor-pointer pointer-events-auto filter drop-shadow-[0_30px_60px_rgba(184,34,58,0.25)]"
