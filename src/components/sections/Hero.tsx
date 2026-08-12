@@ -171,10 +171,10 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Top Right Floating Quality Badge (Rotates 360deg on Scroll) */}
+          {/* Top Right Floating Quality Badge (Higher up in clear space, rotates 360deg on Scroll) */}
           <div
             ref={badgeRef}
-            className="hidden lg:flex absolute right-2 xl:right-8 top-1/4 -translate-y-1/2 z-30 w-44 h-44 xl:w-52 xl:h-52 items-center justify-center group cursor-pointer"
+            className="hidden lg:flex absolute right-4 xl:right-10 top-4 xl:top-6 z-30 w-40 h-40 xl:w-48 xl:h-48 items-center justify-center group cursor-pointer"
             onClick={handleWhatsAppClick}
           >
             <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-500">
