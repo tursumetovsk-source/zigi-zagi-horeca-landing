@@ -25,6 +25,8 @@ export const Influencers: React.FC = () => {
   const { language } = useLanguage();
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const mobileSliderRef = useRef<HTMLDivElement>(null);
+
   // Default to index 2 (Central Feature Card: «Бренд, который знают ваши гости»)
   const [mobileIndex, setMobileIndex] = useState(2);
 
@@ -91,11 +93,25 @@ export const Influencers: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Title Entrance Animation
       gsap.fromTo(
         titleRef.current,
         { y: 40, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', scrollTrigger: sectionRef.current }
       );
+
+      // Mobile Card Wiggle Hint Animation on Initial Scroll
+      if (mobileSliderRef.current) {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: mobileSliderRef.current,
+            start: 'top 85%',
+          },
+        })
+          .to(mobileSliderRef.current, { x: -35, duration: 0.4, ease: 'power2.out' })
+          .to(mobileSliderRef.current, { x: 35, duration: 0.5, ease: 'power2.inOut' })
+          .to(mobileSliderRef.current, { x: 0, duration: 0.4, ease: 'back.out(1.4)' });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -125,7 +141,7 @@ export const Influencers: React.FC = () => {
   const handleTouchEnd = () => {
     if (!touchStartX.current || !touchEndX.current) return;
     const distance = touchStartX.current - touchEndX.current;
-    const minSwipeDistance = 40;
+    const minSwipeDistance = 35;
     if (distance > minSwipeDistance) {
       handleNextMobile();
     } else if (distance < -minSwipeDistance) {
@@ -134,6 +150,9 @@ export const Influencers: React.FC = () => {
     touchStartX.current = 0;
     touchEndX.current = 0;
   };
+
+  const prevCardIndex = (mobileIndex - 1 + cardsData.length) % cardsData.length;
+  const nextCardIndex = (mobileIndex + 1) % cardsData.length;
 
   return (
     <section
@@ -344,97 +363,128 @@ export const Influencers: React.FC = () => {
           </div>
         </div>
 
-        {/* MOBILE VIEW: Interactive Touch-Swipe Slider Carousel with Arrow Controls */}
-        <div className="flex lg:hidden flex-col items-center w-full max-w-sm sm:max-w-md mx-auto">
-          {/* Animated Swipe & Arrow Hint Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B8223A]/15 border border-[#B8223A]/30 mb-5 shadow-xs animate-pulse">
-            <span className="font-body text-xs font-black text-[#B8223A] uppercase tracking-wider">
-              {language === 'ru'
-                ? '👈 Свайпайте в стороны или жмите стрелки 👉'
-                : '👈 Екі жаққа сырғытыңыз немесе көрсеткішті басыңыз 👉'}
-            </span>
-          </div>
-
-          {/* Touch-sensitive Card Viewport */}
+        {/* MOBILE VIEW: Visual Card-Peeking Slider Carousel with GSAP Entrance Wiggle Hint */}
+        <div className="flex lg:hidden flex-col items-center w-full max-w-full overflow-hidden">
+          {/* Card Viewport with Left & Right Card Peeking */}
           <div
-            className="w-full relative touch-pan-y"
+            ref={mobileSliderRef}
+            className="w-full flex items-center justify-center gap-3 sm:gap-4 px-4 py-2 touch-pan-y relative"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            {cardsData[mobileIndex].isFeatureCard ? (
-              // Mobile Central Feature Card
-              <div
-                onClick={handleWhatsAppClick}
-                className="relative h-[440px] w-full cursor-pointer overflow-hidden rounded-3xl border-4 border-[#B8223A] bg-[#B8223A] text-[#E9E7DC] p-6 flex flex-col justify-between shadow-2xl transition-all duration-300 active:scale-98"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 rounded-full bg-[#E9E7DC]/95 text-[10px] font-black text-[#B8223A] uppercase tracking-wider shadow">
-                    7.5 МЛН+ ОХВАТ
-                  </span>
-                  <span className="text-xs font-bold bg-white/20 px-3 py-1 rounded-full text-[#E9E7DC]">
-                    {mobileIndex + 1} / {cardsData.length}
-                  </span>
-                </div>
-
-                <div className="my-auto text-left py-2 space-y-3">
-                  <h3 className="font-display text-2xl font-bold uppercase leading-snug tracking-wider text-[#E9E7DC]">
-                    {language === 'ru'
-                      ? cardsData[mobileIndex].titleRu
-                      : cardsData[mobileIndex].titleKz}
-                  </h3>
-                  <p className="font-body text-xs font-semibold text-[#E9E7DC]/90 leading-relaxed border-t border-[#E9E7DC]/20 pt-3">
-                    {language === 'ru'
-                      ? cardsData[mobileIndex].descRu
-                      : cardsData[mobileIndex].descKz}
-                  </p>
-                </div>
-
-                <div className="pt-2 text-left">
-                  <span className="font-body text-[11px] font-black uppercase tracking-widest text-[#E9E7DC]/80 block">
-                    ZIGI ZAGI HORECA ✨
-                  </span>
-                </div>
-              </div>
-            ) : (
-              // Mobile Blogger Card
-              <div
-                onClick={handleWhatsAppClick}
-                className="relative h-[440px] w-full cursor-pointer overflow-hidden rounded-3xl border-2 border-[#B8223A]/30 bg-[#000000] shadow-xl transition-all duration-300 active:scale-98"
-              >
+            {/* Left Peeking Card Edge */}
+            <div
+              onClick={handlePrevMobile}
+              className="w-[12vw] sm:w-[60px] h-[360px] cursor-pointer rounded-2xl overflow-hidden bg-black/40 opacity-40 scale-90 filter blur-[1px] flex-shrink-0 relative pointer-events-auto border border-[#B8223A]/30"
+            >
+              {cardsData[prevCardIndex].image ? (
                 <Image
-                  src={cardsData[mobileIndex].image!}
-                  alt="Blogger"
+                  src={cardsData[prevCardIndex].image!}
+                  alt="Previous card peek"
                   fill
-                  sizes="(max-width: 640px) 100vw, 400px"
-                  className="object-cover object-top"
-                  priority
+                  sizes="60px"
+                  className="object-cover object-top opacity-60"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#B8223A]/95 via-[#000000]/60 to-transparent opacity-90" />
-                <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-                  <span className="px-3 py-1 rounded-full bg-[#E9E7DC]/95 backdrop-blur-md text-[10px] font-black text-[#B8223A] uppercase tracking-wider shadow">
-                    {language === 'ru'
-                      ? cardsData[mobileIndex].badgeRu
-                      : cardsData[mobileIndex].badgeKz}
-                  </span>
-                  <span className="px-2.5 py-1 rounded-full bg-[#000000]/60 backdrop-blur-md text-[10px] font-bold text-[#E9E7DC]">
-                    {mobileIndex + 1} / {cardsData.length}
-                  </span>
+              ) : (
+                <div className="w-full h-full bg-[#B8223A] opacity-60" />
+              )}
+            </div>
+
+            {/* Central Main Focused Active Card */}
+            <div className="w-[78vw] max-w-[340px] flex-shrink-0 z-20">
+              {cardsData[mobileIndex].isFeatureCard ? (
+                // Mobile Central Feature Card
+                <div
+                  onClick={handleWhatsAppClick}
+                  className="relative h-[430px] w-full cursor-pointer overflow-hidden rounded-3xl border-4 border-[#B8223A] bg-[#B8223A] text-[#E9E7DC] p-6 flex flex-col justify-between shadow-2xl transition-all duration-300 active:scale-98"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="px-3 py-1 rounded-full bg-[#E9E7DC]/95 text-[10px] font-black text-[#B8223A] uppercase tracking-wider shadow">
+                      7.5 МЛН+ ОХВАТ
+                    </span>
+                    <span className="text-xs font-bold bg-white/20 px-3 py-1 rounded-full text-[#E9E7DC]">
+                      {mobileIndex + 1} / {cardsData.length}
+                    </span>
+                  </div>
+
+                  <div className="my-auto text-left py-2 space-y-3">
+                    <h3 className="font-display text-2xl font-bold uppercase leading-snug tracking-wider text-[#E9E7DC]">
+                      {language === 'ru'
+                        ? cardsData[mobileIndex].titleRu
+                        : cardsData[mobileIndex].titleKz}
+                    </h3>
+                    <p className="font-body text-xs font-semibold text-[#E9E7DC]/90 leading-relaxed border-t border-[#E9E7DC]/20 pt-3">
+                      {language === 'ru'
+                        ? cardsData[mobileIndex].descRu
+                        : cardsData[mobileIndex].descKz}
+                    </p>
+                  </div>
+
+                  <div className="pt-2 text-left">
+                    <span className="font-body text-[11px] font-black uppercase tracking-widest text-[#E9E7DC]/80 block">
+                      ZIGI ZAGI HORECA ✨
+                    </span>
+                  </div>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 p-5 text-left z-10 flex flex-col justify-end text-[#E9E7DC]">
-                  <h3 className="font-display text-2xl font-bold uppercase tracking-wider text-[#E9E7DC] leading-tight mb-1.5">
-                    {language === 'ru'
-                      ? cardsData[mobileIndex].titleRu
-                      : cardsData[mobileIndex].titleKz}
-                  </h3>
-                  <p className="font-body text-xs font-medium text-[#E9E7DC]/90 leading-relaxed">
-                    {language === 'ru'
-                      ? cardsData[mobileIndex].descRu
-                      : cardsData[mobileIndex].descKz}
-                  </p>
+              ) : (
+                // Mobile Blogger Card
+                <div
+                  onClick={handleWhatsAppClick}
+                  className="relative h-[430px] w-full cursor-pointer overflow-hidden rounded-3xl border-2 border-[#B8223A]/30 bg-[#000000] shadow-xl transition-all duration-300 active:scale-98"
+                >
+                  <Image
+                    src={cardsData[mobileIndex].image!}
+                    alt="Blogger"
+                    fill
+                    sizes="(max-width: 640px) 100vw, 400px"
+                    className="object-cover object-top"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#B8223A]/95 via-[#000000]/60 to-transparent opacity-90" />
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+                    <span className="px-3 py-1 rounded-full bg-[#E9E7DC]/95 backdrop-blur-md text-[10px] font-black text-[#B8223A] uppercase tracking-wider shadow">
+                      {language === 'ru'
+                        ? cardsData[mobileIndex].badgeRu
+                        : cardsData[mobileIndex].badgeKz}
+                    </span>
+                    <span className="px-2.5 py-1 rounded-full bg-[#000000]/60 backdrop-blur-md text-[10px] font-bold text-[#E9E7DC]">
+                      {mobileIndex + 1} / {cardsData.length}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-5 text-left z-10 flex flex-col justify-end text-[#E9E7DC]">
+                    <h3 className="font-display text-2xl font-bold uppercase tracking-wider text-[#E9E7DC] leading-tight mb-1.5">
+                      {language === 'ru'
+                        ? cardsData[mobileIndex].titleRu
+                        : cardsData[mobileIndex].titleKz}
+                    </h3>
+                    <p className="font-body text-xs font-medium text-[#E9E7DC]/90 leading-relaxed">
+                      {language === 'ru'
+                        ? cardsData[mobileIndex].descRu
+                        : cardsData[mobileIndex].descKz}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
+
+            {/* Right Peeking Card Edge */}
+            <div
+              onClick={handleNextMobile}
+              className="w-[12vw] sm:w-[60px] h-[360px] cursor-pointer rounded-2xl overflow-hidden bg-black/40 opacity-40 scale-90 filter blur-[1px] flex-shrink-0 relative pointer-events-auto border border-[#B8223A]/30"
+            >
+              {cardsData[nextCardIndex].image ? (
+                <Image
+                  src={cardsData[nextCardIndex].image!}
+                  alt="Next card peek"
+                  fill
+                  sizes="60px"
+                  className="object-cover object-top opacity-60"
+                />
+              ) : (
+                <div className="w-full h-full bg-[#B8223A] opacity-60" />
+              )}
+            </div>
           </div>
 
           {/* Mobile Arrow Controls & Indicator Dots */}
