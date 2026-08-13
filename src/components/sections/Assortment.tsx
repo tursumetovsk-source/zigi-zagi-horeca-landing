@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { createWhatsAppLink } from '@/lib/whatsapp';
@@ -174,6 +174,7 @@ export const Assortment: React.FC = () => {
   const canContainerRef = useRef<HTMLDivElement>(null);
   const textInfoRef = useRef<HTMLDivElement>(null);
   const mobileTextRef = useRef<HTMLDivElement>(null);
+  const isAnimatingRef = useRef(false);
 
   // Filter products strictly by selected category
   const filteredProducts =
@@ -185,42 +186,66 @@ export const Assortment: React.FC = () => {
   const prevIndex = (currentIndex - 1 + filteredProducts.length) % filteredProducts.length;
   const nextIndex = (currentIndex + 1) % filteredProducts.length;
 
-  // Smooth GSAP Pop-in animation whenever active product changes
-  useEffect(() => {
+  // Silky Smooth GSAP Slide Switcher Timeline (Zero Flicker on Mobile)
+  const animateToSlide = (newIndex: number) => {
+    if (isAnimatingRef.current || newIndex === currentIndex) return;
+    isAnimatingRef.current = true;
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        isAnimatingRef.current = false;
+      },
+    });
+
+    tl.to(canContainerRef.current, {
+      opacity: 0,
+      scale: 0.88,
+      y: -20,
+      rotate: -3,
+      duration: 0.18,
+      ease: 'power2.in',
+    })
+      .to(
+        [textInfoRef.current, mobileTextRef.current],
+        { opacity: 0, y: -10, duration: 0.15, ease: 'power2.in' },
+        '<0.05'
+      )
+      .add(() => {
+        setCurrentIndex(newIndex);
+      })
+      .fromTo(
+        canContainerRef.current,
+        { opacity: 0, scale: 0.88, y: 25, rotate: 3 },
+        { opacity: 1, scale: 1, y: 0, rotate: 0, duration: 0.35, ease: 'back.out(1.4)' }
+      )
+      .fromTo(
+        [textInfoRef.current, mobileTextRef.current],
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' },
+        '<0.1'
+      );
+  };
+
+  const handleCategoryChange = (catId: CategoryId) => {
+    if (catId === activeCategory) return;
+    setActiveCategory(catId);
+    setCurrentIndex(0);
+    // Smooth reset entrance
     if (canContainerRef.current) {
       gsap.fromTo(
         canContainerRef.current,
-        { scale: 0.8, opacity: 0, y: 25, rotate: -4 },
-        { scale: 1, opacity: 1, y: 0, rotate: 0, duration: 0.5, ease: 'back.out(1.5)' }
+        { opacity: 0, scale: 0.9, y: 20 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: 'power2.out' }
       );
     }
-    if (textInfoRef.current) {
-      gsap.fromTo(
-        textInfoRef.current,
-        { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.4, ease: 'power2.out' }
-      );
-    }
-    if (mobileTextRef.current) {
-      gsap.fromTo(
-        mobileTextRef.current,
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
-      );
-    }
-  }, [activeSlide.id]);
-
-  const handleCategoryChange = (catId: CategoryId) => {
-    setActiveCategory(catId);
-    setCurrentIndex(0);
   };
 
   const handlePrev = () => {
-    setCurrentIndex(prevIndex);
+    animateToSlide(prevIndex);
   };
 
   const handleNext = () => {
-    setCurrentIndex(nextIndex);
+    animateToSlide(nextIndex);
   };
 
   const handleWhatsAppClick = () => {
@@ -369,10 +394,11 @@ export const Assortment: React.FC = () => {
             <div className="absolute inset-0 bg-grain opacity-20" />
           </div>
 
-          {/* Central Product Can with Smooth GSAP Transition */}
+          {/* Central Product Can with Silky Smooth GSAP Transition (CSS transition-transform removed to prevent collision) */}
           <div
             ref={canContainerRef}
-            className="absolute w-64 sm:w-80 md:w-[420px] lg:w-[460px] h-[380px] sm:h-[480px] md:h-[580px] z-30 transition-transform duration-500 hover:scale-105 cursor-pointer filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]"
+            className="absolute w-64 sm:w-80 md:w-[420px] lg:w-[460px] h-[380px] sm:h-[480px] md:h-[580px] z-30 hover:scale-105 cursor-pointer filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]"
+            onClick={handleNext}
           >
             <Image
               src={activeSlide.image}
@@ -424,7 +450,7 @@ export const Assortment: React.FC = () => {
         <div className="relative z-30 max-w-[1294px] mx-auto w-full flex items-center justify-center gap-8 pb-4">
           <button
             onClick={handlePrev}
-            className="p-3 rounded-full border-2 border-[#E9E7DC] text-[#E9E7DC] hover:bg-[#E9E7DC] hover:text-[#000000] transition-all duration-300 shadow-md cursor-pointer group"
+            className="p-3.5 rounded-full border-2 border-[#E9E7DC] text-[#E9E7DC] hover:bg-[#E9E7DC] hover:text-[#000000] transition-all duration-300 shadow-md cursor-pointer group active:scale-95"
             aria-label="Previous product"
           >
             <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
@@ -433,8 +459,8 @@ export const Assortment: React.FC = () => {
             {filteredProducts.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
+                onClick={() => animateToSlide(idx)}
+                className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                   idx === currentIndex ? 'w-8 bg-[#E9E7DC]' : 'w-2.5 bg-[#E9E7DC]/40 hover:bg-[#E9E7DC]'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
@@ -443,7 +469,7 @@ export const Assortment: React.FC = () => {
           </div>
           <button
             onClick={handleNext}
-            className="p-3 rounded-full border-2 border-[#E9E7DC] text-[#E9E7DC] hover:bg-[#E9E7DC] hover:text-[#000000] transition-all duration-300 shadow-md cursor-pointer group"
+            className="p-3.5 rounded-full border-2 border-[#E9E7DC] text-[#E9E7DC] hover:bg-[#E9E7DC] hover:text-[#000000] transition-all duration-300 shadow-md cursor-pointer group active:scale-95"
             aria-label="Next product"
           >
             <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
