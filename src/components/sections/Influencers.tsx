@@ -177,10 +177,10 @@ export const Influencers: React.FC = () => {
           {language === 'ru' ? 'МЕДИА & ЗВЁЗДЫ' : 'МЕДИА ЖӘНЕ ЖҰЛДЫЗДАР'}
         </h2>
 
-        {/* DESKTOP VIEW: 5 Tilted Polaroid Cards Grid (Larger Central Card) */}
+        {/* DESKTOP VIEW: 5 Tilted Polaroid Cards Grid (Wider Central Card) */}
         <div
           role="list"
-          className="hidden lg:grid group w-full max-w-7xl mx-auto grid-cols-5 gap-5 xl:gap-6 items-center p-2"
+          className="hidden lg:grid group w-full max-w-[1380px] mx-auto grid-cols-[1fr_1fr_1.45fr_1fr_1fr] gap-4 xl:gap-6 items-center p-2"
         >
           {/* Card 1: Erkebulan Toktar (Tilted Left) */}
           <div
@@ -254,16 +254,16 @@ export const Influencers: React.FC = () => {
             </div>
           </div>
 
-          {/* Card 3: LARGER CENTRAL FEATURE CARD (No Sparkles Icon) */}
+          {/* Card 3: WIDER & LARGER CENTRAL FEATURE CARD */}
           <div
             role="listitem"
             tabIndex={0}
             onClick={handleWhatsAppClick}
-            className="relative h-[460px] xl:h-[490px] cursor-pointer overflow-hidden rounded-3xl border-4 border-[#B8223A] bg-[#B8223A] text-[#E9E7DC] p-6 sm:p-7 flex flex-col justify-between shadow-2xl transition-all duration-500 ease-in-out scale-105 z-20 -rotate-1 group-hover:scale-[0.98] group-hover:opacity-60 group-hover:blur-[2px] hover:!rotate-0 hover:!scale-110 hover:!opacity-100 hover:!blur-none hover:shadow-[0_35px_70px_rgba(184,34,58,0.55)] focus-visible:!rotate-0 focus-visible:!scale-110 focus-visible:!opacity-100 focus-visible:!blur-none focus-visible:outline-none"
+            className="relative h-[450px] xl:h-[480px] w-full cursor-pointer overflow-hidden rounded-3xl border-4 border-[#B8223A] bg-[#B8223A] text-[#E9E7DC] p-7 xl:p-8 flex flex-col justify-between shadow-2xl transition-all duration-500 ease-in-out scale-105 z-20 -rotate-1 group-hover:scale-[0.98] group-hover:opacity-60 group-hover:blur-[2px] hover:!rotate-0 hover:!scale-108 hover:!opacity-100 hover:!blur-none hover:shadow-[0_35px_70px_rgba(184,34,58,0.55)] focus-visible:!rotate-0 focus-visible:!scale-108 focus-visible:!opacity-100 focus-visible:!blur-none focus-visible:outline-none"
           >
-            {/* Top Micro Badge (No Sparkles Icon) */}
+            {/* Top Micro Badge */}
             <div className="flex items-center justify-start">
-              <span className="px-3.5 py-1.5 rounded-full bg-[#E9E7DC]/95 text-[11px] font-black text-[#B8223A] uppercase tracking-wider shadow">
+              <span className="px-4 py-1.5 rounded-full bg-[#E9E7DC]/95 text-[11px] font-black text-[#B8223A] uppercase tracking-wider shadow">
                 7.5 МЛН+ ОХВАТ
               </span>
             </div>
