@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>ZIGI-ZAGI</title>
+  <rect width="64" height="64" rx="14" fill="#E9E7DC"/>
+  <path d="M10 16h44L29 31h25L10 50h44" fill="none" stroke="#B8223A" stroke-linecap="square" stroke-linejoin="miter" stroke-width="8"/>
+  <path d="M16 14h32" stroke="#000" stroke-linecap="round" stroke-width="4"/>
+</svg>
