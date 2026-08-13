@@ -270,6 +270,14 @@ export const Assortment: React.FC = () => {
     { id: 'water', nameRu: 'Zigi Су', nameKz: 'Zigi Су' },
   ];
 
+  const formatPills = [
+    { nameRu: 'Банка', nameKz: 'Құты' },
+    { nameRu: 'ПЭТ 0,5 л', nameKz: 'ПЭТ 0,5 л' },
+    { nameRu: 'ПЭТ 1 л', nameKz: 'ПЭТ 1 л' },
+    { nameRu: 'ПЭТ 1,5 л', nameKz: 'ПЭТ 1,5 л' },
+    { nameRu: 'Бутылка 475 мл', nameKz: 'Бөтелке 475 мл' },
+  ];
+
   return (
     <section
       id="assortment"
@@ -305,49 +313,36 @@ export const Assortment: React.FC = () => {
           {language === 'ru' ? 'АССОРТИМЕНТ' : 'АССОРТИМЕНТ'}
         </h2>
 
-        {/* Compact Ultra-Aesthetic Mobile Glassmorphism Filter & Format Container */}
-        <div className="w-full max-w-2xl flex flex-col gap-2.5 mb-2">
-          {/* Row 1: Drink Categories (Ultra-Compact Segmented Glass Bar) */}
-          <div className="w-full overflow-x-auto no-scrollbar py-1 px-1.5 bg-black/35 backdrop-blur-xl rounded-2xl border border-white/20 shadow-lg">
-            <div className="flex items-center gap-1.5 w-max sm:w-auto">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => handleCategoryChange(cat.id as CategoryId)}
-                  className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-body font-black text-[11px] sm:text-xs uppercase tracking-wider transition-all duration-300 shadow-sm cursor-pointer flex-shrink-0 ${
-                    activeCategory === cat.id
-                      ? 'bg-[#E9E7DC] text-[#000000] scale-105 shadow-md font-bold'
-                      : 'text-[#E9E7DC]/90 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  {language === 'ru' ? cat.nameRu : cat.nameKz}
-                </button>
-              ))}
-            </div>
-          </div>
+        {/* Category Buttons: Clean Wrap Without Scrolling (Restored as requested) */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => handleCategoryChange(cat.id as CategoryId)}
+              className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-body font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer ${
+                activeCategory === cat.id
+                  ? 'bg-[#E9E7DC] text-[#000000] scale-105 shadow-lg font-black'
+                  : 'bg-black/30 text-[#E9E7DC] border-2 border-[#E9E7DC]/60 hover:bg-[#E9E7DC] hover:text-[#000000]'
+              }`}
+            >
+              {language === 'ru' ? cat.nameRu : cat.nameKz}
+            </button>
+          ))}
+        </div>
 
-          {/* Row 2: Packaging Formats (Micro Glass Badges Bar) */}
-          <div className="w-full overflow-x-auto no-scrollbar py-0.5">
-            <div className="flex items-center gap-1.5 w-max sm:w-auto">
-              <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-[#E9E7DC]/70 mr-0.5 flex-shrink-0">
-                {language === 'ru' ? 'Форматы:' : 'Форматтар:'}
-              </span>
-              {[
-                { nameRu: 'Банка', nameKz: 'Құты' },
-                { nameRu: 'ПЭТ 0,5 л', nameKz: 'ПЭТ 0,5 л' },
-                { nameRu: 'ПЭТ 1 л', nameKz: 'ПЭТ 1 л' },
-                { nameRu: 'ПЭТ 1,5 л', nameKz: 'ПЭТ 1,5 л' },
-                { nameRu: 'Бутылка 475 мл', nameKz: 'Бөтелке 475 мл' },
-              ].map((fmt, idx) => (
-                <span
-                  key={idx}
-                  className="px-2.5 py-1 rounded-lg bg-white/10 border border-white/20 text-[#E9E7DC] font-body text-[9px] sm:text-[10px] font-bold shadow-xs whitespace-nowrap backdrop-blur-md flex-shrink-0"
-                >
-                  {language === 'ru' ? fmt.nameRu : fmt.nameKz}
-                </span>
-              ))}
-            </div>
-          </div>
+        {/* Desktop Packaging Formats Bar */}
+        <div className="hidden md:flex items-center gap-2.5">
+          <span className="text-xs font-black uppercase tracking-widest text-[#E9E7DC]/80 mr-1">
+            {language === 'ru' ? 'Форматы:' : 'Форматтар:'}
+          </span>
+          {formatPills.map((fmt, idx) => (
+            <span
+              key={idx}
+              className="px-4 py-1.5 rounded-full bg-black/25 border border-[#E9E7DC]/40 text-[#E9E7DC] font-body text-xs font-extrabold shadow-sm backdrop-blur-sm"
+            >
+              {language === 'ru' ? fmt.nameRu : fmt.nameKz}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -369,7 +364,7 @@ export const Assortment: React.FC = () => {
           </div>
         )}
 
-        {/* Left Information Block */}
+        {/* Left Information Block (Desktop) */}
         <div ref={textInfoRef} className="hidden md:flex flex-col items-start absolute left-0 top-1/3 -translate-y-1/2 z-30 max-w-xs space-y-4">
           <div className="flex items-center gap-2">
             <span className="font-body font-bold text-xs uppercase tracking-[0.2em] text-[#E9E7DC]/90">
@@ -396,17 +391,32 @@ export const Assortment: React.FC = () => {
           </div>
         </div>
 
+        {/* MOBILE ONLY: Left Column Format Pills Flanking the Central Bottle */}
+        <div className="flex md:hidden flex-col gap-2 absolute -left-1 sm:left-2 top-1/2 -translate-y-1/2 z-40 pointer-events-none">
+          <span className="text-[9px] font-black uppercase tracking-widest text-[#E9E7DC]/70 mb-0.5">
+            {language === 'ru' ? 'ФОРМАТЫ:' : 'ФОРМАТТАР:'}
+          </span>
+          {formatPills.slice(0, 3).map((fmt, idx) => (
+            <div
+              key={idx}
+              className="px-2.5 py-1.5 rounded-xl bg-black/40 border-2 border-[#E9E7DC]/70 backdrop-blur-md text-[#E9E7DC] font-body text-xs font-black shadow-lg text-center whitespace-nowrap drop-shadow-md"
+            >
+              {language === 'ru' ? fmt.nameRu : fmt.nameKz}
+            </div>
+          ))}
+        </div>
+
         {/* Center Spotlight & Featured 3D Can Container */}
         <div className="relative flex items-center justify-center z-20 my-4">
           {/* Cream Spotlight Cutout Circle */}
-          <div className="w-72 h-72 sm:w-96 sm:h-96 md:w-[460px] md:h-[460px] lg:w-[520px] lg:h-[520px] rounded-full bg-[#E9E7DC] shadow-2xl flex items-center justify-center transition-all duration-700 overflow-hidden relative">
+          <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-[460px] md:h-[460px] lg:w-[520px] lg:h-[520px] rounded-full bg-[#E9E7DC] shadow-2xl flex items-center justify-center transition-all duration-700 overflow-hidden relative">
             <div className="absolute inset-0 bg-grain opacity-20" />
           </div>
 
           {/* Central Product Can: All 12 Products Pre-Mounted in DOM for 100% Zero-Flicker Crossfade */}
           <div
             ref={canContainerRef}
-            className="absolute w-64 sm:w-80 md:w-[420px] lg:w-[460px] h-[380px] sm:h-[480px] md:h-[580px] z-30 hover:scale-105 cursor-pointer filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]"
+            className="absolute w-60 sm:w-72 md:w-[420px] lg:w-[460px] h-[360px] sm:h-[440px] md:h-[580px] z-30 hover:scale-105 cursor-pointer filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]"
             onClick={handleNext}
           >
             {filteredProducts.map((p, idx) => (
@@ -430,6 +440,18 @@ export const Assortment: React.FC = () => {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* MOBILE ONLY: Right Column Format Pills Flanking the Central Bottle */}
+        <div className="flex md:hidden flex-col gap-2 absolute -right-1 sm:right-2 top-1/2 -translate-y-1/2 z-40 pointer-events-none">
+          {formatPills.slice(3).map((fmt, idx) => (
+            <div
+              key={idx}
+              className="px-2.5 py-1.5 rounded-xl bg-black/40 border-2 border-[#E9E7DC]/70 backdrop-blur-md text-[#E9E7DC] font-body text-xs font-black shadow-lg text-center whitespace-nowrap drop-shadow-md"
+            >
+              {language === 'ru' ? fmt.nameRu : fmt.nameKz}
+            </div>
+          ))}
         </div>
 
         {/* Right Edge Can Peek */}
