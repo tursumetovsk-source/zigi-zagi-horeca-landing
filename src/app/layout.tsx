@@ -52,7 +52,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: '/favicon.svg',
+    icon: [{ url: '/icon.svg?v=2', type: 'image/svg+xml' }],
+    shortcut: [{ url: '/icon.svg?v=2', type: 'image/svg+xml' }],
+    apple: [{ url: '/icon.svg?v=2', type: 'image/svg+xml' }],
   },
 };
 
@@ -83,7 +85,7 @@ export default function RootLayout({
                   '@id': `${siteUrl}/#organization`,
                   name: 'ZIGI-ZAGI BEVERAGES',
                   url: siteUrl,
-                  logo: `${siteUrl}/favicon.svg`,
+                  logo: `${siteUrl}/icon.svg`,
                   telephone: '+7-700-800-90-90',
                   email: 'horeca@zigi-zagi.kz',
                   areaServed: {
