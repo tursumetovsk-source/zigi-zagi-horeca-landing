@@ -77,7 +77,11 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
           {/* Col 1: Brand Info */}
           <div className="lg:col-span-5 flex flex-col gap-4">
-            <a href="#" className="flex items-baseline gap-1">
+            <a
+              href="#hero"
+              aria-label="ZIGI-ZAGI HoReCa — на главную"
+              className="flex items-baseline gap-1"
+            >
               <span className="font-display text-4xl text-[#000000] tracking-tight">
                 ZIGI ZAGI
               </span>
@@ -90,9 +94,9 @@ export const Footer: React.FC = () => {
             </p>
             <div className="flex items-center gap-3 mt-2">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/zigi_zagi.kz/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="p-3 rounded-full bg-[#E9E7DC] hover:bg-[#B8223A] text-[#000000] hover:text-[#E9E7DC] transition-colors border border-[#000000]/10"
                 aria-label="Instagram"
               >

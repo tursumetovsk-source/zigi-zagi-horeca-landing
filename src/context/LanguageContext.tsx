@@ -12,28 +12,26 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Synchronously initialize language from localStorage on client before first render
-  const [language, setLanguageState] = useState<Language>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem('zigi_lang') as Language;
-        if (saved === 'ru' || saved === 'kz') {
-          return saved;
-        }
-      } catch {}
-    }
-    return 'ru';
-  });
+  // Keep the server and first client render identical, then restore the saved language.
+  const [language, setLanguageState] = useState<Language>('ru');
 
-  // Ensure synchronous update if localStorage changes in other tabs or initial hydration
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem('zigi_lang') as Language;
-      if (saved && (saved === 'ru' || saved === 'kz') && saved !== language) {
-        setLanguageState(saved);
+    const applySavedLanguage = () => {
+      try {
+        const saved = localStorage.getItem('zigi_lang');
+        if (saved === 'ru' || saved === 'kz') {
+          setLanguageState(saved);
+        }
+      } catch {
+        // Ignore storage restrictions (private mode or disabled storage).
       }
-    } catch {}
-  }, [language]);
+    };
+
+    applySavedLanguage();
+    window.addEventListener('storage', applySavedLanguage);
+
+    return () => window.removeEventListener('storage', applySavedLanguage);
+  }, []);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);

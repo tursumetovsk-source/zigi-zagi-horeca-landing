@@ -76,7 +76,8 @@ export const Header: React.FC = () => {
 
           {/* Center: ZIGI ZAGI Logo (Centered) */}
           <a
-            href="#"
+            href="#hero"
+            aria-label="ZIGI-ZAGI HoReCa — на главную"
             className="md:absolute md:left-1/2 md:-translate-x-1/2 flex flex-col items-center group"
           >
             <div className="flex items-baseline gap-1">
