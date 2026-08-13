@@ -304,41 +304,46 @@ export const Assortment: React.FC = () => {
           {language === 'ru' ? 'АССОРТИМЕНТ' : 'АССОРТИМЕНТ'}
         </h2>
 
-        {/* Category Tabs & Packaging Formats Bar */}
-        <div className="flex flex-wrap items-center gap-2.5 md:gap-3.5">
-          {/* Category Filter Buttons */}
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => handleCategoryChange(cat.id as CategoryId)}
-              className={`px-5 py-2.5 rounded-full font-body font-extrabold text-xs uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer ${
-                activeCategory === cat.id
-                  ? 'bg-[#E9E7DC] text-[#000000] scale-105 shadow-lg'
-                  : 'bg-black/30 text-[#E9E7DC] border-2 border-[#E9E7DC]/60 hover:bg-[#E9E7DC] hover:text-[#000000]'
-              }`}
-            >
-              {language === 'ru' ? cat.nameRu : cat.nameKz}
-            </button>
-          ))}
+        {/* Category Filter Tabs (Row 1 - Smooth Horizontal Scroll on Mobile) */}
+        <div className="w-full overflow-x-auto no-scrollbar pb-2 mb-3">
+          <div className="flex items-center gap-2 sm:gap-3 w-max sm:w-auto">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => handleCategoryChange(cat.id as CategoryId)}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-body font-extrabold text-xs uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer flex-shrink-0 ${
+                  activeCategory === cat.id
+                    ? 'bg-[#E9E7DC] text-[#000000] scale-105 shadow-lg'
+                    : 'bg-black/30 text-[#E9E7DC] border border-[#E9E7DC]/50 hover:bg-[#E9E7DC] hover:text-[#000000]'
+                }`}
+              >
+                {language === 'ru' ? cat.nameRu : cat.nameKz}
+              </button>
+            ))}
+          </div>
+        </div>
 
-          {/* Visual Separator Divider */}
-          <div className="hidden sm:block w-px h-6 bg-[#E9E7DC]/40 mx-1" />
-
-          {/* Individual Packaging Format Pills */}
-          {[
-            { nameRu: 'Банка', nameKz: 'Құты' },
-            { nameRu: 'ПЭТ 0,5 л', nameKz: 'ПЭТ 0,5 л' },
-            { nameRu: 'ПЭТ 1 л', nameKz: 'ПЭТ 1 л' },
-            { nameRu: 'ПЭТ 1,5 л', nameKz: 'ПЭТ 1,5 л' },
-            { nameRu: 'Бутылка 475 мл', nameKz: 'Бөтелке 475 мл' },
-          ].map((fmt, idx) => (
-            <div
-              key={idx}
-              className="px-4 py-2 rounded-full bg-[#E9E7DC]/15 border border-[#E9E7DC]/50 text-[#E9E7DC] font-body text-xs font-extrabold shadow-sm whitespace-nowrap backdrop-blur-sm"
-            >
-              {language === 'ru' ? fmt.nameRu : fmt.nameKz}
-            </div>
-          ))}
+        {/* Packaging Format Pills (Row 2 - Clean Micro-Pills Bar) */}
+        <div className="w-full overflow-x-auto no-scrollbar pb-1">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 w-max sm:w-auto">
+            <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-[#E9E7DC]/80 mr-1 flex-shrink-0">
+              {language === 'ru' ? 'Форматы:' : 'Форматтар:'}
+            </span>
+            {[
+              { nameRu: 'Банка', nameKz: 'Құты' },
+              { nameRu: 'ПЭТ 0,5 л', nameKz: 'ПЭТ 0,5 л' },
+              { nameRu: 'ПЭТ 1 л', nameKz: 'ПЭТ 1 л' },
+              { nameRu: 'ПЭТ 1,5 л', nameKz: 'ПЭТ 1,5 л' },
+              { nameRu: 'Бутылка 475 мл', nameKz: 'Бөтелке 475 мл' },
+            ].map((fmt, idx) => (
+              <div
+                key={idx}
+                className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-black/25 border border-[#E9E7DC]/40 text-[#E9E7DC] font-body text-[10px] sm:text-xs font-bold shadow-xs whitespace-nowrap backdrop-blur-sm flex-shrink-0"
+              >
+                {language === 'ru' ? fmt.nameRu : fmt.nameKz}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
