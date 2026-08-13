@@ -131,7 +131,7 @@ export const Cooperation: React.FC = () => {
           {/* Responsive Headline */}
           <h2
             ref={titleRef}
-            className="font-display text-[8.5vw] sm:text-[6vw] lg:text-[3.6rem] xl:text-[4.2rem] leading-[0.88] font-bold tracking-wider text-[#071952] uppercase mb-6 select-none"
+            className="font-display text-[8vw] sm:text-[6vw] lg:text-[3.6rem] xl:text-[4.2rem] leading-[1.05] sm:leading-[0.95] lg:leading-[0.88] font-bold tracking-wider text-[#071952] uppercase mb-6 select-none"
           >
             {language === 'ru' ? (
               <>
