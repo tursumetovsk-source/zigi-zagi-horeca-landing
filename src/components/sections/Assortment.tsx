@@ -332,9 +332,6 @@ export const Assortment: React.FC = () => {
 
         {/* Desktop Packaging Formats Bar */}
         <div className="hidden md:flex items-center gap-2.5">
-          <span className="text-xs font-black uppercase tracking-widest text-[#E9E7DC]/80 mr-1">
-            {language === 'ru' ? 'Форматы:' : 'Форматтар:'}
-          </span>
           {formatPills.map((fmt, idx) => (
             <span
               key={idx}
@@ -393,9 +390,6 @@ export const Assortment: React.FC = () => {
 
         {/* MOBILE ONLY: Left Column Format Pills Flanking the Central Bottle */}
         <div className="flex md:hidden flex-col gap-2 absolute -left-1 sm:left-2 top-1/2 -translate-y-1/2 z-40 pointer-events-none">
-          <span className="text-[9px] font-black uppercase tracking-widest text-[#E9E7DC]/70 mb-0.5">
-            {language === 'ru' ? 'ФОРМАТЫ:' : 'ФОРМАТТАР:'}
-          </span>
           {formatPills.slice(0, 3).map((fmt, idx) => (
             <div
               key={idx}
