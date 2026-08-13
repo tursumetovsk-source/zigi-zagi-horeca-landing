@@ -99,28 +99,18 @@ export const Influencers: React.FC = () => {
       <div className="absolute inset-0 bg-grain pointer-events-none opacity-40 z-0" />
 
       <div className="max-w-[1340px] mx-auto text-center relative z-10">
-        {/* Top Subtitle Label */}
-        <span className="font-body font-extrabold text-xs md:text-sm text-[#B8223A] uppercase tracking-[0.25em] mb-2 block">
-          {language === 'ru' ? 'Медиа и Блогеры' : 'Медиа және Блогерлер'}
+        {/* Top Subtitle Label (Restored from Screenshot 2) */}
+        <span className="font-body font-extrabold text-xs md:text-sm text-[#000000]/70 uppercase tracking-[0.25em] mb-2 block">
+          {language === 'ru' ? 'МЕДИА И БЛОГЕРЫ' : 'МЕДИА ЖӘНЕ БЛОГЕРЛЕР'}
         </span>
 
-        {/* Main Condensed Display Headline */}
+        {/* Main Display Headline (Restored Deep Navy Blue #071952 from Screenshot 2) */}
         <h2
           ref={titleRef}
-          className="font-display text-[10vw] sm:text-[8vw] md:text-[6vw] lg:text-[6.5rem] leading-[0.85] font-bold tracking-wider text-[#000000] uppercase mb-4 select-none"
+          className="font-display text-[10vw] sm:text-[8vw] md:text-[6vw] lg:text-[6.8rem] leading-[0.85] font-bold tracking-wider text-[#071952] uppercase mb-10 sm:mb-14 select-none"
         >
           {language === 'ru' ? 'МЕДИА & ЗВЁЗДЫ' : 'МЕДИА ЖӘНЕ ЖҰЛДЫЗДАР'}
         </h2>
-
-        {/* Total Reach Micro-Badge */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#B8223A]/10 border border-[#B8223A]/20 mb-10 sm:mb-12">
-          <Sparkles className="w-4 h-4 text-[#B8223A]" />
-          <span className="font-body text-xs sm:text-sm font-extrabold text-[#B8223A] tracking-wider uppercase">
-            {language === 'ru'
-              ? '7.5 МЛН+ просмотров во всех городах присутствия'
-              : 'Қатысу қалаларында 7.5 МЛН+ қаралым'}
-          </span>
-        </div>
 
         {/* Interactive Hover-Reveal Blogger Cards Grid (User Template Adapted) */}
         <div
