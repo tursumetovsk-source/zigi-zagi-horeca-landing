@@ -1,93 +1,76 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { createWhatsAppLink } from '@/lib/whatsapp';
 import { trackWhatsAppClick } from '@/lib/analytics';
 import { gsap } from '@/lib/gsap';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
-interface MediaCard {
+interface BloggerItem {
   id: string;
-  isStatCard?: boolean;
-  date: string;
   badgeRu: string;
   badgeKz: string;
+  date: string;
   titleRu: string;
   titleKz: string;
   descRu: string;
   descKz: string;
-  image?: string;
+  image: string;
 }
 
 export const Influencers: React.FC = () => {
   const { language } = useLanguage();
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const cardContainerRef = useRef<HTMLDivElement>(null);
 
-  // All 5 cards (Stat Card + 4 Stars) with lightweight optimized WebP images
-  const allCards: MediaCard[] = [
+  const bloggers: BloggerItem[] = [
     {
       id: 'toktar',
-      date: '04/06/2026',
       badgeRu: 'МЕДИА-АМБАССАДОР',
       badgeKz: 'МЕДИА-АМБАССАДОР',
-      titleRu: 'Еркебулан Токтар & ZIGI',
-      titleKz: 'Еркебұлан Тоқтар & ZIGI',
-      descRu: 'Популярный актер, боец и медиа-амбассадор ZIGI-ZAGI в Казахстане.',
+      date: '04/06/2026',
+      titleRu: 'Еркебулан Токтар',
+      titleKz: 'Еркебұлан Тоқтар',
+      descRu: 'Популярный актер, боец и главный медиа-амбассадор ZIGI-ZAGI в Казахстане.',
       descKz: 'Қазақстандағы ZIGI-ZAGI танымал актері, спортшысы әрі медиа-амбассадоры.',
       image: '/assets/trust/bloggers/erkebulan-toktar.webp',
     },
     {
-      id: 'stat-demand',
-      isStatCard: true,
-      date: '09/03/2026',
-      badgeRu: 'ГЛАВНЫЙ ХИТ СЕЗОНА',
-      badgeKz: 'МАУСЫМНЫҢ БАСТЫ ХИТІ',
-      titleRu: 'СПРОС УЖЕ СОЗДАН!',
-      titleKz: 'СҰРАНЫС ҚАЛЫПТАСҚАН!',
-      descRu: 'Блогеры с общим охватом свыше 7.5 МЛН+ просмотров во всех городах присутствия.',
-      descKz: 'Қатысу қалаларында 7.5 МЛН+ қаралымнан астам жалпы қамтуы бар блогерлер.',
-    },
-    {
       id: 'bydastan',
-      date: '12/04/2026',
       badgeRu: 'ПОПУЛЯРНЫЙ БЛОГЕР',
       badgeKz: 'ТАНЫМАЛ БЛОГЕР',
+      date: '12/04/2026',
       titleRu: 'ByDastan & ZIGI',
       titleKz: 'ByDastan & ZIGI',
-      descRu: 'Яркие интеграции и развлекательный контент с напитками ZIGI-ZAGI.',
+      descRu: 'Яркие видеоинтеграции и развлекательный трендовый контент.',
       descKz: 'ZIGI-ZAGI сусындары бар жарқын интеграциялар мен контент.',
       image: '/assets/trust/bloggers/bydastan.webp',
     },
     {
       id: 'oljaskhan',
-      date: '09/03/2026',
       badgeRu: 'ТОП КРЕАТОР',
       badgeKz: 'ТОП КРЕАТОР',
+      date: '09/03/2026',
       titleRu: 'Oljaskhan & ZIGI',
       titleKz: 'Oljaskhan & ZIGI',
-      descRu: 'Обзоры заведений и трендовый медиа-контент с освежающими вкусами.',
+      descRu: 'Обзоры заведений и медиа-контент с освежающими напитками.',
       descKz: 'Сергітетін дәмдері бар трендтегі медиа-контент және мекемелерге шолу.',
       image: '/assets/trust/bloggers/oljaskhan.webp',
     },
     {
       id: 'botamia',
-      date: '15/05/2026',
       badgeRu: 'ВЫБОР РЕСТОРАТОРОВ',
       badgeKz: 'РЕСТОРАТОРЛАРДЫҢ ТАҢДАУЫ',
+      date: '15/05/2026',
       titleRu: 'Bota Mia & ZIGI',
       titleKz: 'Bota Mia & ZIGI',
-      descRu: 'Стильная блогерша выбирает премиальные лимонады для лучших заведений.',
+      descRu: 'Стильная блогерша выбирает премиальные лимонады для кафе.',
       descKz: 'Сәнді блогер ең үздік мекемелер үшін премиум лимонадтарды таңдайды.',
       image: '/assets/trust/bloggers/bota-mia.webp',
     },
   ];
-
-  // Active index for single-card carousel (Default: 0 -> Toktar / Ambassador)
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -101,221 +84,97 @@ export const Influencers: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  // Smooth entrance animation on card switch
-  useEffect(() => {
-    if (cardContainerRef.current) {
-      gsap.fromTo(
-        cardContainerRef.current,
-        { scale: 0.94, opacity: 0.7, y: 15 },
-        { scale: 1, opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }
-      );
-    }
-  }, [currentIndex]);
-
   const handleWhatsAppClick = () => {
     trackWhatsAppClick({ source: 'influencer_media', language });
     window.open(createWhatsAppLink({ language, source: 'influencer_media' }), '_blank');
   };
 
-  const handleCityScroll = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const element = document.getElementById('cities');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + allCards.length) % allCards.length);
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % allCards.length);
-  };
-
-  const currentCard = allCards[currentIndex];
-
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#E9E7DC] text-[#000000] py-16 sm:py-20 px-4 md:px-8 overflow-hidden select-none border-t border-[#000000]/10"
+      id="media"
+      className="relative w-full bg-[#E9E7DC] text-[#000000] py-16 sm:py-24 px-4 md:px-8 overflow-hidden select-none border-t border-[#000000]/10"
     >
-      {/* Hidden Image Preloader for instant slide switching without delay */}
-      <div className="hidden" aria-hidden="true">
-        {allCards.map((card) =>
-          card.image ? (
-            <Image
-              key={card.id}
-              src={card.image}
-              alt="Preload"
-              width={500}
-              height={300}
-              priority
-            />
-          ) : null
-        )}
-      </div>
-
       {/* Paper Grain Overlay */}
       <div className="absolute inset-0 bg-grain pointer-events-none opacity-40 z-0" />
 
-      <div className="max-w-[1294px] mx-auto text-center relative z-10">
+      <div className="max-w-[1340px] mx-auto text-center relative z-10">
         {/* Top Subtitle Label */}
-        <span className="font-body font-extrabold text-xs md:text-sm text-[#000000]/70 uppercase tracking-[0.25em] mb-2 block">
+        <span className="font-body font-extrabold text-xs md:text-sm text-[#B8223A] uppercase tracking-[0.25em] mb-2 block">
           {language === 'ru' ? 'Медиа и Блогеры' : 'Медиа және Блогерлер'}
         </span>
 
-        {/* Main Condensed Dark Headline (Responsive Adapted) */}
+        {/* Main Condensed Display Headline */}
         <h2
           ref={titleRef}
-          className="font-display text-[10vw] sm:text-[8vw] md:text-[6vw] lg:text-[6.8rem] leading-[0.85] font-bold tracking-wider text-[#071952] uppercase mb-8 sm:mb-10 select-none"
+          className="font-display text-[10vw] sm:text-[8vw] md:text-[6vw] lg:text-[6.5rem] leading-[0.85] font-bold tracking-wider text-[#000000] uppercase mb-4 select-none"
         >
-          {language === 'ru' ? 'МЕДИА & ЗВЁЗДЫ' : (
-            <span className="text-[7.5vw] sm:text-[7vw] md:text-[5.5vw] lg:text-[5.8rem]">МЕДИА ЖӘНЕ ЖҰЛДЫЗДАР</span>
-          )}
+          {language === 'ru' ? 'МЕДИА & ЗВЁЗДЫ' : 'МЕДИА ЖӘНЕ ЖҰЛДЫЗДАР'}
         </h2>
 
-        {/* Single Focused Card Showcase */}
-        <div className="max-w-md sm:max-w-lg mx-auto relative min-h-[520px] flex items-center justify-center">
-          <div ref={cardContainerRef} className="w-full">
-            {currentCard.isStatCard ? (
-              // Crimson Stat Card "СПРОС УЖЕ СОЗДАН!"
-              <div
-                className="relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between border-4 border-[#B8223A] bg-[#B8223A] text-[#E9E7DC] shadow-2xl cursor-pointer min-h-[480px]"
-                onClick={handleCityScroll}
-              >
-                {/* Top Date Badge */}
-                <div className="flex justify-between items-center mb-4">
-                  <div className="bg-[#E9E7DC]/95 backdrop-blur-md px-3.5 py-1.5 rounded-xl text-[11px] font-black text-[#000000] tracking-wider uppercase shadow">
-                    <span className="block text-[9px] text-[#B8223A] font-bold">
-                      {language === 'ru' ? currentCard.badgeRu : currentCard.badgeKz}
-                    </span>
-                    <span>{currentCard.date}</span>
-                  </div>
-                  <span className="text-xs font-bold bg-white/20 px-3 py-1 rounded-full text-[#E9E7DC]">
-                    {currentIndex + 1} / {allCards.length}
-                  </span>
-                </div>
-
-                {/* Body Content with Giant 7,5 МЛН+ Stat */}
-                <div className="flex-1 flex flex-col justify-center text-left my-auto space-y-4 py-4">
-                  <h3 className="font-display text-4xl sm:text-5xl uppercase leading-tight tracking-wide text-[#E9E7DC] font-bold">
-                    {language === 'ru' ? currentCard.titleRu : currentCard.titleKz}
-                  </h3>
-
-                  <div className="py-2">
-                    <p className="font-body text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#E9E7DC]/80 mb-1">
-                      {language === 'ru' ? 'Блогеры с общим охватом' : 'Жалпы қамтуы бар блогерлер'}
-                    </p>
-                    <div className="font-display text-6xl sm:text-7xl font-bold tracking-wider text-[#E9E7DC] leading-none my-2">
-                      7,5 МЛН+
-                    </div>
-                    <p className="font-body text-xs font-medium text-[#E9E7DC]/90">
-                      {language === 'ru'
-                        ? 'Охват аудитории в городах присутствия'
-                        : 'Қатысу қалаларындағы аудиторияны қамту'}
-                    </p>
-                  </div>
-                </div>
-
-                {/* CTA Button */}
-                <div className="pt-4">
-                  <button
-                    onClick={handleCityScroll}
-                    className="w-full py-4 px-6 font-display text-xl tracking-wider uppercase transition-all duration-300 shadow-md bg-[#E9E7DC] text-[#B8223A] hover:bg-white font-bold rounded-2xl"
-                  >
-                    {language === 'ru' ? 'ВЫБРАТЬ ВАШ ГОРОД' : 'ҚАЛАҢЫЗДЫ ТАҢДАУ'}
-                  </button>
-                </div>
-              </div>
-            ) : (
-              // Individual Blogger Card
-              <div
-                className="relative rounded-3xl p-5 sm:p-6 flex flex-col justify-between border-4 border-[#B8223A] bg-[#B8223A] text-[#E9E7DC] shadow-2xl cursor-pointer min-h-[500px]"
-                onClick={handleWhatsAppClick}
-              >
-                {/* Top Image Container */}
-                <div className="relative w-full h-[260px] sm:h-[300px] rounded-2xl overflow-hidden mb-4 bg-[#000000]/20">
-                  <Image
-                    src={currentCard.image!}
-                    alt={currentCard.titleRu}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 500px"
-                    className="object-cover object-top hover:scale-105 transition-transform duration-500"
-                    priority
-                  />
-
-                  {/* Date Badge Overlay */}
-                  <div className="absolute top-3 left-3 bg-[#E9E7DC]/95 backdrop-blur-md px-3 py-1 rounded-xl text-[11px] font-black text-[#000000] tracking-wider uppercase shadow">
-                    <span className="block text-[9px] text-[#B8223A] font-bold">
-                      {language === 'ru' ? currentCard.badgeRu : currentCard.badgeKz}
-                    </span>
-                    <span>{currentCard.date}</span>
-                  </div>
-
-                  {/* Step counter */}
-                  <div className="absolute top-3 right-3 bg-[#000000]/60 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white">
-                    {currentIndex + 1} / {allCards.length}
-                  </div>
-                </div>
-
-                {/* Card Body Text */}
-                <div className="flex-1 flex flex-col justify-between text-left space-y-3">
-                  <div>
-                    <h3 className="font-display text-2xl sm:text-3xl uppercase leading-tight tracking-wide mb-2 text-[#E9E7DC] font-bold">
-                      {language === 'ru' ? currentCard.titleRu : currentCard.titleKz}
-                    </h3>
-                    <p className="font-body text-xs sm:text-sm font-normal leading-relaxed text-[#E9E7DC]/90">
-                      {language === 'ru' ? currentCard.descRu : currentCard.descKz}
-                    </p>
-                  </div>
-
-                  {/* Solid Cream CTA Button */}
-                  <div className="pt-3">
-                    <button
-                      onClick={handleWhatsAppClick}
-                      className="w-full py-3.5 px-6 font-display text-xl tracking-wider uppercase transition-all duration-300 shadow-md bg-[#E9E7DC] text-[#B8223A] hover:bg-white font-bold rounded-2xl"
-                    >
-                      {language === 'ru' ? 'ПОДРОБНЕЕ' : 'ТОЛЫҒЫРАҚ'}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
+        {/* Total Reach Micro-Badge */}
+        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#B8223A]/10 border border-[#B8223A]/20 mb-10 sm:mb-12">
+          <Sparkles className="w-4 h-4 text-[#B8223A]" />
+          <span className="font-body text-xs sm:text-sm font-extrabold text-[#B8223A] tracking-wider uppercase">
+            {language === 'ru'
+              ? '7.5 МЛН+ просмотров во всех городах присутствия'
+              : 'Қатысу қалаларында 7.5 МЛН+ қаралым'}
+          </span>
         </div>
 
-        {/* Carousel Navigation Arrow Controls */}
-        <div className="flex items-center justify-center gap-6 mt-8">
-          <button
-            onClick={handlePrev}
-            className="p-3.5 rounded-full bg-[#B8223A] text-[#E9E7DC] hover:bg-[#931B2E] transition-all duration-300 shadow-lg cursor-pointer group active:scale-95"
-            aria-label="Previous card"
-          >
-            <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
-          </button>
-
-          {/* Dots Indicator */}
-          <div className="flex items-center gap-2.5">
-            {allCards.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`h-3 rounded-full transition-all duration-300 ${
-                  idx === currentIndex ? 'w-8 bg-[#B8223A]' : 'w-3 bg-[#000000]/25 hover:bg-[#B8223A]/50'
-                }`}
-                aria-label={`Go to card ${idx + 1}`}
+        {/* Interactive Hover-Reveal Blogger Cards Grid (User Template Adapted) */}
+        <div
+          role="list"
+          className="group grid w-full max-w-7xl mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 p-2"
+        >
+          {bloggers.map((item) => (
+            <div
+              key={item.id}
+              role="listitem"
+              tabIndex={0}
+              onClick={handleWhatsAppClick}
+              className="relative h-[420px] sm:h-[460px] cursor-pointer overflow-hidden rounded-3xl border-2 border-[#B8223A]/20 bg-[#000000] shadow-xl transition-all duration-500 ease-in-out group-hover:scale-[0.97] group-hover:opacity-60 group-hover:blur-[2px] hover:!scale-105 hover:!opacity-100 hover:!blur-none hover:!border-[#B8223A] hover:shadow-[0_25px_50px_rgba(184,34,58,0.35)] focus-visible:!scale-105 focus-visible:!opacity-100 focus-visible:!blur-none focus-visible:outline-none"
+            >
+              {/* Blogger Portrait Image (Preserved exact optimized file) */}
+              <Image
+                src={item.image}
+                alt={item.titleRu}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                priority
               />
-            ))}
-          </div>
 
-          <button
-            onClick={handleNext}
-            className="p-3.5 rounded-full bg-[#B8223A] text-[#E9E7DC] hover:bg-[#931B2E] transition-all duration-300 shadow-lg cursor-pointer group active:scale-95"
-            aria-label="Next card"
-          >
-            <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-          </button>
+              {/* Crimson & Dark Gradient Overlay for optimal text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#B8223A]/95 via-[#000000]/60 to-transparent opacity-90 transition-opacity duration-300" />
+
+              {/* Top Micro-Badges */}
+              <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+                <span className="px-3 py-1 rounded-full bg-[#E9E7DC]/95 backdrop-blur-md text-[10px] font-black text-[#B8223A] uppercase tracking-wider shadow">
+                  {language === 'ru' ? item.badgeRu : item.badgeKz}
+                </span>
+                <span className="px-2.5 py-1 rounded-full bg-[#000000]/60 backdrop-blur-md text-[10px] font-bold text-[#E9E7DC]">
+                  {item.date}
+                </span>
+              </div>
+
+              {/* Card Bottom Content */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-left z-10 flex flex-col justify-end text-[#E9E7DC]">
+                <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-wider text-[#E9E7DC] leading-tight mb-2">
+                  {language === 'ru' ? item.titleRu : item.titleKz}
+                </h3>
+                <p className="font-body text-xs sm:text-sm font-medium text-[#E9E7DC]/90 leading-relaxed mb-4">
+                  {language === 'ru' ? item.descRu : item.descKz}
+                </p>
+
+                {/* Interactive Action Pill */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#E9E7DC] text-[#B8223A] font-display text-sm font-bold uppercase tracking-wider group-hover:bg-white transition-colors w-fit shadow-md">
+                  <span>{language === 'ru' ? 'ПОДРОБНЕЕ' : 'ТОЛЫҒЫРАҚ'}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
