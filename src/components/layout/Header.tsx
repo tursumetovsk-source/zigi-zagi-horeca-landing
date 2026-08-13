@@ -19,10 +19,13 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
+  const leftNavItems = [
     { href: '#assortment', label: t.nav.assortment },
     { href: '#cooperation', label: t.nav.cooperation },
     { href: '#benefits', label: t.nav.benefits },
+  ];
+
+  const rightNavItems = [
     { href: '#partners', label: t.nav.partners },
     { href: '#cities', label: t.nav.cities },
   ];
@@ -45,11 +48,20 @@ export const Header: React.FC = () => {
         }`}
       >
         <div className="max-w-[1294px] mx-auto px-4 md:px-8 flex items-center justify-between relative">
-          {/* Left: Navigation Links */}
-          <div className="flex items-center">
-            {/* Desktop Navigation Links */}
+          {/* Left Side: Mobile Menu Button + Left Desktop Nav Links */}
+          <div className="flex items-center gap-6 lg:gap-8">
+            {/* Mobile menu trigger button */}
+            <button
+              onClick={() => setIsMobileOpen(true)}
+              className="md:hidden p-2 rounded-full border border-[#000000] text-[#000000] hover:bg-[#000000] hover:text-[#E9E7DC] transition-colors"
+              aria-label="Open menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+
+            {/* Left Desktop Nav Links */}
             <nav className="hidden md:flex items-center gap-6 lg:gap-8">
-              {navItems.map((item) => (
+              {leftNavItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
@@ -60,15 +72,6 @@ export const Header: React.FC = () => {
                 </a>
               ))}
             </nav>
-
-            {/* Mobile menu trigger button */}
-            <button
-              onClick={() => setIsMobileOpen(true)}
-              className="md:hidden p-2 rounded-full border border-[#000000] text-[#000000] hover:bg-[#000000] hover:text-[#E9E7DC] transition-colors"
-              aria-label="Open menu"
-            >
-              <Menu className="w-5 h-5" />
-            </button>
           </div>
 
           {/* Center: ZIGI ZAGI Logo (Centered) */}
@@ -86,8 +89,23 @@ export const Header: React.FC = () => {
             </span>
           </a>
 
-          {/* Right: Circular RUS / KAZ Language Switcher Button (Exact User Screenshot Style) */}
-          <div className="flex items-center">
+          {/* Right Side: Right Desktop Nav Links + Circular RUS / KAZ Language Switcher Button */}
+          <div className="flex items-center gap-6 lg:gap-8">
+            {/* Right Desktop Nav Links */}
+            <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+              {rightNavItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="text-xs uppercase font-extrabold tracking-widest text-[#000000]/80 hover:text-[#B8223A] transition-colors"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+
+            {/* Circular RUS / KAZ Language Switcher Button */}
             <button
               onClick={() => setLanguage(language === 'ru' ? 'kz' : 'ru')}
               className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-[#000000] flex items-center justify-center font-display font-bold text-xs sm:text-sm text-[#000000] hover:bg-[#000000] hover:text-[#E9E7DC] transition-all duration-300 cursor-pointer shadow-sm active:scale-95 tracking-wider"
