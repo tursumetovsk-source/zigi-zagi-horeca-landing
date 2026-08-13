@@ -174,6 +174,7 @@ export const Assortment: React.FC = () => {
   const canContainerRef = useRef<HTMLDivElement>(null);
   const textInfoRef = useRef<HTMLDivElement>(null);
   const mobileTextRef = useRef<HTMLDivElement>(null);
+  const productRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const isAnimatingRef = useRef(false);
 
   // Filter products strictly by selected category
@@ -186,51 +187,58 @@ export const Assortment: React.FC = () => {
   const prevIndex = (currentIndex - 1 + filteredProducts.length) % filteredProducts.length;
   const nextIndex = (currentIndex + 1) % filteredProducts.length;
 
-  // Silky Smooth GSAP Slide Switcher Timeline (Zero Flicker on Mobile)
+  // Bulletproof 0-Flicker Mobile Cross-Fade GSAP Timeline (All DOM elements pre-mounted)
   const animateToSlide = (newIndex: number) => {
     if (isAnimatingRef.current || newIndex === currentIndex) return;
     isAnimatingRef.current = true;
 
+    const oldProduct = filteredProducts[currentIndex];
+    const newProduct = filteredProducts[newIndex];
+    const oldEl = productRefs.current[oldProduct.id];
+    const newEl = productRefs.current[newProduct.id];
+
     const tl = gsap.timeline({
       onComplete: () => {
+        setCurrentIndex(newIndex);
         isAnimatingRef.current = false;
       },
     });
 
-    tl.to(canContainerRef.current, {
-      opacity: 0,
-      scale: 0.88,
-      y: -20,
-      rotate: -3,
-      duration: 0.18,
-      ease: 'power2.in',
-    })
-      .to(
-        [textInfoRef.current, mobileTextRef.current],
-        { opacity: 0, y: -10, duration: 0.15, ease: 'power2.in' },
-        '<0.05'
-      )
-      .add(() => {
-        setCurrentIndex(newIndex);
+    if (oldEl && newEl) {
+      tl.to(oldEl, {
+        opacity: 0,
+        scale: 0.85,
+        y: -30,
+        rotate: -4,
+        duration: 0.2,
+        ease: 'power2.in',
       })
-      .fromTo(
-        canContainerRef.current,
-        { opacity: 0, scale: 0.88, y: 25, rotate: 3 },
-        { opacity: 1, scale: 1, y: 0, rotate: 0, duration: 0.35, ease: 'back.out(1.4)' }
-      )
-      .fromTo(
-        [textInfoRef.current, mobileTextRef.current],
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' },
-        '<0.1'
-      );
+        .to(
+          [textInfoRef.current, mobileTextRef.current],
+          { opacity: 0, y: -10, duration: 0.15, ease: 'power2.in' },
+          '<0.05'
+        )
+        .fromTo(
+          newEl,
+          { opacity: 0, scale: 0.85, y: 30, rotate: 4 },
+          { opacity: 1, scale: 1, y: 0, rotate: 0, duration: 0.38, ease: 'back.out(1.4)' }
+        )
+        .fromTo(
+          [textInfoRef.current, mobileTextRef.current],
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' },
+          '<0.1'
+        );
+    } else {
+      setCurrentIndex(newIndex);
+      isAnimatingRef.current = false;
+    }
   };
 
   const handleCategoryChange = (catId: CategoryId) => {
     if (catId === activeCategory) return;
     setActiveCategory(catId);
     setCurrentIndex(0);
-    // Smooth reset entrance
     if (canContainerRef.current) {
       gsap.fromTo(
         canContainerRef.current,
@@ -280,13 +288,6 @@ export const Assortment: React.FC = () => {
         </svg>
       </div>
 
-      {/* Hidden Preloader for all 12 WebP product bottles */}
-      <div className="hidden" aria-hidden="true">
-        {allProducts.map((p) => (
-          <Image key={p.id} src={p.image} alt="Preload" width={460} height={580} priority />
-        ))}
-      </div>
-
       {/* Paper Grain Overlay */}
       <div className="absolute inset-0 bg-grain pointer-events-none opacity-20 z-0" />
 
@@ -298,57 +299,60 @@ export const Assortment: React.FC = () => {
       </div>
 
       {/* Top Header Container */}
-      <div className="relative z-10 max-w-[1294px] mx-auto w-full flex flex-col items-start pt-16 md:pt-24 pb-4">
+      <div className="relative z-10 max-w-[1294px] mx-auto w-full flex flex-col items-start pt-16 md:pt-24 pb-2">
         {/* Title in Ultra-Readable Oswald font */}
-        <h2 className="font-display text-[14vw] md:text-[8.5rem] leading-[0.82] text-[#E9E7DC] uppercase tracking-wider font-bold select-none drop-shadow-md mb-6">
+        <h2 className="font-display text-[14vw] md:text-[8.5rem] leading-[0.82] text-[#E9E7DC] uppercase tracking-wider font-bold select-none drop-shadow-md mb-4 sm:mb-6">
           {language === 'ru' ? 'АССОРТИМЕНТ' : 'АССОРТИМЕНТ'}
         </h2>
 
-        {/* Category Filter Tabs (Row 1 - Smooth Horizontal Scroll on Mobile) */}
-        <div className="w-full overflow-x-auto no-scrollbar pb-2 mb-3">
-          <div className="flex items-center gap-2 sm:gap-3 w-max sm:w-auto">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => handleCategoryChange(cat.id as CategoryId)}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-body font-extrabold text-xs uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer flex-shrink-0 ${
-                  activeCategory === cat.id
-                    ? 'bg-[#E9E7DC] text-[#000000] scale-105 shadow-lg'
-                    : 'bg-black/30 text-[#E9E7DC] border border-[#E9E7DC]/50 hover:bg-[#E9E7DC] hover:text-[#000000]'
-                }`}
-              >
-                {language === 'ru' ? cat.nameRu : cat.nameKz}
-              </button>
-            ))}
+        {/* Compact Ultra-Aesthetic Mobile Glassmorphism Filter & Format Container */}
+        <div className="w-full max-w-2xl flex flex-col gap-2.5 mb-2">
+          {/* Row 1: Drink Categories (Ultra-Compact Segmented Glass Bar) */}
+          <div className="w-full overflow-x-auto no-scrollbar py-1 px-1.5 bg-black/35 backdrop-blur-xl rounded-2xl border border-white/20 shadow-lg">
+            <div className="flex items-center gap-1.5 w-max sm:w-auto">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => handleCategoryChange(cat.id as CategoryId)}
+                  className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-body font-black text-[11px] sm:text-xs uppercase tracking-wider transition-all duration-300 shadow-sm cursor-pointer flex-shrink-0 ${
+                    activeCategory === cat.id
+                      ? 'bg-[#E9E7DC] text-[#000000] scale-105 shadow-md font-bold'
+                      : 'text-[#E9E7DC]/90 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  {language === 'ru' ? cat.nameRu : cat.nameKz}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Packaging Format Pills (Row 2 - Clean Micro-Pills Bar) */}
-        <div className="w-full overflow-x-auto no-scrollbar pb-1">
-          <div className="flex items-center gap-1.5 sm:gap-2.5 w-max sm:w-auto">
-            <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-[#E9E7DC]/80 mr-1 flex-shrink-0">
-              {language === 'ru' ? 'Форматы:' : 'Форматтар:'}
-            </span>
-            {[
-              { nameRu: 'Банка', nameKz: 'Құты' },
-              { nameRu: 'ПЭТ 0,5 л', nameKz: 'ПЭТ 0,5 л' },
-              { nameRu: 'ПЭТ 1 л', nameKz: 'ПЭТ 1 л' },
-              { nameRu: 'ПЭТ 1,5 л', nameKz: 'ПЭТ 1,5 л' },
-              { nameRu: 'Бутылка 475 мл', nameKz: 'Бөтелке 475 мл' },
-            ].map((fmt, idx) => (
-              <div
-                key={idx}
-                className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-black/25 border border-[#E9E7DC]/40 text-[#E9E7DC] font-body text-[10px] sm:text-xs font-bold shadow-xs whitespace-nowrap backdrop-blur-sm flex-shrink-0"
-              >
-                {language === 'ru' ? fmt.nameRu : fmt.nameKz}
-              </div>
-            ))}
+          {/* Row 2: Packaging Formats (Micro Glass Badges Bar) */}
+          <div className="w-full overflow-x-auto no-scrollbar py-0.5">
+            <div className="flex items-center gap-1.5 w-max sm:w-auto">
+              <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-[#E9E7DC]/70 mr-0.5 flex-shrink-0">
+                {language === 'ru' ? 'Форматы:' : 'Форматтар:'}
+              </span>
+              {[
+                { nameRu: 'Банка', nameKz: 'Құты' },
+                { nameRu: 'ПЭТ 0,5 л', nameKz: 'ПЭТ 0,5 л' },
+                { nameRu: 'ПЭТ 1 л', nameKz: 'ПЭТ 1 л' },
+                { nameRu: 'ПЭТ 1,5 л', nameKz: 'ПЭТ 1,5 л' },
+                { nameRu: 'Бутылка 475 мл', nameKz: 'Бөтелке 475 мл' },
+              ].map((fmt, idx) => (
+                <span
+                  key={idx}
+                  className="px-2.5 py-1 rounded-lg bg-white/10 border border-white/20 text-[#E9E7DC] font-body text-[9px] sm:text-[10px] font-bold shadow-xs whitespace-nowrap backdrop-blur-md flex-shrink-0"
+                >
+                  {language === 'ru' ? fmt.nameRu : fmt.nameKz}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="relative z-10 max-w-[1294px] mx-auto w-full flex-1 flex items-center justify-center my-auto py-6">
+      <div className="relative z-10 max-w-[1294px] mx-auto w-full flex-1 flex items-center justify-center my-auto py-4 sm:py-6">
         {/* Left Edge Can Peek */}
         {filteredProducts.length > 1 && (
           <div
@@ -392,27 +396,39 @@ export const Assortment: React.FC = () => {
           </div>
         </div>
 
-        {/* Center Spotlight & Featured 3D Can */}
+        {/* Center Spotlight & Featured 3D Can Container */}
         <div className="relative flex items-center justify-center z-20 my-4">
           {/* Cream Spotlight Cutout Circle */}
           <div className="w-72 h-72 sm:w-96 sm:h-96 md:w-[460px] md:h-[460px] lg:w-[520px] lg:h-[520px] rounded-full bg-[#E9E7DC] shadow-2xl flex items-center justify-center transition-all duration-700 overflow-hidden relative">
             <div className="absolute inset-0 bg-grain opacity-20" />
           </div>
 
-          {/* Central Product Can with Silky Smooth GSAP Transition (CSS transition-transform removed to prevent collision) */}
+          {/* Central Product Can: All 12 Products Pre-Mounted in DOM for 100% Zero-Flicker Crossfade */}
           <div
             ref={canContainerRef}
             className="absolute w-64 sm:w-80 md:w-[420px] lg:w-[460px] h-[380px] sm:h-[480px] md:h-[580px] z-30 hover:scale-105 cursor-pointer filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]"
             onClick={handleNext}
           >
-            <Image
-              src={activeSlide.image}
-              alt={activeSlide.nameRu}
-              fill
-              sizes="(max-width: 768px) 100vw, 460px"
-              className="object-contain"
-              priority
-            />
+            {filteredProducts.map((p, idx) => (
+              <div
+                key={p.id}
+                ref={(el) => {
+                  productRefs.current[p.id] = el;
+                }}
+                className={`absolute inset-0 w-full h-full flex items-center justify-center ${
+                  idx === currentIndex ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+                }`}
+              >
+                <Image
+                  src={p.image}
+                  alt={p.nameRu}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 460px"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            ))}
           </div>
         </div>
 
