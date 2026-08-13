@@ -25,7 +25,8 @@ export const Influencers: React.FC = () => {
   const { language } = useLanguage();
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const [mobileIndex, setMobileIndex] = useState(0);
+  // Default to index 2 (Central Feature Card: «Бренд, который знают ваши гости»)
+  const [mobileIndex, setMobileIndex] = useState(2);
 
   // Touch Swipe Gesture State for Mobile Slider
   const touchStartX = useRef<number>(0);
@@ -345,6 +346,15 @@ export const Influencers: React.FC = () => {
 
         {/* MOBILE VIEW: Interactive Touch-Swipe Slider Carousel with Arrow Controls */}
         <div className="flex lg:hidden flex-col items-center w-full max-w-sm sm:max-w-md mx-auto">
+          {/* Animated Swipe & Arrow Hint Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B8223A]/15 border border-[#B8223A]/30 mb-5 shadow-xs animate-pulse">
+            <span className="font-body text-xs font-black text-[#B8223A] uppercase tracking-wider">
+              {language === 'ru'
+                ? '👈 Свайпайте в стороны или жмите стрелки 👉'
+                : '👈 Екі жаққа сырғытыңыз немесе көрсеткішті басыңыз 👉'}
+            </span>
+          </div>
+
           {/* Touch-sensitive Card Viewport */}
           <div
             className="w-full relative touch-pan-y"
