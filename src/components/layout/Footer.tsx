@@ -65,7 +65,7 @@ export const Footer: React.FC = () => {
       >
         <Image
           src="/assets/products/assortment/item-cola.webp"
-          alt="Zigi Can Dissolving"
+          alt="Декоративная банка напитка ZIGI-ZAGI"
           fill
           sizes="256px"
           className="object-contain opacity-70"

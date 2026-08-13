@@ -136,7 +136,7 @@ export const Hero: React.FC = () => {
         <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-500">
           <Image
             src="/assets/trust/badge-custom.png"
-            alt="Zigi Quality Badge"
+            alt="Знак качества напитков ZIGI-ZAGI"
             fill
             sizes="176px"
             className="object-contain"
@@ -180,7 +180,7 @@ export const Hero: React.FC = () => {
             <div ref={productFloatRef} className="w-full h-full">
               <ProductImage
                 src="/assets/products/zigi-hero-custom.webp"
-                alt="Zigi Zagi Custom Product"
+                alt="Напиток ZIGI-ZAGI для ресторанов и кафе"
                 fallbackSvgType="pear"
                 accentColor="#B8223A"
                 priority

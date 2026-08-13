@@ -187,7 +187,7 @@ export const Cooperation: React.FC = () => {
             >
               <Image
                 src="/assets/products/assortment/item-pear.webp"
-                alt="Zigi Pear Can"
+                alt="Напиток ZIGI-ZAGI со вкусом груши"
                 fill
                 sizes="(max-width: 640px) 150px, 340px"
                 className="object-contain"
@@ -201,7 +201,7 @@ export const Cooperation: React.FC = () => {
             >
               <Image
                 src="/assets/products/assortment/item-tea-mango-pineapple.webp"
-                alt="Zigi Tea Can"
+                alt="Холодный чай ZIGI-ZAGI со вкусом манго и ананаса"
                 fill
                 sizes="(max-width: 640px) 150px, 340px"
                 className="object-contain"
@@ -216,7 +216,7 @@ export const Cooperation: React.FC = () => {
             >
               <Image
                 src="/assets/products/assortment/item-cola.webp"
-                alt="Zigi Cola Main Can"
+                alt="Газированный напиток ZIGI-ZAGI со вкусом колы"
                 fill
                 sizes="(max-width: 640px) 180px, 420px"
                 className="object-contain"

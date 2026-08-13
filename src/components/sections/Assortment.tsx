@@ -353,7 +353,7 @@ export const Assortment: React.FC = () => {
           >
             <Image
               src={filteredProducts[prevIndex].image}
-              alt="Previous flavor"
+              alt="Предыдущий вкус напитка ZIGI-ZAGI"
               fill
               sizes="192px"
               className="object-contain"
@@ -456,7 +456,7 @@ export const Assortment: React.FC = () => {
           >
             <Image
               src={filteredProducts[nextIndex].image}
-              alt="Next flavor"
+              alt="Следующий вкус напитка ZIGI-ZAGI"
               fill
               sizes="192px"
               className="object-contain"

@@ -1,10 +1,35 @@
 import React from 'react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { ArrowLeft, ShieldCheck } from 'lucide-react';
 
-export const metadata = {
-  title: 'Политика конфиденциальности — ZIGI-ZAGI HORECA',
-  description: 'Политика конфиденциальности и обработки персональных данных ТОО ZIGI-ZAGI BEVERAGES.',
+const privacyTitle = 'Политика конфиденциальности — ZIGI-ZAGI HoReCa';
+const privacyDescription =
+  'Политика конфиденциальности и обработки персональных данных ТОО ZIGI-ZAGI BEVERAGES.';
+
+export const metadata: Metadata = {
+  title: privacyTitle,
+  description: privacyDescription,
+  alternates: {
+    canonical: '/privacy',
+  },
+  openGraph: {
+    title: privacyTitle,
+    description: privacyDescription,
+    url: '/privacy',
+    siteName: 'ZIGI-ZAGI HORECA',
+    locale: 'ru_RU',
+    type: 'article',
+  },
+  twitter: {
+    card: 'summary',
+    title: privacyTitle,
+    description: privacyDescription,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function PrivacyPage() {

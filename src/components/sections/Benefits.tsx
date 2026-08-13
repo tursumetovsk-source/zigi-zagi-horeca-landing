@@ -121,7 +121,7 @@ export const Benefits: React.FC = () => {
       >
         <Image
           src="/assets/backgrounds/benefits-bg.webp"
-          alt="Far Clouds Background"
+          alt=""
           fill
           priority
           sizes="100vw"
@@ -169,7 +169,7 @@ export const Benefits: React.FC = () => {
       >
         <Image
           src="/assets/backgrounds/benefits-fg.webp"
-          alt="Foreground Clouds"
+          alt=""
           fill
           priority
           sizes="100vw"
