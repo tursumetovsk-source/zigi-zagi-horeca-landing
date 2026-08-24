@@ -7,7 +7,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { createWhatsAppLink } from '@/lib/whatsapp';
 import { trackWhatsAppClick } from '@/lib/analytics';
 import { gsap } from '@/lib/gsap';
-import { MessageCircle, Phone, MapPin, Clock, ShieldCheck, Instagram } from 'lucide-react';
+import { MessageCircle, Phone, ShieldCheck, Instagram } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const { language, t } = useLanguage();
@@ -112,25 +112,8 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Col 2: Legal Details */}
-          <div className="lg:col-span-4 flex flex-col gap-3">
-            <h4 className="text-xs font-black uppercase tracking-widest text-[#B8223A] mb-1">
-              Реквизиты компании
-            </h4>
-            <div className="text-sm font-black text-[#000000]">{t.footer.companyName}</div>
-            <div className="text-xs font-bold text-[#6B6B6B]">{t.footer.bin}</div>
-            <div className="flex items-start gap-2 text-xs font-medium text-[#000000]/80 mt-2">
-              <MapPin className="w-4 h-4 text-[#B8223A] shrink-0 mt-0.5" />
-              <span>{t.footer.address}</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs font-medium text-[#000000]/80">
-              <Clock className="w-4 h-4 text-[#B8223A] shrink-0" />
-              <span>{t.footer.workingHours}</span>
-            </div>
-          </div>
-
-          {/* Col 3: Direct Contact */}
-          <div className="lg:col-span-3 flex flex-col gap-4">
+          {/* Col 2: Direct Contact */}
+          <div className="lg:col-span-3 lg:col-start-10 flex flex-col gap-4">
             <h4 className="text-xs font-black uppercase tracking-widest text-[#B8223A]">
               Отдел оптовых продаж
             </h4>
