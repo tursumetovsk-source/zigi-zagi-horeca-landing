@@ -82,9 +82,13 @@ export const Footer: React.FC = () => {
               aria-label="ZIGI-ZAGI HoReCa — на главную"
               className="flex items-baseline gap-1"
             >
-              <span className="font-display text-4xl text-[#000000] tracking-tight">
-                ZIGI ZAGI
-              </span>
+              <Image
+                src="/assets/brand/zigi-zagi-wordmark.png"
+                alt="Zigi-Zagi"
+                width={901}
+                height={365}
+                className="w-[210px] sm:w-[240px] h-auto"
+              />
               <span className="text-[9px] uppercase font-black tracking-widest text-[#B8223A]">
                 HORECA
               </span>
@@ -97,17 +101,17 @@ export const Footer: React.FC = () => {
                 href="https://www.instagram.com/zigi_zagi.kz/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-[#E9E7DC] hover:bg-[#B8223A] text-[#000000] hover:text-[#E9E7DC] transition-colors border border-[#000000]/10"
+                className="w-16 h-16 flex items-center justify-center rounded-full bg-[#E9E7DC] hover:bg-[#B8223A] text-[#000000] hover:text-[#E9E7DC] transition-colors border border-[#000000]/10"
                 aria-label="Instagram"
               >
-                <Instagram className="w-5 h-5" />
+                <Instagram className="w-8 h-8" />
               </a>
               <button
                 onClick={handleWhatsAppClick}
-                className="p-3 rounded-full bg-[#B8223A] text-[#E9E7DC] hover:bg-[#931B2E] transition-colors"
+                className="w-16 h-16 flex items-center justify-center rounded-full bg-[#B8223A] text-[#E9E7DC] hover:bg-[#931B2E] transition-colors"
                 aria-label="WhatsApp"
               >
-                <MessageCircle className="w-5 h-5 fill-[#E9E7DC]" />
+                <MessageCircle className="w-8 h-8 fill-[#E9E7DC]" />
               </button>
             </div>
           </div>

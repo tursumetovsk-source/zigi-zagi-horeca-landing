@@ -272,7 +272,6 @@ export const Assortment: React.FC = () => {
 
   const formatPills = [
     { nameRu: 'Банка', nameKz: 'Құты' },
-    { nameRu: 'ПЭТ 0,5 л', nameKz: 'ПЭТ 0,5 л' },
     { nameRu: 'ПЭТ 1 л', nameKz: 'ПЭТ 1 л' },
     { nameRu: 'ПЭТ 1,5 л', nameKz: 'ПЭТ 1,5 л' },
     { nameRu: 'Бутылка 475 мл', nameKz: 'Бөтелке 475 мл' },
@@ -390,7 +389,7 @@ export const Assortment: React.FC = () => {
 
         {/* MOBILE ONLY: Left Column Format Pills Flanking the Central Bottle */}
         <div className="flex md:hidden flex-col gap-2 absolute -left-1 sm:left-2 top-1/2 -translate-y-1/2 z-40 pointer-events-none">
-          {formatPills.slice(0, 3).map((fmt, idx) => (
+          {formatPills.slice(0, 2).map((fmt, idx) => (
             <div
               key={idx}
               className="px-2.5 py-1.5 rounded-xl bg-black/40 border-2 border-[#E9E7DC]/70 backdrop-blur-md text-[#E9E7DC] font-body text-xs font-black shadow-lg text-center whitespace-nowrap drop-shadow-md"
@@ -438,7 +437,7 @@ export const Assortment: React.FC = () => {
 
         {/* MOBILE ONLY: Right Column Format Pills Flanking the Central Bottle */}
         <div className="flex md:hidden flex-col gap-2 absolute -right-1 sm:right-2 top-1/2 -translate-y-1/2 z-40 pointer-events-none">
-          {formatPills.slice(3).map((fmt, idx) => (
+          {formatPills.slice(2).map((fmt, idx) => (
             <div
               key={idx}
               className="px-2.5 py-1.5 rounded-xl bg-black/40 border-2 border-[#E9E7DC]/70 backdrop-blur-md text-[#E9E7DC] font-body text-xs font-black shadow-lg text-center whitespace-nowrap drop-shadow-md"

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { createWhatsAppLink } from '@/lib/whatsapp';
 import { trackWhatsAppClick } from '@/lib/analytics';
@@ -45,9 +46,13 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
       {/* Header Bar inside Mobile Menu - Aligned tightly to top */}
       <div className="relative z-10 flex items-center justify-between border-b border-[#000000]/10 pb-3.5">
         <div className="flex flex-col">
-          <span className="font-display text-2xl text-[#000000] tracking-wider leading-none font-bold">
-            ZIGI ZAGI
-          </span>
+          <Image
+            src="/assets/brand/zigi-zagi-wordmark.png"
+            alt="Zigi-Zagi"
+            width={901}
+            height={365}
+            className="w-[142px] h-auto"
+          />
           <span className="text-[8px] uppercase tracking-[0.3em] font-black text-[#B8223A] leading-none mt-0.5">
             HORECA
           </span>

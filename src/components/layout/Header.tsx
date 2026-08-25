@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { MobileMenu } from './MobileMenu';
 import { Menu } from 'lucide-react';
@@ -80,11 +81,14 @@ export const Header: React.FC = () => {
             aria-label="ZIGI-ZAGI HoReCa — на главную"
             className="md:absolute md:left-1/2 md:-translate-x-1/2 flex flex-col items-center group"
           >
-            <div className="flex items-baseline gap-1">
-              <span className="font-display text-2xl sm:text-3xl md:text-4xl text-[#000000] tracking-wider leading-none group-hover:text-[#B8223A] transition-colors font-bold">
-                ZIGI ZAGI
-              </span>
-            </div>
+            <Image
+              src="/assets/brand/zigi-zagi-wordmark.png"
+              alt="Zigi-Zagi"
+              width={901}
+              height={365}
+              priority
+              className="w-[118px] sm:w-[132px] md:w-[154px] h-auto transition-opacity group-hover:opacity-70"
+            />
             <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.3em] font-black text-[#B8223A] leading-none">
               HORECA
             </span>
