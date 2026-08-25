@@ -46,7 +46,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Хош иісті шырынды десерт алмұрты · ПЭТ 1 л',
     bgHex: '#876d0e',
     buttonTextHex: '#876d0e',
-    image: '/assets/products/pet/lemonade-pear-1l.png',
+    image: '/assets/products/pet-clean/lemonade-pear-1l.png',
   },
   {
     id: 'pear-1-5l',
@@ -57,7 +57,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Хош иісті шырынды десерт алмұрты · ПЭТ 1,5 л',
     bgHex: '#876d0e',
     buttonTextHex: '#876d0e',
-    image: '/assets/products/pet/lemonade-pear-1-5l.png',
+    image: '/assets/products/pet-clean/lemonade-pear-1-5l.png',
   },
   {
     id: 'tarkhun-1l',
@@ -68,7 +68,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Эстрагонның дәмдеуіш сергектігі · ПЭТ 1 л',
     bgHex: '#0d4e27',
     buttonTextHex: '#0d4e27',
-    image: '/assets/products/pet/lemonade-tarkhun-1l.png',
+    image: '/assets/products/pet-clean/lemonade-tarkhun-1l.png',
   },
   {
     id: 'tarkhun-1-5l',
@@ -79,7 +79,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Эстрагонның дәмдеуіш сергектігі · ПЭТ 1,5 л',
     bgHex: '#0d4e27',
     buttonTextHex: '#0d4e27',
-    image: '/assets/products/pet/lemonade-tarkhun-1-5l.png',
+    image: '/assets/products/pet-clean/lemonade-tarkhun-1-5l.png',
   },
   {
     id: 'apple-1l',
@@ -90,7 +90,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Піскен бақша алмасының жарқын қышқылдығы · ПЭТ 1 л',
     bgHex: '#254b0b',
     buttonTextHex: '#254b0b',
-    image: '/assets/products/pet/lemonade-green-apple-1l.png',
+    image: '/assets/products/pet-clean/lemonade-green-apple-1l.png',
   },
   {
     id: 'apple-1-5l',
@@ -101,7 +101,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Піскен бақша алмасының жарқын қышқылдығы · ПЭТ 1,5 л',
     bgHex: '#254b0b',
     buttonTextHex: '#254b0b',
-    image: '/assets/products/pet/lemonade-green-apple-1-5l.png',
+    image: '/assets/products/pet-clean/lemonade-green-apple-1-5l.png',
   },
   {
     id: 'pomegranate',
@@ -125,7 +125,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Мұзды лайм мен піскен кубалық киви · ПЭТ 1 л',
     bgHex: '#2d6a4f',
     buttonTextHex: '#2d6a4f',
-    image: '/assets/products/pet/mojito-kiwi-1l.png',
+    image: '/assets/products/pet-clean/mojito-kiwi-1l.png',
   },
   {
     id: 'mojito-kiwi-1-5l',
@@ -136,7 +136,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Мұзды лайм мен піскен кубалық киви · ПЭТ 1,5 л',
     bgHex: '#2d6a4f',
     buttonTextHex: '#2d6a4f',
-    image: '/assets/products/pet/mojito-kiwi-1-5l.png',
+    image: '/assets/products/pet-clean/mojito-kiwi-1-5l.png',
   },
   {
     id: 'mojito-strawberry-1l',
@@ -147,7 +147,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Жалбыз бен лайм салқындығы бар құлпынай · ПЭТ 1 л',
     bgHex: '#6e0932',
     buttonTextHex: '#6e0932',
-    image: '/assets/products/pet/mojito-strawberry-1l.png',
+    image: '/assets/products/pet-clean/mojito-strawberry-1l.png',
   },
   {
     id: 'mojito-strawberry-1-5l',
@@ -158,7 +158,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Жалбыз бен лайм салқындығы бар құлпынай · ПЭТ 1,5 л',
     bgHex: '#6e0932',
     buttonTextHex: '#6e0932',
-    image: '/assets/products/pet/mojito-strawberry-1-5l.png',
+    image: '/assets/products/pet-clean/mojito-strawberry-1-5l.png',
   },
   {
     id: 'mojito-lime-1l',
@@ -169,7 +169,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Сергітетін сергектік үшін лайм мен жалбыз · ПЭТ 1 л',
     bgHex: '#2d6a4f',
     buttonTextHex: '#2d6a4f',
-    image: '/assets/products/pet/mojito-lime-1l.png',
+    image: '/assets/products/pet-clean/mojito-lime-1l.png',
   },
   {
     id: 'mojito-lime-1-5l',
@@ -180,7 +180,7 @@ const allProducts: ProductSlide[] = [
     subtitleKz: 'Сергітетін сергектік үшін лайм мен жалбыз · ПЭТ 1,5 л',
     bgHex: '#2d6a4f',
     buttonTextHex: '#2d6a4f',
-    image: '/assets/products/pet/mojito-lime-1-5l.png',
+    image: '/assets/products/pet-clean/mojito-lime-1-5l.png',
   },
 
   // ЧАЙ (TEA)
@@ -242,11 +242,6 @@ const allProducts: ProductSlide[] = [
     image: '/assets/products/assortment/item-water.webp',
   },
 ];
-
-const isPetBottle = (image: string) => image.includes('/products/pet/');
-
-const productImageClass = (image: string) =>
-  `object-contain${isPetBottle(image) ? ' mix-blend-multiply' : ''}`;
 
 export const Assortment: React.FC = () => {
   const { language } = useLanguage();
@@ -430,16 +425,14 @@ export const Assortment: React.FC = () => {
         {filteredProducts.length > 1 && (
           <div
             onClick={handlePrev}
-            className={`hidden lg:block absolute -left-20 xl:-left-28 top-1/2 -translate-y-1/2 w-48 h-80 opacity-70 hover:opacity-100 transition-all cursor-pointer z-10 ${
-              isPetBottle(filteredProducts[prevIndex].image) ? '' : 'filter drop-shadow-lg'
-            }`}
+            className="hidden lg:block absolute -left-20 xl:-left-28 top-1/2 -translate-y-1/2 w-48 h-80 opacity-70 hover:opacity-100 transition-all cursor-pointer z-10 filter drop-shadow-lg"
           >
             <Image
               src={filteredProducts[prevIndex].image}
               alt="Предыдущий вкус напитка ZIGI-ZAGI"
               fill
               sizes="192px"
-              className={productImageClass(filteredProducts[prevIndex].image)}
+              className="object-contain"
             />
           </div>
         )}
@@ -493,9 +486,7 @@ export const Assortment: React.FC = () => {
           {/* Central Product Can: All 12 Products Pre-Mounted in DOM for 100% Zero-Flicker Crossfade */}
           <div
             ref={canContainerRef}
-            className={`absolute w-60 sm:w-72 md:w-[420px] lg:w-[460px] h-[360px] sm:h-[440px] md:h-[580px] z-30 hover:scale-105 cursor-pointer ${
-              isPetBottle(activeSlide.image) ? '' : 'filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]'
-            }`}
+            className="absolute w-60 sm:w-72 md:w-[420px] lg:w-[460px] h-[360px] sm:h-[440px] md:h-[580px] z-30 hover:scale-105 cursor-pointer filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]"
             onClick={handleNext}
           >
             {filteredProducts.map((p, idx) => (
@@ -513,7 +504,7 @@ export const Assortment: React.FC = () => {
                   alt={p.nameRu}
                   fill
                   sizes="(max-width: 768px) 100vw, 460px"
-                  className={productImageClass(p.image)}
+                  className="object-contain"
                   priority
                 />
               </div>
@@ -537,16 +528,14 @@ export const Assortment: React.FC = () => {
         {filteredProducts.length > 1 && (
           <div
             onClick={handleNext}
-            className={`hidden lg:block absolute -right-20 xl:-right-28 top-1/2 -translate-y-1/2 w-48 h-80 opacity-70 hover:opacity-100 transition-all cursor-pointer z-10 ${
-              isPetBottle(filteredProducts[nextIndex].image) ? '' : 'filter drop-shadow-lg'
-            }`}
+            className="hidden lg:block absolute -right-20 xl:-right-28 top-1/2 -translate-y-1/2 w-48 h-80 opacity-70 hover:opacity-100 transition-all cursor-pointer z-10 filter drop-shadow-lg"
           >
             <Image
               src={filteredProducts[nextIndex].image}
               alt="Следующий вкус напитка ZIGI-ZAGI"
               fill
               sizes="192px"
-              className={productImageClass(filteredProducts[nextIndex].image)}
+              className="object-contain"
             />
           </div>
         )}
