@@ -243,8 +243,10 @@ const allProducts: ProductSlide[] = [
   },
 ];
 
+const isPetBottle = (image: string) => image.includes('/products/pet/');
+
 const productImageClass = (image: string) =>
-  `object-contain${image.includes('/products/pet/') ? ' mix-blend-multiply' : ''}`;
+  `object-contain${isPetBottle(image) ? ' mix-blend-multiply' : ''}`;
 
 export const Assortment: React.FC = () => {
   const { language } = useLanguage();
@@ -428,7 +430,9 @@ export const Assortment: React.FC = () => {
         {filteredProducts.length > 1 && (
           <div
             onClick={handlePrev}
-            className="hidden lg:block absolute -left-20 xl:-left-28 top-1/2 -translate-y-1/2 w-48 h-80 opacity-70 hover:opacity-100 transition-all cursor-pointer z-10 filter drop-shadow-lg"
+            className={`hidden lg:block absolute -left-20 xl:-left-28 top-1/2 -translate-y-1/2 w-48 h-80 opacity-70 hover:opacity-100 transition-all cursor-pointer z-10 ${
+              isPetBottle(filteredProducts[prevIndex].image) ? '' : 'filter drop-shadow-lg'
+            }`}
           >
             <Image
               src={filteredProducts[prevIndex].image}
@@ -489,7 +493,9 @@ export const Assortment: React.FC = () => {
           {/* Central Product Can: All 12 Products Pre-Mounted in DOM for 100% Zero-Flicker Crossfade */}
           <div
             ref={canContainerRef}
-            className="absolute w-60 sm:w-72 md:w-[420px] lg:w-[460px] h-[360px] sm:h-[440px] md:h-[580px] z-30 hover:scale-105 cursor-pointer filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]"
+            className={`absolute w-60 sm:w-72 md:w-[420px] lg:w-[460px] h-[360px] sm:h-[440px] md:h-[580px] z-30 hover:scale-105 cursor-pointer ${
+              isPetBottle(activeSlide.image) ? '' : 'filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.3)]'
+            }`}
             onClick={handleNext}
           >
             {filteredProducts.map((p, idx) => (
@@ -531,7 +537,9 @@ export const Assortment: React.FC = () => {
         {filteredProducts.length > 1 && (
           <div
             onClick={handleNext}
-            className="hidden lg:block absolute -right-20 xl:-right-28 top-1/2 -translate-y-1/2 w-48 h-80 opacity-70 hover:opacity-100 transition-all cursor-pointer z-10 filter drop-shadow-lg"
+            className={`hidden lg:block absolute -right-20 xl:-right-28 top-1/2 -translate-y-1/2 w-48 h-80 opacity-70 hover:opacity-100 transition-all cursor-pointer z-10 ${
+              isPetBottle(filteredProducts[nextIndex].image) ? '' : 'filter drop-shadow-lg'
+            }`}
           >
             <Image
               src={filteredProducts[nextIndex].image}
