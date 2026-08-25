@@ -136,7 +136,7 @@ export const Hero: React.FC = () => {
         <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-500">
           <Image
             src="/assets/trust/badge-custom.png"
-            alt="Знак качества напитков ZIGI-ZAGI"
+            alt="Официальный логотип ZIGI-ZAGI Lemonade"
             fill
             sizes="176px"
             className="object-contain"
