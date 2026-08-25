@@ -243,6 +243,9 @@ const allProducts: ProductSlide[] = [
   },
 ];
 
+const productImageClass = (image: string) =>
+  `object-contain${image.includes('/products/pet/') ? ' mix-blend-multiply' : ''}`;
+
 export const Assortment: React.FC = () => {
   const { language } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<CategoryId>('all');
@@ -432,7 +435,7 @@ export const Assortment: React.FC = () => {
               alt="Предыдущий вкус напитка ZIGI-ZAGI"
               fill
               sizes="192px"
-              className="object-contain"
+              className={productImageClass(filteredProducts[prevIndex].image)}
             />
           </div>
         )}
@@ -504,7 +507,7 @@ export const Assortment: React.FC = () => {
                   alt={p.nameRu}
                   fill
                   sizes="(max-width: 768px) 100vw, 460px"
-                  className="object-contain"
+                  className={productImageClass(p.image)}
                   priority
                 />
               </div>
@@ -535,7 +538,7 @@ export const Assortment: React.FC = () => {
               alt="Следующий вкус напитка ZIGI-ZAGI"
               fill
               sizes="192px"
-              className="object-contain"
+              className={productImageClass(filteredProducts[nextIndex].image)}
             />
           </div>
         )}
