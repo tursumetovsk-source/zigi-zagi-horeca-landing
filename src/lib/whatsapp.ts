@@ -2,6 +2,7 @@ import { Language } from '@/data/translations';
 
 export interface WhatsAppOptions {
   city?: string;
+  phone?: string;
   language?: Language;
   source?: string;
   category?: string;
@@ -11,6 +12,7 @@ const WHATSAPP_NUMBER = '77008009090';
 
 export function createWhatsAppLink({
   city,
+  phone,
   language = 'ru',
   source = 'website',
   category,
@@ -35,5 +37,7 @@ export function createWhatsAppLink({
     }
   }
 
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+  const recipient = phone?.replace(/\D/g, '') || WHATSAPP_NUMBER;
+
+  return `https://wa.me/${recipient}?text=${encodeURIComponent(text)}`;
 }

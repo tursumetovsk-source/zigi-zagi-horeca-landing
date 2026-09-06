@@ -10,9 +10,14 @@ interface RegionalCard {
   id: string;
   titleRu: string;
   titleKz: string;
-  citiesRu: string;
-  citiesKz: string;
-  regionKey: string;
+  cities: CityContact[];
+}
+
+interface CityContact {
+  id: string;
+  nameRu: string;
+  nameKz: string;
+  phone?: string;
 }
 
 export const Cities: React.FC = () => {
@@ -23,59 +28,76 @@ export const Cities: React.FC = () => {
       id: 'almaty',
       titleRu: 'Алматы',
       titleKz: 'Алматы және облыс',
-      citiesRu: 'Алматы · Конаев · Талдыкорган',
-      citiesKz: 'Алматы · Қонаев · Талдықорған',
-      regionKey: 'almaty',
+      cities: [
+        { id: 'almaty', nameRu: 'Алматы', nameKz: 'Алматы' },
+        { id: 'konaev', nameRu: 'Конаев', nameKz: 'Қонаев' },
+        { id: 'taldykorgan', nameRu: 'Талдыкорган', nameKz: 'Талдықорған', phone: '+7 701 317 9118' },
+      ],
     },
     {
       id: 'center',
       titleRu: 'Центр',
       titleKz: 'Орталық',
-      citiesRu: 'Астана · Караганда · Темиртау · Жезказган',
-      citiesKz: 'Астана · Қарағанды · Теміртау · Жезқазған',
-      regionKey: 'center',
+      cities: [
+        { id: 'astana', nameRu: 'Астана', nameKz: 'Астана' },
+        { id: 'karaganda', nameRu: 'Караганда', nameKz: 'Қарағанды' },
+        { id: 'temirtau', nameRu: 'Темиртау', nameKz: 'Теміртау' },
+        { id: 'zhezkazgan', nameRu: 'Жезказган', nameKz: 'Жезқазған' },
+      ],
     },
     {
       id: 'south',
       titleRu: 'Юг',
       titleKz: 'Оңтүстік',
-      citiesRu: 'Шымкент · Тараз · Кызылорда · Туркестан',
-      citiesKz: 'Шымкент · Тараз · Қызылорда · Түркістан',
-      regionKey: 'south',
+      cities: [
+        { id: 'shymkent', nameRu: 'Шымкент', nameKz: 'Шымкент' },
+        { id: 'taraz', nameRu: 'Тараз', nameKz: 'Тараз', phone: '+7 705 733 1648' },
+        { id: 'kyzylorda', nameRu: 'Кызылорда', nameKz: 'Қызылорда', phone: '+7 707 565 2625' },
+        { id: 'turkestan', nameRu: 'Туркестан', nameKz: 'Түркістан', phone: '+7 708 213 7424' },
+        { id: 'korday', nameRu: 'Кордай', nameKz: 'Қордай', phone: '+7 702 364 3548' },
+      ],
     },
     {
       id: 'west',
       titleRu: 'Запад',
       titleKz: 'Батыс',
-      citiesRu: 'Атырау · Актау · Актобе',
-      citiesKz: 'Атырау · Ақтау · Ақтөбе',
-      regionKey: 'west',
+      cities: [
+        { id: 'atyrau', nameRu: 'Атырау', nameKz: 'Атырау', phone: '+7 702 849 0780' },
+        { id: 'aktau', nameRu: 'Актау', nameKz: 'Ақтау', phone: '+7 707 444 9648' },
+        { id: 'aktobe', nameRu: 'Актобе', nameKz: 'Ақтөбе', phone: '+7 776 600 0660' },
+        { id: 'uralsk', nameRu: 'Уральск', nameKz: 'Орал', phone: '+7 705 513 6333' },
+      ],
     },
     {
       id: 'north',
       titleRu: 'Север',
       titleKz: 'Солтүстік',
-      citiesRu: 'Костанай · Петропавловск · Кокшетау',
-      citiesKz: 'Қостанай · Петропавл · Көкшетау',
-      regionKey: 'north',
+      cities: [
+        { id: 'kostanay', nameRu: 'Костанай', nameKz: 'Қостанай' },
+        { id: 'petropavlovsk', nameRu: 'Петропавловск', nameKz: 'Петропавл', phone: '+7 747 307 4220' },
+        { id: 'kokshetau', nameRu: 'Кокшетау', nameKz: 'Көкшетау', phone: '+7 701 733 1650' },
+      ],
     },
     {
       id: 'east',
       titleRu: 'Восток',
       titleKz: 'Шығыс',
-      citiesRu: 'Усть-Каменогорск · Семей · Павлодар',
-      citiesKz: 'Өскемен · Семей · Павлодар',
-      regionKey: 'east',
+      cities: [
+        { id: 'ust-kamenogorsk', nameRu: 'Усть-Каменогорск', nameKz: 'Өскемен' },
+        { id: 'semey', nameRu: 'Семей', nameKz: 'Семей' },
+        { id: 'pavlodar', nameRu: 'Павлодар', nameKz: 'Павлодар', phone: '+7 705 707 8822' },
+      ],
     },
   ];
 
-  const handleRegionClick = (card: RegionalCard) => {
-    const regionName = language === 'ru' ? card.titleRu : card.titleKz;
-    trackWhatsAppClick({ source: `region_${card.id}`, city: regionName, language });
+  const handleCityClick = (city: CityContact) => {
+    const cityName = language === 'ru' ? city.nameRu : city.nameKz;
+    trackWhatsAppClick({ source: `city_${city.id}`, city: cityName, language });
     const url = createWhatsAppLink({
-      city: regionName,
+      city: cityName,
+      phone: city.phone,
       language,
-      source: `region_${card.id}`,
+      source: `city_${city.id}`,
     });
     window.open(url, '_blank');
   };
@@ -102,7 +124,7 @@ export const Cities: React.FC = () => {
           </div>
           <div className="text-left md:text-right">
             <span className="font-body text-xs sm:text-sm md:text-base font-semibold text-[#000000]/70">
-              {language === 'ru' ? '20 городов по регионам' : 'Аймақтар бойынша 20 қала'}
+              {language === 'ru' ? '22 города по регионам' : 'Аймақтар бойынша 22 қала'}
             </span>
           </div>
         </div>
@@ -112,8 +134,7 @@ export const Cities: React.FC = () => {
           {regionalCards.map((card) => (
             <div
               key={card.id}
-              onClick={() => handleRegionClick(card)}
-              className="group p-6 sm:p-8 rounded-[2.5rem] bg-[#B8223A] border-3 border-[#000000] shadow-[5px_5px_0px_#000000] hover:scale-103 hover:bg-[#931B2E] transition-all duration-300 flex flex-col justify-between min-h-[200px] cursor-pointer"
+              className="group p-6 sm:p-8 rounded-[2.5rem] bg-[#B8223A] border-3 border-[#000000] shadow-[5px_5px_0px_#000000] hover:scale-103 hover:bg-[#931B2E] transition-all duration-300 flex flex-col justify-between min-h-[200px]"
             >
               {/* Top Row: Milky White Icon Container */}
               <div className="flex items-center justify-between mb-4">
@@ -127,9 +148,20 @@ export const Cities: React.FC = () => {
                 <h3 className="font-display text-2xl sm:text-3xl text-[#E9E7DC] uppercase tracking-wide mb-1.5 drop-shadow-sm font-bold">
                   {language === 'ru' ? card.titleRu : card.titleKz}
                 </h3>
-                <p className="font-body text-xs sm:text-sm font-semibold text-[#E9E7DC]/90 leading-relaxed">
-                  {language === 'ru' ? card.citiesRu : card.citiesKz}
-                </p>
+                <div className="flex flex-col items-start gap-1.5">
+                  {card.cities.map((city) => (
+                    <button
+                      key={city.id}
+                      type="button"
+                      onClick={() => handleCityClick(city)}
+                      className="text-left font-body text-xs sm:text-sm font-semibold text-[#E9E7DC]/90 hover:text-white hover:underline underline-offset-4 transition-colors cursor-pointer"
+                      aria-label={`${language === 'ru' ? 'Написать представителю в городе' : 'Қала өкіліне жазу'} ${language === 'ru' ? city.nameRu : city.nameKz}${city.phone ? `, ${city.phone}` : ''}`}
+                    >
+                      <span>{language === 'ru' ? city.nameRu : city.nameKz}</span>
+                      {city.phone && <span className="block text-[11px] opacity-80">{city.phone}</span>}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Bottom Right Milky White Arrow Indicator */}
