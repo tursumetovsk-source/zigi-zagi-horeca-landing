@@ -4,7 +4,7 @@ import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { createWhatsAppLink } from '@/lib/whatsapp';
 import { trackWhatsAppClick } from '@/lib/analytics';
-import { ArrowUpRight, Clock } from 'lucide-react';
+import { Clock } from 'lucide-react';
 
 interface RegionalCard {
   id: string;
@@ -164,10 +164,6 @@ export const Cities: React.FC = () => {
                 </div>
               </div>
 
-              {/* Bottom Right Milky White Arrow Indicator */}
-              <div className="flex justify-end pt-2">
-                <ArrowUpRight className="w-6 h-6 text-[#E9E7DC] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-              </div>
             </div>
           ))}
         </div>
