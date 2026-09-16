@@ -66,6 +66,22 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <head>
+        {/* Meta Pixel Code */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '912431855267343');
+fbq('track', 'PageView');`,
+          }}
+        />
+        {/* End Meta Pixel Code */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -74,6 +90,15 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-[#E9E7DC] text-[#000000] selection:bg-[#B8223A] selection:text-white font-body">
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=912431855267343&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -116,6 +141,23 @@ export default function RootLayout({
         <LanguageProvider>
           <SmoothScroll>{children}</SmoothScroll>
         </LanguageProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.addEventListener('click', function (e) {
+  var link = e.target.closest('a');
+  if (!link || typeof fbq !== 'function') return;
+  var href = link.href || '';
+  if (/wa\\.me|whatsapp\\.com|whatsapp\\:/i.test(href)) {
+    fbq('track', 'Contact', {
+      content_name: 'whatsapp',
+      city: link.dataset.city || ''
+    });
+  } else if (href.indexOf('tel:') === 0) {
+    fbq('track', 'Contact', { content_name: 'phone' });
+  }
+}, true);`,
+          }}
+        />
       </body>
     </html>
   );

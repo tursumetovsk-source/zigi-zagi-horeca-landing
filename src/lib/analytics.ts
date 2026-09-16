@@ -22,7 +22,10 @@ export function trackWhatsAppClick({ source, city, language }: TrackWhatsAppClic
 
   // Meta Pixel
   if (typeof (window as unknown as Record<string, unknown>).fbq === 'function') {
-    ((window as unknown as Record<string, unknown>).fbq as Function)('trackCustom', 'WhatsAppClick', eventData);
+    ((window as unknown as Record<string, unknown>).fbq as Function)('track', 'Contact', {
+      content_name: 'whatsapp',
+      city: city || '',
+    });
   }
 
   // TikTok Pixel
