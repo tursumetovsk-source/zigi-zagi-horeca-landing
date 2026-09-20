@@ -92,7 +92,7 @@ export const Cities: React.FC = () => {
 
   const handleCityClick = (city: CityContact) => {
     const cityName = language === 'ru' ? city.nameRu : city.nameKz;
-    trackWhatsAppClick({ source: `city_${city.id}`, city: cityName, language });
+    trackWhatsAppClick({ source: `city_${city.id}`, city: city.id, language });
     const url = createWhatsAppLink({
       city: cityName,
       phone: city.phone,
@@ -153,6 +153,7 @@ export const Cities: React.FC = () => {
                     <button
                       key={city.id}
                       type="button"
+                      data-city={city.id}
                       onClick={() => handleCityClick(city)}
                       className="text-left font-body text-xs sm:text-sm font-semibold text-[#E9E7DC]/90 hover:text-white hover:underline underline-offset-4 transition-colors cursor-pointer"
                       aria-label={`${language === 'ru' ? 'Написать представителю в городе' : 'Қала өкіліне жазу'} ${language === 'ru' ? city.nameRu : city.nameKz}${city.phone ? `, ${city.phone}` : ''}`}

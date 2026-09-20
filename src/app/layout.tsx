@@ -82,6 +82,16 @@ fbq('track', 'PageView');`,
           }}
         />
         {/* End Meta Pixel Code */}
+        {/* Microsoft Clarity */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i,t,y){
+  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, 'clarity', 'script', 'yku1ydn8ia');`,
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -145,15 +155,27 @@ fbq('track', 'PageView');`,
           dangerouslySetInnerHTML={{
             __html: `document.addEventListener('click', function (e) {
   var link = e.target.closest('a');
-  if (!link || typeof fbq !== 'function') return;
+  if (!link) return;
   var href = link.href || '';
-  if (/wa\\.me|whatsapp\\.com|whatsapp\\:/i.test(href)) {
+  var isWA = /wa\\.me|whatsapp\\.com|whatsapp\\:/i.test(href);
+  var isTel = href.indexOf('tel:') === 0;
+  if (!isWA && !isTel) return;
+
+  var type = isWA ? 'whatsapp' : 'phone';
+  var city = link.dataset.city || 'none';
+  var block = link.closest('[id]');
+  var place = block ? block.id : 'unknown';
+
+  if (typeof fbq === 'function') {
     fbq('track', 'Contact', {
-      content_name: 'whatsapp',
-      city: link.dataset.city || ''
+      content_name: type,
+      wa_city: city,
+      button_place: place
     });
-  } else if (href.indexOf('tel:') === 0) {
-    fbq('track', 'Contact', { content_name: 'phone' });
+  }
+  if (typeof clarity === 'function') {
+    clarity('event', type + '_' + city);
+    clarity('set', 'city', city);
   }
 }, true);`,
           }}

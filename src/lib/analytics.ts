@@ -7,10 +7,11 @@ export interface TrackWhatsAppClickParams {
 export function trackWhatsAppClick({ source, city, language }: TrackWhatsAppClickParams) {
   if (typeof window === 'undefined') return;
 
+  const cityId = city || 'none';
   const eventData = {
     event_category: 'conversion',
     event_label: source,
-    city: city || 'unspecified',
+    city: cityId,
     language,
     timestamp: new Date().toISOString(),
   };
@@ -24,8 +25,16 @@ export function trackWhatsAppClick({ source, city, language }: TrackWhatsAppClic
   if (typeof (window as unknown as Record<string, unknown>).fbq === 'function') {
     ((window as unknown as Record<string, unknown>).fbq as Function)('track', 'Contact', {
       content_name: 'whatsapp',
-      city: city || '',
+      wa_city: cityId,
+      button_place: source,
     });
+  }
+
+  // Microsoft Clarity
+  if (typeof (window as unknown as Record<string, unknown>).clarity === 'function') {
+    const clarity = (window as unknown as Record<string, unknown>).clarity as Function;
+    clarity('event', `whatsapp_${cityId}`);
+    clarity('set', 'city', cityId);
   }
 
   // TikTok Pixel

@@ -46,6 +46,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer
+      id="footer"
       ref={footerRef}
       className="relative w-full bg-[#DDDBD1] text-[#000000] pt-20 pb-12 px-4 md:px-8 overflow-hidden select-none border-t border-[#000000]/10"
     >
