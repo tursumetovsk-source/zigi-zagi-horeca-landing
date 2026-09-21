@@ -30,7 +30,7 @@ export const Cities: React.FC = () => {
       titleKz: 'Алматы және облыс',
       cities: [
         { id: 'almaty', nameRu: 'Алматы', nameKz: 'Алматы', phone: '+7 771 377 1525' },
-        { id: 'konaev', nameRu: 'Конаев', nameKz: 'Қонаев' },
+        { id: 'konaev', nameRu: 'Конаев', nameKz: 'Қонаев', phone: '+7 708 238 1745' },
         { id: 'taldykorgan', nameRu: 'Талдыкорган', nameKz: 'Талдықорған', phone: '+7 701 317 9118' },
       ],
     },
@@ -39,10 +39,10 @@ export const Cities: React.FC = () => {
       titleRu: 'Центр',
       titleKz: 'Орталық',
       cities: [
-        { id: 'astana', nameRu: 'Астана', nameKz: 'Астана' },
-        { id: 'karaganda', nameRu: 'Караганда', nameKz: 'Қарағанды' },
+        { id: 'astana', nameRu: 'Астана', nameKz: 'Астана', phone: '+7 702 757 6666' },
+        { id: 'karaganda', nameRu: 'Караганда', nameKz: 'Қарағанды', phone: '+7 707 145 0445' },
         { id: 'temirtau', nameRu: 'Темиртау', nameKz: 'Теміртау' },
-        { id: 'zhezkazgan', nameRu: 'Жезказган', nameKz: 'Жезқазған' },
+        { id: 'zhezkazgan', nameRu: 'Жезказган', nameKz: 'Жезқазған', phone: '+7 708 839 8434' },
       ],
     },
     {
@@ -50,7 +50,7 @@ export const Cities: React.FC = () => {
       titleRu: 'Юг',
       titleKz: 'Оңтүстік',
       cities: [
-        { id: 'shymkent', nameRu: 'Шымкент', nameKz: 'Шымкент' },
+        { id: 'shymkent', nameRu: 'Шымкент', nameKz: 'Шымкент', phone: '+7 701 280 0242' },
         { id: 'taraz', nameRu: 'Тараз', nameKz: 'Тараз', phone: '+7 705 733 1648' },
         { id: 'kyzylorda', nameRu: 'Кызылорда', nameKz: 'Қызылорда', phone: '+7 707 565 2625' },
         { id: 'turkestan', nameRu: 'Туркестан', nameKz: 'Түркістан', phone: '+7 708 213 7424' },
@@ -73,7 +73,7 @@ export const Cities: React.FC = () => {
       titleRu: 'Север',
       titleKz: 'Солтүстік',
       cities: [
-        { id: 'kostanay', nameRu: 'Костанай', nameKz: 'Қостанай' },
+        { id: 'kostanay', nameRu: 'Костанай', nameKz: 'Қостанай', phone: '+7 775 616 1897' },
         { id: 'petropavlovsk', nameRu: 'Петропавловск', nameKz: 'Петропавл', phone: '+7 747 307 4220' },
         { id: 'kokshetau', nameRu: 'Кокшетау', nameKz: 'Көкшетау', phone: '+7 701 733 1650' },
       ],
@@ -83,8 +83,8 @@ export const Cities: React.FC = () => {
       titleRu: 'Восток',
       titleKz: 'Шығыс',
       cities: [
-        { id: 'ust-kamenogorsk', nameRu: 'Усть-Каменогорск', nameKz: 'Өскемен' },
-        { id: 'semey', nameRu: 'Семей', nameKz: 'Семей' },
+        { id: 'ust-kamenogorsk', nameRu: 'Усть-Каменогорск', nameKz: 'Өскемен', phone: '+7 705 509 3365' },
+        { id: 'semey', nameRu: 'Семей', nameKz: 'Семей', phone: '+7 707 891 0032' },
         { id: 'pavlodar', nameRu: 'Павлодар', nameKz: 'Павлодар', phone: '+7 705 707 8822' },
       ],
     },
