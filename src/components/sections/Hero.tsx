@@ -7,7 +7,7 @@ import { ProductImage } from '@/components/ui/ProductImage';
 import { createWhatsAppLink } from '@/lib/whatsapp';
 import { trackWhatsAppClick } from '@/lib/analytics';
 import { gsap } from '@/lib/gsap';
-import { MessageCircle, ArrowRight } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const { language, t } = useLanguage();
@@ -118,6 +118,10 @@ export const Hero: React.FC = () => {
     window.open(createWhatsAppLink({ language, source: 'hero_cta' }), '_blank');
   };
 
+  const handleSelectCity = () => {
+    document.getElementById('cities')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section
       ref={heroRef}
@@ -197,11 +201,11 @@ export const Hero: React.FC = () => {
           </p>
 
           <button
-            onClick={handleWhatsAppClick}
+            onClick={handleSelectCity}
             className="w-full sm:w-auto px-8 py-4 rounded-full font-extrabold text-xs sm:text-xs uppercase tracking-wider text-[#E9E7DC] bg-[#B8223A] hover:bg-[#931B2E] transition-all flex items-center justify-center gap-3 shadow-lg hover:scale-105 active:scale-95 font-body cursor-pointer"
           >
-            <MessageCircle className="w-4.5 h-4.5 fill-[#E9E7DC]" />
-            <span>{t.hero.whatsappBtn}</span>
+            <MapPin className="w-4.5 h-4.5" />
+            <span>{t.hero.selectCityBtn}</span>
             <ArrowRight className="w-4.5 h-4.5" />
           </button>
         </div>
