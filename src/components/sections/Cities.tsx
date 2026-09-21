@@ -29,7 +29,7 @@ export const Cities: React.FC = () => {
       titleRu: 'Алматы',
       titleKz: 'Алматы және облыс',
       cities: [
-        { id: 'almaty', nameRu: 'Алматы', nameKz: 'Алматы' },
+        { id: 'almaty', nameRu: 'Алматы', nameKz: 'Алматы', phone: '+7 771 377 1525' },
         { id: 'konaev', nameRu: 'Конаев', nameKz: 'Қонаев' },
         { id: 'taldykorgan', nameRu: 'Талдыкорган', nameKz: 'Талдықорған', phone: '+7 701 317 9118' },
       ],
