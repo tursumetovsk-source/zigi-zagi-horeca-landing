@@ -8,7 +8,7 @@ export interface WhatsAppOptions {
   category?: string;
 }
 
-const WHATSAPP_NUMBER = '77008009090';
+const WHATSAPP_NUMBER = '77000990438';
 
 export function createWhatsAppLink({
   city,
